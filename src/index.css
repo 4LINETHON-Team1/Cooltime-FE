@@ -1,1 +1,73 @@
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'Pretendard-Regualr';
+  src: url('components/fonts/Pretendard-Regular.woff');
+}
+
+@font-face {
+  font-family: 'Medium';
+  src: url('components/fonts/Pretendard-Medium.woff');
+}
+
+@font-face {
+  font-family: 'SemiBold';
+  src: url('components/fonts/Pretendard-SemiBold.woff');
+}
+
+@layer base {
+  html {
+    font-family: 'Pretendard-Regualr';
+  }
+}
+
+@layer components {
+  .Title-01-1_1 {
+    @apply font-[SemiBold] text-[26px];
+  }
+  .Title-01-1_2 {
+    @apply font-[Medium] text-[26px];
+  }
+  .Title-01-1_3 {
+    @apply font-[Regular] text-[26px];
+  }
+  .Title-02-2_1 {
+    @apply font-[SemiBold] text-[22px];
+  }
+  .Title-02-2_2 {
+    @apply font-[Medium] text-[22px];
+  }
+  .Title-02-2_3 {
+    @apply font-[Regular] text-[22px];
+  }
+  .Title-03-3_1 {
+    @apply font-[SemiBold] text-[18px];
+  }
+  .Title-03-3_2 {
+    @apply font-[Medium] text-[18px];
+  }
+  .Title-03-3_3 {
+    @apply font-[Regular] text-[18px];
+  }
+  .body-01-1_1 {
+    @apply font-[SemiBold] text-[16px];
+  }
+  .body-01-1_2 {
+    @apply font-[Medium] text-[16px];
+  }
+  .body-02-1_1 {
+    @apply font-[SemiBold] text-[14px];
+  }
+  .body-02-1_2 {
+    @apply font-[Medium] text-[14px];
+  }
+  .body-02-1_3 {
+    @apply font-[Regular] text-[14px];
+  }
+  .body-03-1_1 {
+    @apply font-[SemiBold] text-[12px];
+  }
+  .body-03-1_2 {
+    @apply font-[Medium] text-[12px];
+  }
+}
