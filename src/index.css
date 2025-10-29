@@ -15,6 +15,74 @@
   src: url('components/fonts/Pretendard-SemiBold.woff');
 }
 
+@theme {
+  --radius-xs: 0px;
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --shadow-xs: 0 1px 8px 0 rgba(0, 0, 0, 0.15);
+  --shadow-s: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+  --shadow-m: 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+  --shadow-l: 0 10px 32px 0 rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 48px 0 rgba(0, 0, 0, 0.35);
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --color-main-100: #f2f5ff;
+  --color-main-200: #ebf0ff;
+  --color-main-300: #d6e1ff;
+  --color-main-400: #7a9eff;
+  --color-main-500: #6e8ee6;
+  --color-main-600: #627ecc;
+  --color-main-700: #374773;
+
+  --color-peach-100: #fffbf7;
+  --color-peach-200: #fff9f4;
+  --color-peach-300: #fff2e7;
+  --color-peach-400: #ffd6b3;
+  --color-peach-500: #e6c1a1;
+  --color-peach-600: #ccab8f;
+  --color-peach-700: #736051;
+
+  --color-mint-100: #f7fcfa;
+  --color-mint-200: #f3fbf8;
+  --color-mint-300: #e6f6f1;
+  --color-mint-400: #aee1d1;
+  --color-mint-500: #9dcbbc;
+  --color-mint-600: #8bb4a7;
+  --color-mint-700: #4e655e;
+
+  --color-blue-100: #fafaff;
+  --color-blue-200: #f7f8ff;
+  --color-blue-300: #eef0ff;
+  --color-blue-400: #c8ceff;
+  --color-blue-100: #b4b9e6;
+  --color-blue-100: #a0a5cc;
+  --color-blue-100: #5a5d73;
+
+  --color-black-300: #c0c0c0;
+  --color-black-400: #333333;
+
+  --color-grey-100: #f5f5f5;
+  --color-grey-200: #f0f0f0;
+  --color-grey-300: #e0e0e0;
+  --color-grey-400: #9a9a9a;
+  --color-grey-500: #8b8b8b;
+  --color-grey-900: #454545;
+
+  --color-yellow: #ffd78a;
+  --color-red: #ff9e9e;
+  --color-green: #7ad1b7;
+}
+
 @layer base {
   html {
     font-family: 'Pretendard-Regualr';
@@ -70,4 +138,73 @@
   .body-03-1_2 {
     @apply font-[Medium] text-[12px];
   }
+}
+
+@utility rounded-xs {
+  border-radius: var(--radius-xs);
+}
+@utility rounded-s {
+  border-radius: var(--radius-s);
+}
+@utility rounded-m {
+  border-radius: var(--radius-m);
+}
+@utility rounded-l {
+  border-radius: var(--radius-l);
+}
+@utility rounded-xl {
+  border-radius: var(--radius-xl);
+}
+@utility rounded-full {
+  border-radius: var(--radius-full);
+}
+
+/* margin utilities */
+@utility m-xs {
+  margin: var(--space-xs);
+}
+@utility m-s {
+  margin: var(--space-s);
+}
+@utility m-m {
+  margin: var(--space-m);
+}
+@utility m-l {
+  margin: var(--space-l);
+}
+@utility m-xl {
+  margin: var(--space-xl);
+}
+
+/* padding utilities */
+@utility p-xs {
+  padding: var(--space-xs);
+}
+@utility p-s {
+  padding: var(--space-s);
+}
+@utility p-m {
+  padding: var(--space-m);
+}
+@utility p-l {
+  padding: var(--space-l);
+}
+@utility p-xl {
+  padding: var(--space-xl);
+}
+
+@utility shadow-xs {
+  box-shadow: var(--shadow-xs);
+}
+@utility shadow-s {
+  box-shadow: var(--shadow-s);
+}
+@utility shadow-m {
+  box-shadow: var(--shadow-m);
+}
+@utility shadow-l {
+  box-shadow: var(--shadow-l);
+}
+@utility shadow-xl {
+  box-shadow: var(--shadow-xl);
 }
