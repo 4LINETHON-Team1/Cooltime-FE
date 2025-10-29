@@ -1,12 +1,16 @@
-import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import { createBrowserRouter } from 'react-router-dom'
+import App from './App'
+import MainPage from './pages/MainPage'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
-    children: [],
+    children: [
+      { index: true, element: <MainPage /> },
+      { path: 'main', element: <MainPage /> },
+    ],
   },
-]);
+])
 
-export default router;
+export default router
