@@ -21,7 +21,18 @@
   --radius-m: 8px;
   --radius-l: 12px;
   --radius-xl: 16px;
-  --radius-full: 9999px; /* 완전한 원형 */
+  --radius-full: 9999px;
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --shadow-xs: 0 1px 8px 0 rgba(0, 0, 0, 0.15);
+  --shadow-s: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+  --shadow-m: 0 6px 20px 0 rgba(0, 0, 0, 0.25);
+  --shadow-l: 0 10px 32px 0 rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 48px 0 rgba(0, 0, 0, 0.35);
 }
 
 @layer base {
@@ -98,4 +109,54 @@
 }
 @utility rounded-full {
   border-radius: var(--radius-full);
+}
+
+/* margin utilities */
+@utility m-xs {
+  margin: var(--space-xs);
+}
+@utility m-s {
+  margin: var(--space-s);
+}
+@utility m-m {
+  margin: var(--space-m);
+}
+@utility m-l {
+  margin: var(--space-l);
+}
+@utility m-xl {
+  margin: var(--space-xl);
+}
+
+/* padding utilities */
+@utility p-xs {
+  padding: var(--space-xs);
+}
+@utility p-s {
+  padding: var(--space-s);
+}
+@utility p-m {
+  padding: var(--space-m);
+}
+@utility p-l {
+  padding: var(--space-l);
+}
+@utility p-xl {
+  padding: var(--space-xl);
+}
+
+@utility shadow-xs {
+  box-shadow: var(--shadow-xs);
+}
+@utility shadow-s {
+  box-shadow: var(--shadow-s);
+}
+@utility shadow-m {
+  box-shadow: var(--shadow-m);
+}
+@utility shadow-l {
+  box-shadow: var(--shadow-l);
+}
+@utility shadow-xl {
+  box-shadow: var(--shadow-xl);
 }
