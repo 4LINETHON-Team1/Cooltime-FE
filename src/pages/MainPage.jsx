@@ -1,6 +1,7 @@
 import ThemeGate from '@/hooks/ThemeGate'
 import React from 'react'
 import Main from '@/components/Main/Main'
+import Footer from '@/components/shared/Footer'
 
 const MainPage = () => {
   return (
@@ -15,6 +16,7 @@ const MainPage = () => {
         <div className='px-4 pt-[17px] pb-10'>
           <Main />
         </div>
+        <Footer selectedMenu='home' />
       </div>
     </div>
   )
