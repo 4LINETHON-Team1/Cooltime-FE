@@ -5,7 +5,7 @@
 @custom-variant peach (&:where(.theme-peach, .theme-peach *));
 
 @font-face {
-  font-family: 'Pretendard-Regualr';
+  font-family: 'Regualr';
   src: url('components/fonts/Pretendard-Regular.woff');
 }
 
@@ -17,6 +17,12 @@
 @font-face {
   font-family: 'SemiBold';
   src: url('components/fonts/Pretendard-SemiBold.woff');
+}
+
+@layer base {
+  html {
+    font-family: 'Regualr';
+  }
 }
 
 @theme {
@@ -87,12 +93,6 @@
   --color-green: #7ad1b7;
 }
 
-@layer base {
-  html {
-    font-family: 'Pretendard-Regualr';
-  }
-}
-
 @layer components {
   .Title-01-1_1 {
     @apply font-[SemiBold] text-[26px];
@@ -148,9 +148,6 @@
   .rdp-day {
     @apply text-[12px] font-[Regular] text-black-400;
   }
-  .rdp-weekday {
-    @apply text-[14px] font-[Regular] text-black-400;
-  }
 }
 
 .theme-blue .rdp-root {
@@ -164,8 +161,8 @@
 }
 
 .rdp-root {
-  --rdp-day-height: 33px;
-  --rdp-day-width: 38px;
+  --rdp-day_button-height: 33px;
+  --rdp-day_button-width: 38px;
 }
 
 @utility rounded-xs {

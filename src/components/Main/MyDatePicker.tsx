@@ -2,7 +2,7 @@ import { useState } from 'react'
 import 'react-day-picker/style.css'
 import { DayPicker, useDayPicker, type CalendarMonth } from 'react-day-picker'
 import { ko } from 'date-fns/locale'
-import React, { type HTMLAttributes, type ThHTMLAttributes } from 'react'
+import React, { type HTMLAttributes, type ThHTMLAttributes, type TableHTMLAttributes } from 'react'
 import PerfectCalendar from '@/assets/PerfectCalender.svg?react'
 import StressCalendar from '@/assets/StressCalendar.svg?react'
 import LowMotivationCalendar from '@/assets/LowMotivationCalendar.svg?react'
@@ -87,6 +87,14 @@ export function MyDatePicker() {
   const [selected, setSelected] = useState<Date>()
   const checkSum = 3
   const nocheckSum = 5
+  const [currentMonth, setCurrentMonth] = useState(new Date()) // 현재 보고 있는 달
+
+  const handleMonthChange = (month: Date) => {
+    setCurrentMonth(month)
+    const year = month.getFullYear()
+    const monthNum = month.getMonth() + 1
+    console.log('현재 달:', year, monthNum)
+  }
 
   function CustomCaptionLabel(props: HTMLAttributes<HTMLSpanElement>) {
     return <span {...props} />
@@ -98,7 +106,10 @@ export function MyDatePicker() {
     return null
   }
   function CustomWeekDay(props: ThHTMLAttributes<HTMLTableCellElement>) {
-    return <th {...props} />
+    return <th {...props} className='text-[12px] text-black-400 pb-2 font-light' />
+  }
+  function CustomMonthGrid(props: TableHTMLAttributes<HTMLTableElement>) {
+    return <table {...props} className='border-separate border-spacing-y-6' />
   }
 
   return (
@@ -107,6 +118,7 @@ export function MyDatePicker() {
         locale={ko}
         weekStartsOn={1}
         mode='single'
+        onMonthChange={handleMonthChange}
         selected={selected}
         onSelect={setSelected}
         footer={selected ? `Selected: ${selected.toLocaleDateString()}` : null}
@@ -116,6 +128,8 @@ export function MyDatePicker() {
             <CustomMonthCaption {...props} checkSum={checkSum} nocheckSum={nocheckSum} />
           ),
           Chevron: CustomChevron,
+          Weekday: CustomWeekDay,
+          MonthGrid: CustomMonthGrid,
         }}
       />
     </div>
