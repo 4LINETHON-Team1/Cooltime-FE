@@ -142,6 +142,30 @@
   .body-03-1_2 {
     @apply font-[Medium] text-[12px];
   }
+  .rdp-caption_label {
+    @apply text-[16px] font-[Medium] text-black-400 pt-2;
+  }
+  .rdp-day {
+    @apply text-[12px] font-[Regular] text-black-400;
+  }
+  .rdp-weekday {
+    @apply text-[14px] font-[Regular] text-black-400;
+  }
+}
+
+.theme-blue .rdp-root {
+  --rdp-today-color: #a0a5cc;
+}
+.theme-peach .rdp-root {
+  --rdp-today-color: #ccab8f;
+}
+.theme-mint .rdp-root {
+  --rdp-today-color: #8bb4a7;
+}
+
+.rdp-root {
+  --rdp-day-height: 33px;
+  --rdp-day-width: 38px;
 }
 
 @utility rounded-xs {
