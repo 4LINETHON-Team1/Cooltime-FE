@@ -19,7 +19,7 @@ const Label = () => {
   const labelColor = color[theme] ?? null
   return (
     <div
-      className={`inline-flex px-4 py-2 body-02-1_3 justify-center items-center gap-2.5 border border-solid rounded-full ${labelColor}`}
+      className={`inline-flex px-4 py-2 text-[14px] justify-center items-center border border-solid rounded-full ${labelColor}`}
     >
       {labelText}
     </div>
