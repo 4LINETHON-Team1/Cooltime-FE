@@ -4,6 +4,7 @@ import { useUserStore } from '@/store/store'
 import Perfect from '@/assets/Perfect.svg?react'
 import LowMotivation from '@/assets/LowMotivation.svg?react'
 import Stress from '@/assets/Stress.svg?react'
+import Calendar from './Calendar'
 
 const Main = () => {
   const { userType, theme } = useUserStore()
@@ -43,6 +44,7 @@ const Main = () => {
         <div className='text-black-400 body-02-1_3'>{Text2}</div>
         <div className='mt-[1.97vh]'>{Image}</div>
       </div>
+      <Calendar />
     </div>
   )
 }
