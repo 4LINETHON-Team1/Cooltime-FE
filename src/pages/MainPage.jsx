@@ -13,7 +13,7 @@ const MainPage = () => {
       peach:bg-[linear-gradient(180deg,var(--color-peach-300)_15.09%,var(--color-peach-100)_83%)]
       '
       >
-        <div className='px-4 pt-[17px] pb-10'>
+        <div className='px-4 pt-[17px] pb-20'>
           <Main />
         </div>
         <Footer selectedMenu='home' />
