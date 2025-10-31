@@ -179,6 +179,10 @@
   height: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 @utility rounded-xs {
   border-radius: var(--radius-xs);
 }

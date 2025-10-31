@@ -27,7 +27,7 @@ const RecordMirum = ({ date }) => {
   const lowMotivationDefaultReasonList = ['의욕이 없어서', '자신이 없어서', '귀찮아서']
   const stressDefaultReasonList = ['머리가 복잡해서', '집중이 안 돼서', '너무 피곤해서']
 
-  const { userType } = useUserStore()
+  const { userType, theme } = useUserStore()
   const defaultReasonList =
     userType === '완벽주의형'
       ? perfectDefaultReasonList
@@ -49,6 +49,14 @@ const RecordMirum = ({ date }) => {
       inputRef.current.focus()
     }
   }, [categoryAddBtnOpen])
+
+  const color = {
+    blue: 'border-blue-300 focus-within:border-blue-400',
+    mint: 'border-mint-300 focus-within:border-mint-400',
+    peach: 'border-peach-300 focus-within:border-peach-400',
+  }
+
+  const Color = color[theme] ?? null
 
   return (
     <div
@@ -76,7 +84,9 @@ const RecordMirum = ({ date }) => {
               <ModalButton text='독서' />
               <ModalButton text='+' onClick={handleAddCategory} />
               {categoryAddBtnOpen && (
-                <div className='flex justify-center px-4 py-2 border text-black-400 border-main-300 focus-within:border-main-400 rounded-2xl w-auto'>
+                <div
+                  className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl w-auto ${Color}`}
+                >
                   <input
                     ref={inputRef}
                     className='resize-none border-none outline-none text-[12px] w-auto'
@@ -94,7 +104,9 @@ const RecordMirum = ({ date }) => {
               ))}
               <ModalButton text='+' onClick={handleAddReason} />
               {reasonAddBtnOpen && (
-                <div className='flex justify-center px-4 py-6 border mb-1 text-black-400 border-main-300 focus-within:border-main-400 rounded-2xl w-[284px]'>
+                <div
+                  className={`flex justify-center px-4 py-6 border mb-1 text-black-400  rounded-2xl w-[284px] ${Color}`}
+                >
                   <input
                     ref={inputRef}
                     className='resize-none border-none outline-none text-[12px] w-full'
@@ -105,7 +117,7 @@ const RecordMirum = ({ date }) => {
             </div>
           </div>
         </div>
-        <button className='mt-10 mb-4 bg-main-400 px-10 py-2 rounded-full text-white flex justify-center items-center'>
+        <button className='mt-10 mb-4 px-10 py-2 rounded-full text-white flex justify-center items-center cursor-pointer blue:bg-blue-400 mint-bg-mint-400 peach:bg-peach-400'>
           완료
         </button>
       </div>
