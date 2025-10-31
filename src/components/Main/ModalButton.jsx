@@ -2,9 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useUserStore } from '@/store/store'
 
-const ModalButton = ({ text, onClick = () => {} }) => {
-  const [selected, setSelected] = useState(false)
-
+const ModalButton = ({ text, selected = false, onClick = () => {} }) => {
   const { theme } = useUserStore()
 
   const color = {
@@ -15,15 +13,10 @@ const ModalButton = ({ text, onClick = () => {} }) => {
 
   const labelColor = color[theme] ?? null
 
-  const handleClick = () => {
-    setSelected((prev) => !prev)
-    onClick()
-  }
-
   return (
     <div>
       <button
-        onClick={handleClick}
+        onClick={onClick}
         className={`inline-flex text-[14px] px-3.5 py-1.5 rounded-3xl border transition-colors duration-200 cursor-pointer ${labelColor}`}
       >
         {text}
