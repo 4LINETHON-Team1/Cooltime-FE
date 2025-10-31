@@ -83,8 +83,13 @@ function CustomMonthCaption({
   )
 }
 
-export function MyDatePicker() {
-  const [selected, setSelected] = useState<Date>()
+export function MyDatePicker({
+  onPickDay,
+  selected,
+}: {
+  onPickDay: (d: Date) => void
+  selected: Date | null | undefined
+}) {
   const checkSum = 3
   const nocheckSum = 5
   const [currentMonth, setCurrentMonth] = useState(new Date()) // 현재 보고 있는 달
@@ -120,7 +125,9 @@ export function MyDatePicker() {
         mode='single'
         onMonthChange={handleMonthChange}
         selected={selected}
-        onSelect={setSelected}
+        onSelect={(day) => {
+          onPickDay(day)
+        }}
         footer={selected ? `Selected: ${selected.toLocaleDateString()}` : null}
         navLayout='around'
         components={{
