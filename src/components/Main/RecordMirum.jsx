@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useRef } from 'react'
 import ModalButton from './ModalButton'
+import { useUserStore } from '@/store/store'
 
 const RecordMirum = ({ date }) => {
   const formattedDate = date
@@ -21,6 +22,18 @@ const RecordMirum = ({ date }) => {
   const handleAddReason = () => {
     setReasonAddBtnOpen((prev) => !prev)
   }
+
+  const perfectDefaultReasonList = ['완벽하게 하려다', '준비만 하다가', '결과가 두려워']
+  const lowMotivationDefaultReasonList = ['의욕이 없어서', '자신이 없어서', '귀찮아서']
+  const stressDefaultReasonList = ['머리가 복잡해서', '집중이 안 돼서', '너무 피곤해서']
+
+  const { userType } = useUserStore()
+  const defaultReasonList =
+    userType === '완벽주의형'
+      ? perfectDefaultReasonList
+      : userType === '동기저하형'
+        ? lowMotivationDefaultReasonList
+        : stressDefaultReasonList
 
   const inputRef = useRef(null)
   useEffect(() => {
@@ -76,9 +89,9 @@ const RecordMirum = ({ date }) => {
           <div>
             <p className='body-02-1_2 text-black-400'>왜 미뤘나요?</p>
             <div className='flex flex-wrap gap-x-6 gap-y-4 mt-3'>
-              <ModalButton text='완벽하게 하려다' />
-              <ModalButton text='준비만 하다가' />
-              <ModalButton text='결과가 두려워' />
+              {defaultReasonList.map((r, id) => (
+                <ModalButton key={`${r}-${id}`} text={r} />
+              ))}
               <ModalButton text='+' onClick={handleAddReason} />
               {reasonAddBtnOpen && (
                 <div className='flex justify-center px-4 py-6 border mb-1 text-black-400 border-main-300 focus-within:border-main-400 rounded-2xl w-[284px]'>
