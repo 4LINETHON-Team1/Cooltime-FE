@@ -3,6 +3,7 @@ import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepButton from '@mui/material/StepButton'
 import StepConnector from '@mui/material/StepConnector'
+import DotLine from '@/assets/DotLine.svg?react'
 
 const StepControl = ({ totalSteps, activeStep, completed }) => {
   const stepStyles = {
@@ -33,7 +34,9 @@ const StepControl = ({ totalSteps, activeStep, completed }) => {
 
   return (
     <>
-      <div className='fixed top-30 left-10 border-t border-dashed border-black-300 w-30' />
+      <div className='fixed top-30 left-13'>
+        <DotLine />
+      </div>
       <Stepper
         nonLinear
         activeStep={activeStep}
