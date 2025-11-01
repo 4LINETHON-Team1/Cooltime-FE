@@ -142,6 +142,9 @@
   .body-03-1_2 {
     @apply font-[Medium] text-[12px];
   }
+  .body-03-1_3 {
+    @apply font-[Regular] text-[12px];
+  }
   .rdp-caption_label {
     @apply text-[16px] font-[Medium] text-black-400 pt-2;
   }
