@@ -164,7 +164,20 @@ function MyDayButton(props: DayButtonProps) {
   const info = logsByDate[key]
   const label = String(day.date.getDate())
 
-  let content: React.ReactNode = <span>{label}</span>
+  const today = new Date()
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+  const startOfDay = new Date(day.date.getFullYear(), day.date.getMonth(), day.date.getDate())
+
+  const isPast = startOfDay.getTime() < startOfToday.getTime()
+  const isToday = startOfDay.getTime() === startOfToday.getTime()
+
+  let content: React.ReactNode = (
+    <span
+      className={`${isPast ? 'text-grey-400' : isToday ? 'blue:text-blue-600 peach:text-peach-600 mint:text-mint-600 ' : 'text-black-400'}`}
+    >
+      {label}
+    </span>
+  )
   if (info) {
     const Icon = info.status === 'postponed' ? PostponedIcon[info.theme] : DidIcon[info.theme]
     content = (
