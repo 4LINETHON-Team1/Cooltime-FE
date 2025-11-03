@@ -19,6 +19,7 @@ import StressPostponed from '@/assets/StressPostponed.svg?react'
 import LowMotivationDid from '@/assets/LowMotivationDid.svg?react'
 import LowMotivationPostponed from '@/assets/LowMotivationPostponed.svg?react'
 import type { DayButtonProps } from 'react-day-picker'
+import { useCalendarStore } from '@/store/calendarStore'
 
 type MonthCaptionProps = React.ComponentProps<'div'> & {
   calendarMonth: CalendarMonth
@@ -98,42 +99,6 @@ function toISO(d: Date) {
   return `${y}-${m}-${day}`
 }
 
-// 더미 데이터
-const dummyLogs = [
-  {
-    id: 1,
-    user_id: 1,
-    date: '2025-11-01',
-    isPostponed: true,
-    note: null,
-    type: 'Perfectionist',
-  },
-  {
-    id: 2,
-    user_id: 1,
-    date: '2025-11-03',
-    isPostponed: false,
-    note: '공부 미룸',
-    type: 'Low-Motivation',
-  },
-  {
-    id: 3,
-    user_id: 1,
-    date: '2025-11-07',
-    isPostponed: true,
-    note: '운동 못함',
-    type: 'Stress-Prone',
-  },
-  {
-    id: 3,
-    user_id: 1,
-    date: '2025-10-10',
-    isPostponed: true,
-    note: '운동 못함',
-    type: 'Stress-Prone',
-  },
-]
-
 // 한 날 아이콘
 const DidIcon: Record<'blue' | 'mint' | 'peach', React.FC<any>> = {
   blue: PerfectDid,
@@ -150,14 +115,15 @@ const PostponedIcon: Record<'blue' | 'mint' | 'peach', React.FC<any>> = {
 
 function CustomDayButton(props: DayButtonProps) {
   const theme = useUserStore((s) => s.theme)
+  const logs = useCalendarStore((r) => r.logs)
 
   const logsByDate = useMemo(() => {
     const m: Record<string, { status: 'postponed' | 'did'; theme: string }> = {}
-    for (const l of dummyLogs) {
+    for (const l of logs) {
       m[l.date] = { status: l.isPostponed ? 'postponed' : 'did', theme }
     }
     return m
-  }, [dummyLogs, theme])
+  }, [logs, theme])
 
   const { day, modifiers, className, ...buttonProps } = props
   const key = toISO(day.date)
