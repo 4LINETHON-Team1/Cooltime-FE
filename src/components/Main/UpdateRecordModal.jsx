@@ -105,7 +105,7 @@ const UpdateRecordModal = ({ date }) => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className='w-[343px] rounded-[20px] z-1000 bg-white h-auto fixed bottom-7 left-1/2 -translate-x-1/2'
+      className='w-[343px] rounded-[20px] z-1000 bg-white h-[530px] fixed bottom-7 left-1/2 -translate-x-1/2'
     >
       <div className='px-[29.5px] w-full flex flex-col justify-center items-center'>
         <hr className='bg-grey-400 h-0.5 w-[119px] mt-4 flex ' />
