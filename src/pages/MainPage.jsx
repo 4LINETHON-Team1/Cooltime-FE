@@ -5,6 +5,7 @@ import Footer from '@/components/shared/Footer'
 import RecordMirum from '@/components/Main/RecordMirum'
 import { dummyLogDetails } from '@/store/calendarStore'
 import ShowRecordModal from '@/components/Main/ShowRecordModal'
+import UpdateRecordModal from '@/components/Main/UpdateRecordModal'
 import { toISO } from '@/components/Main/MyDatePicker'
 import {
   useCalendarStore,
@@ -48,6 +49,12 @@ const MainPage = () => {
     clearReason()
   }
 
+  const handleShowEditModal = (date) => {
+    setModalMode('edit')
+    setOpen(true)
+    setPickedDay(date)
+  }
+
   const handlePickDay = (day) => {
     if (!day) return
 
@@ -72,7 +79,7 @@ const MainPage = () => {
       if (detail) {
         setCurrentLog(detail)
         initSelectionsFromCurrentLog()
-        setModalMode('edit')
+        setModalMode('show')
       } else {
         setModalMode('create')
       }
@@ -104,14 +111,17 @@ const MainPage = () => {
             <div onClick={(e) => e.stopPropagation()}>
               {modalMode === 'create' ? (
                 <RecordMirum date={pickedDay} />
-              ) : (
+              ) : modalMode === 'show' ? (
                 <ShowRecordModal
                   onClick={() => {
                     setOpen(false)
                     setPickedDay(null)
                   }}
                   date={pickedDay}
+                  onEdit={handleShowEditModal}
                 />
+              ) : (
+                <UpdateRecordModal date={pickedDay} />
               )}
             </div>
           </div>

@@ -1,8 +1,10 @@
 import { useUserStore } from '@/store/store'
 import { useLogStore } from '@/store/calendarStore'
 import LogBackgroundImg from '@/assets/LogBackgroundImg.svg?react'
+import { useState } from 'react'
+import UpdateRecordModal from './UpdateRecordModal'
 
-const ShowRecordModal = ({ date, onClick }) => {
+const ShowRecordModal = ({ date, onClick, onEdit }) => {
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -24,6 +26,10 @@ const ShowRecordModal = ({ date, onClick }) => {
   const activities = useLogStore((a) => a.activity)
   const Activities = Array.isArray(activities) ? activities.join(', ') : ''
   const reasons = useLogStore((r) => r.reason)
+
+  const handleUpdate = () => {
+    onEdit?.(date)
+  }
 
   // 타입 별 색상 지정(당시 사용자의 유형 기준)
   const mapTypeTheme = (t) => {
@@ -56,12 +62,15 @@ const ShowRecordModal = ({ date, onClick }) => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className={`w-[343px] rounded-[20px] z-1000 h-auto fixed bottom-7 left-1/2 -translate-x-1/2 ${BgColor}`}
+      className={`w-[343px] rounded-[20px] h-[530px] z-1000 fixed bottom-7 left-1/2 -translate-x-1/2 ${BgColor}`}
     >
       <div className=' w-full flex flex-col justify-center items-center'>
         <hr className='bg-grey-400 h-0.5 w-[119px] mt-4 flex ' />
         {isToday && (
-          <button className='flex w-full justify-end pr-[15px] text-grey-400 text-[12px]'>
+          <button
+            onClick={handleUpdate}
+            className='flex w-full justify-end pr-[15px] text-grey-400 text-[12px] cursor-pointer'
+          >
             수정
           </button>
         )}
@@ -72,11 +81,11 @@ const ShowRecordModal = ({ date, onClick }) => {
             완벽하진 않아도 괜찮은 하루였어요
           </div>
         </div>
-        <div className='flex flex-col items-center w-full pt-[74px] gap-8 h-[350px] overflow-y-auto scrollbar-hide'>
-          <div className='text-[14px] text-black-400 font-[SemiBold]'>
+        <div className='box-border flex flex-col items-center w-full gap-8 overflow-y-auto scrollbar-hide'>
+          <div className='text-[14px] text-black-400 font-[SemiBold] mt-5'>
             {formattedDate} 미룸 일지
           </div>
-          <div className='relative inline-block'>
+          <div className='relative inline-block box-border h-[262px] overflow-y-visible'>
             <div className='bg-white w-[245px] px-8 py-4 rounded-[12px] shadow-xs'>
               <div className='text-black-400 text-[12px] mb-1'>{Activities}을/를 미뤘어요</div>
               {reasons.map((r, id) => (
@@ -91,11 +100,12 @@ const ShowRecordModal = ({ date, onClick }) => {
             <div className='absolute -right-9 -top-4 pointer-events-none z-10'>
               <LogBackgroundImg />
             </div>
+            <div className='pt-8'></div>
           </div>
         </div>
         <button
           onClick={onClick}
-          className={`mt-10 mb-4 px-10 py-2 rounded-full text-white flex justify-center items-center cursor-pointer ${BtnColor}`}
+          className={`mt-2.5 px-10 py-2 rounded-full text-white flex justify-center items-center cursor-pointer ${BtnColor}`}
         >
           완료
         </button>
