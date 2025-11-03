@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useRef } from 'react'
 import ModalButton from './ModalButton'
-import { useUserStore, useDidStore, useCategoryStore, useReasonStore } from '@/store/store'
+import { useUserStore } from '@/store/store'
+import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
 
 const RecordMirum = ({ date }) => {
   const formattedDate = date
