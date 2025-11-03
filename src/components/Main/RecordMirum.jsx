@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import ModalButton from './ModalButton'
 import { useUserStore } from '@/store/store'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
+import UploadBtn from '@/assets/UploadBtn.svg?react'
 
 const RecordMirum = ({ date }) => {
   const formattedDate = date
@@ -144,14 +145,19 @@ const RecordMirum = ({ date }) => {
               })}
               <ModalButton text='+' onClick={handleAddCategory} selected={categoryAddBtnOpen} />
               {categoryAddBtnOpen && (
-                <div
-                  className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl w-auto ${Color}`}
-                >
-                  <input
-                    ref={inputRef}
-                    className='resize-none border-none outline-none text-[12px] w-auto'
-                    placeholder='텍스트를 입력하세요...'
-                  />
+                <div className='flex gap-4'>
+                  <div
+                    className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl  ${Color}`}
+                  >
+                    <input
+                      ref={inputRef}
+                      className='resize-none border-none outline-none text-[12px] w-[200px]'
+                      placeholder='텍스트를 입력하세요...'
+                    />
+                  </div>
+                  <button>
+                    <UploadBtn className='blue:text-blue-400 mint:text-mint-400 peach:text-peach-400' />
+                  </button>
                 </div>
               )}
             </div>
@@ -171,14 +177,19 @@ const RecordMirum = ({ date }) => {
               ))}
               <ModalButton text='+' onClick={handleAddReason} selected={reasonAddBtnOpen} />
               {reasonAddBtnOpen && (
-                <div
-                  className={`flex justify-center px-4 py-6 border mb-1 text-black-400  rounded-2xl w-[284px] ${Color}`}
-                >
-                  <input
-                    ref={inputRef}
-                    className='resize-none border-none outline-none text-[12px] w-full'
-                    placeholder='자세한 이유가 있다면 적어주세요'
-                  />
+                <div className='flex gap-4'>
+                  <div
+                    className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl w-auto ${Color}`}
+                  >
+                    <input
+                      ref={inputRef}
+                      className='resize-none border-none outline-none text-[12px] w-[200px]'
+                      placeholder='텍스트를 입력하세요...'
+                    />
+                  </div>
+                  <button>
+                    <UploadBtn className='blue:text-blue-400 mint:text-mint-400 peach:text-peach-400' />
+                  </button>
                 </div>
               )}
             </div>
