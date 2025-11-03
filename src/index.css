@@ -326,3 +326,30 @@
 @utility shadow-xl {
   box-shadow: var(--shadow-xl);
 }
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(5px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+
+.delay-0 {
+  animation-delay: 0s;
+}
+.delay-05 {
+  animation-delay: 0.5s;
+}
+.delay-10 {
+  animation-delay: 1s;
+}
+.delay-15 {
+  animation-delay: 1.5s;
+}
