@@ -1,33 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { noticeData } from '@/data/noticeData'
 
-const LoginInput = ({ option, state, value, onChange }) => {
-  const noticeMap = {
-    아이디: {
-      type: 'text',
-      placeholder: '아이디를 입력하세요',
-      default: { label: '', style: 'body-03-1_3 text-gray-400' },
-      error: { label: '해당 아이디를 찾을 수 없습니다.', style: 'body-03-1_3 text-red-400' },
-    },
-    비밀번호: {
-      type: 'password',
-      placeholder: '비밀번호를 입력하세요',
-      default: {
-        label: '',
-        style: 'body-03-1_3 text-gray-400',
-      },
-      error: { label: '비밀번호가 틀렸습니다.', style: 'body-03-1_3 text-red-500' },
-    },
-  }
-
-  const notice = noticeMap[option]
+const LoginInput = ({ option, state, value, onChange, step = 0 }) => {
+  const notice = noticeData[option]
   const [isFocused, setIsFocused] = useState(true)
-  const [hasValue, setHasValue] = useState(true)
 
   const handleFocus = () => setIsFocused(true)
-  const handleBlur = (e) => {
-    setIsFocused(false)
-    setHasValue(e.target.value.trim() !== '')
-  }
+  const handleBlur = (e) => setIsFocused(false)
+
+  useEffect(() => {
+    setIsFocused(true)
+  }, [step])
 
   const borderColor = isFocused ? 'border-main-400' : 'border-gray-400'
   const labelColor = isFocused ? 'text-main-400' : 'text-gray-400'
