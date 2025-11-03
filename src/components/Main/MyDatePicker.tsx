@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import 'react-day-picker/style.css'
 import { DayPicker, useDayPicker, type CalendarMonth } from 'react-day-picker'
 import { ko } from 'date-fns/locale'
-import React, { type HTMLAttributes, type ThHTMLAttributes, type TableHTMLAttributes } from 'react'
+import React, { type ThHTMLAttributes, type TableHTMLAttributes } from 'react'
 import PerfectCalendar from '@/assets/PerfectCalender.svg?react'
 import StressCalendar from '@/assets/StressCalendar.svg?react'
 import LowMotivationCalendar from '@/assets/LowMotivationCalendar.svg?react'
@@ -23,16 +23,16 @@ import type { DayButtonProps } from 'react-day-picker'
 type MonthCaptionProps = React.ComponentProps<'div'> & {
   calendarMonth: CalendarMonth
   displayIndex: number
-  checkSum?: number
-  nocheckSum?: number
+  didCount?: number
+  postponedCount?: number
   nothing?: null
 }
 
 function CustomMonthCaption({
   calendarMonth,
   displayIndex,
-  checkSum,
-  nocheckSum,
+  didCount,
+  postponedCount,
   nothing,
   ...rest
 }: MonthCaptionProps) {
@@ -79,11 +79,11 @@ function CustomMonthCaption({
       <div className='flex h-5 items-center w-full justify-start gap-2'>
         <div className='flex items-center justify-center gap-2'>
           {Image}
-          <div className='text-black-400 text-[14px]'>{checkSum}</div>
+          <div className='text-black-400 text-[14px]'>{didCount}</div>
         </div>
         <div className='flex items-center justify-center gap-2'>
           {Check}
-          <div className='text-black-400 text-[14px]'>{nocheckSum}</div>
+          <div className='text-black-400 text-[14px]'>{postponedCount}</div>
         </div>
       </div>
     </div>
@@ -205,8 +205,8 @@ export function MyDatePicker({
   onPickDay: (d: Date) => void
   selected: Date | null | undefined
 }) {
-  const checkSum = 3
-  const nocheckSum = 5
+  const didCount = 3
+  const postponedCount = 5
   const [currentMonth, setCurrentMonth] = useState(new Date()) // 현재 보고 있는 달
 
   const handleMonthChange = (month: Date) => {
@@ -241,7 +241,7 @@ export function MyDatePicker({
         navLayout='around'
         components={{
           MonthCaption: (props) => (
-            <CustomMonthCaption {...props} checkSum={checkSum} nocheckSum={nocheckSum} />
+            <CustomMonthCaption {...props} didCount={didCount} postponedCount={postponedCount} />
           ),
           Chevron: CustomChevron,
           Weekday: CustomWeekDay,
