@@ -148,7 +148,7 @@ const PostponedIcon: Record<'blue' | 'mint' | 'peach', React.FC<any>> = {
   peach: StressPostponed,
 } as const
 
-function MyDayButton(props: DayButtonProps) {
+function CustomDayButton(props: DayButtonProps) {
   const theme = useUserStore((s) => s.theme)
 
   const logsByDate = useMemo(() => {
@@ -246,7 +246,7 @@ export function MyDatePicker({
           Chevron: CustomChevron,
           Weekday: CustomWeekDay,
           MonthGrid: CustomMonthGrid,
-          DayButton: MyDayButton,
+          DayButton: CustomDayButton,
         }}
       />
     </div>
