@@ -3,10 +3,30 @@ import React, { useState, useEffect } from 'react'
 import Main from '@/components/Main/Main'
 import Footer from '@/components/shared/Footer'
 import RecordMirum from '@/components/Main/RecordMirum'
+import { dummyLogDetails } from '@/store/calendarStore'
+import ShowRecordModal from '@/components/Main/ShowRecordModal'
+import { toISO } from '@/components/Main/MyDatePicker'
+import {
+  useCalendarStore,
+  useDidStore,
+  useCategoryStore,
+  useReasonStore,
+  useLogStore,
+} from '@/store/calendarStore'
 
 const MainPage = () => {
   const [open, setOpen] = useState(false)
   const [pickedDay, setPickedDay] = useState(null)
+  const [modalMode, setModalMode] = useState('create')
+
+  const monthLogs = useCalendarStore((s) => s.logs)
+
+  const setCurrentLog = useLogStore((s) => s.setCurrentLog)
+  const initSelectionsFromCurrentLog = useLogStore((s) => s.initSelectionsFromCurrentLog)
+
+  const clearDid = useDidStore((s) => s.clearSelected)
+  const clearCategory = useCategoryStore((s) => s.clearSelected)
+  const clearReason = useReasonStore((s) => s.clearSelected)
 
   useEffect(() => {
     if (open) {
@@ -23,12 +43,39 @@ const MainPage = () => {
   const handleCloseAndResetSelection = () => {
     setOpen(false)
     setPickedDay(null)
+    clearDid()
+    clearCategory()
+    clearReason()
   }
 
   const handlePickDay = (day) => {
+    if (!day) return
+
+    const iso = toISO(day)
+    const dayLog = monthLogs.find((log) => log.date === iso)
+
     if (open && pickedDay && pickedDay.toDateString() === day.toDateString()) {
       handleCloseAndResetSelection()
+      return
+    }
+    if (!dayLog) {
+      clearDid()
+      clearCategory()
+      clearReason()
+      setCurrentLog(null)
+      setModalMode('create')
+      setPickedDay(day)
+      setOpen(true)
+      return
     } else {
+      const detail = dummyLogDetails[iso]
+      if (detail) {
+        setCurrentLog(detail)
+        initSelectionsFromCurrentLog()
+        setModalMode('edit')
+      } else {
+        setModalMode('create')
+      }
       setPickedDay(day)
       setOpen(true)
     }
@@ -55,7 +102,17 @@ const MainPage = () => {
             onClick={handleCloseAndResetSelection}
           >
             <div onClick={(e) => e.stopPropagation()}>
-              <RecordMirum date={pickedDay} />
+              {modalMode === 'create' ? (
+                <RecordMirum date={pickedDay} />
+              ) : (
+                <ShowRecordModal
+                  onClick={() => {
+                    setOpen(false)
+                    setPickedDay(null)
+                  }}
+                  date={pickedDay}
+                />
+              )}
             </div>
           </div>
         </div>
