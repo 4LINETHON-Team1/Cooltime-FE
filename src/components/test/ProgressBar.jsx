@@ -11,13 +11,17 @@ const ProgressBar = ({ step, totalSteps = 7, onBack }) => {
   }, [])
 
   return (
-    <div className='flex relative justify-center w-full pt-[50px] pl-[6.45vw] bg-white'>
-      <img
-        className='absolute left-[24.2px] top-[45.3px] h-[13.4px] hover:cursor-pointer'
-        src={Return}
-        alt='Return'
-        onClick={onBack}
-      />
+    <div className='flex relative justify-center w-full pt-[50px] bg-white'>
+      {step === 0 ? (
+        ''
+      ) : (
+        <img
+          className='absolute left-[24.2px] top-[45.3px] h-[13.4px] hover:cursor-pointer'
+          src={Return}
+          alt='Return'
+          onClick={onBack}
+        />
+      )}
       <div className='flex grid-cols-7 items-center max-w-[440px] justify-between gap-1'>
         {segments.map((_, i) => (
           <div
