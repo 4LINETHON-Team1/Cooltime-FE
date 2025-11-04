@@ -175,8 +175,7 @@ export const useLogStore = create((set, get) => ({
           .filter((name) => !categoryStore.categories.includes(name)),
       ]
       const activityNames = incomingActivities.map((a) => a.name)
-      const { setActivity } = useLogStore.getState()
-      setActivity(activityNames)
+      get().setActivity(activityNames)
       categoryStore.setCategories(merged)
     }
 
@@ -186,8 +185,7 @@ export const useLogStore = create((set, get) => ({
         ...incomingReasons.map((r) => r.name).filter((name) => !reasonStore.reasons.includes(name)),
       ]
       const reasonNames = incomingReasons.map((a) => a.name)
-      const { setReason } = useLogStore.getState()
-      setReason(reasonNames)
+      get().setReason(reasonNames)
       reasonStore.setReasons(merged)
     }
 
