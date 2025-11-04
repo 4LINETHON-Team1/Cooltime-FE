@@ -5,7 +5,7 @@ import { useUserStore } from '@/store/store'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
 import UploadBtn from '@/assets/UploadBtn.svg?react'
 
-const RecordMirum = ({ date }) => {
+const UpdateRecordModal = ({ date }) => {
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -68,6 +68,7 @@ const RecordMirum = ({ date }) => {
   const { userType } = useUserStore()
   const { setReasons } = useReasonStore()
   useEffect(() => {
+    if (reasons && reasons.length > 0) return
     const list =
       userType === '완벽주의형'
         ? perfectDefaultReasonList
@@ -76,7 +77,7 @@ const RecordMirum = ({ date }) => {
           : stressDefaultReasonList
 
     setReasons(list)
-  }, [userType])
+  }, [userType, reasons, setReasons])
 
   // 했어요 선택 시 다른 영역 비활성화
   const didIt = didSelected.has('했어요')
@@ -147,7 +148,7 @@ const RecordMirum = ({ date }) => {
               {categoryAddBtnOpen && (
                 <div className='flex gap-4'>
                   <div
-                    className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl  ${Color}`}
+                    className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl w-auto ${Color}`}
                   >
                     <input
                       ref={inputRef}
@@ -179,7 +180,7 @@ const RecordMirum = ({ date }) => {
               {reasonAddBtnOpen && (
                 <div className='flex gap-4'>
                   <div
-                    className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl w-auto ${Color}`}
+                    className={`flex justify-center px-4 py-2 border mb-1 text-black-400  rounded-2xl ${Color}`}
                   >
                     <input
                       ref={inputRef}
@@ -206,4 +207,4 @@ const RecordMirum = ({ date }) => {
   )
 }
 
-export default RecordMirum
+export default UpdateRecordModal
