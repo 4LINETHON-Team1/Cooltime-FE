@@ -137,10 +137,15 @@ export const dummyLogDetails = {
     isPostponed: true,
     note: '운동 미룸',
     type: '스트레스형',
-    activities: [{ id: 2, name: '운동' }],
+    activities: [
+      { id: 2, name: '운동' },
+      { id: 1, name: '과제' },
+      { id: 3, name: '청소' },
+    ],
     reasons: [
       { id: 1, name: '너무 피곤해서' },
       { id: 3, name: '집중이 안 돼서' },
+      { id: 4, name: '쿨쿨슨' },
     ],
   },
 }

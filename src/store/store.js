@@ -7,8 +7,8 @@ const mapTypeTheme = (t) => {
 }
 
 export const useUserStore = create((set) => ({
-  userType: '스트레스형',
-  theme: 'peach',
+  userType: '완벽주의형',
+  theme: 'blue',
   setUserType: (t) => set({ userType: t, theme: mapTypeTheme(t) }),
   nickname: '아기사자',
 }))
