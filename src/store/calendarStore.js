@@ -137,10 +137,15 @@ export const dummyLogDetails = {
     isPostponed: true,
     note: '운동 미룸',
     type: '스트레스형',
-    activities: [{ id: 2, name: '운동' }],
+    activities: [
+      { id: 2, name: '운동' },
+      { id: 1, name: '과제' },
+      { id: 3, name: '청소' },
+    ],
     reasons: [
       { id: 1, name: '너무 피곤해서' },
       { id: 3, name: '집중이 안 돼서' },
+      { id: 4, name: '쿨쿨슨' },
     ],
   },
 }
@@ -175,8 +180,7 @@ export const useLogStore = create((set, get) => ({
           .filter((name) => !categoryStore.categories.includes(name)),
       ]
       const activityNames = incomingActivities.map((a) => a.name)
-      const { setActivity } = useLogStore.getState()
-      setActivity(activityNames)
+      get().setActivity(activityNames)
       categoryStore.setCategories(merged)
     }
 
@@ -186,8 +190,7 @@ export const useLogStore = create((set, get) => ({
         ...incomingReasons.map((r) => r.name).filter((name) => !reasonStore.reasons.includes(name)),
       ]
       const reasonNames = incomingReasons.map((a) => a.name)
-      const { setReason } = useLogStore.getState()
-      setReason(reasonNames)
+      get().setReason(reasonNames)
       reasonStore.setReasons(merged)
     }
 

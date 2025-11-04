@@ -5,6 +5,10 @@ import { useUserStore } from '@/store/store'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
 import UploadBtn from '@/assets/UploadBtn.svg?react'
 
+export const perfectDefaultReasonList = ['완벽하게 하려다', '준비만 하다가', '결과가 두려워']
+export const lowMotivationDefaultReasonList = ['의욕이 없어서', '자신이 없어서', '귀찮아서']
+export const stressDefaultReasonList = ['머리가 복잡해서', '집중이 안 돼서', '너무 피곤해서']
+
 const RecordMirum = ({ date }) => {
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
@@ -60,10 +64,6 @@ const RecordMirum = ({ date }) => {
   const reasons = useReasonStore((r) => r.reasons)
   const reasonSelected = useReasonStore((r) => r.selected)
   const toggleReason = useReasonStore((r) => r.toggleReason)
-
-  const perfectDefaultReasonList = ['완벽하게 하려다', '준비만 하다가', '결과가 두려워']
-  const lowMotivationDefaultReasonList = ['의욕이 없어서', '자신이 없어서', '귀찮아서']
-  const stressDefaultReasonList = ['머리가 복잡해서', '집중이 안 돼서', '너무 피곤해서']
 
   const { userType } = useUserStore()
   const { setReasons } = useReasonStore()
