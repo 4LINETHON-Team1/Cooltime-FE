@@ -80,7 +80,7 @@ const TestPage = () => {
       setStep((prev) => prev + 1)
     } else {
       console.log('선택 결과:', selectedAnswers)
-      navigate('/')
+      navigate('/result/intro')
     }
   }
 
@@ -94,7 +94,7 @@ const TestPage = () => {
 
   const goToResult = () => {
     console.log('선택 결과:', selectedAnswers)
-    navigate('/')
+    navigate('/result/intro')
   }
 
   return (
