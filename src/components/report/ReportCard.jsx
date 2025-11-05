@@ -12,7 +12,8 @@ const ReportCard = ({
 }) => {
   return (
     <div
-      className={`flex flex-col items-${align} w-[${width}] h-[${height}] bg-white shadow-xs rounded-[12px] p-4`}
+      className={`flex flex-col items-${align} bg-white shadow-xs rounded-[12px] p-4`}
+      style={{ width, height }}
     >
       <div className='flex w-full justify-between items-start'>
         <p className='body-02-1_3 text-black-400'>{title}</p>
