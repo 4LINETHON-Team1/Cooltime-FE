@@ -33,12 +33,12 @@ const MyPage = () => {
         <div className='flex flex-col gap-6 mt-20'>
           <button
             onClick={() => navigate('/test')}
-            className='w-[343px] text-black-400 text-[14px] font-[Medium] py-4 px-4 flex items-center justify-between bg-white border rounded-2xl cursor-pointer blue:border-blue-500 mint:border-mint-500 peach:border-peach-500'
+            className='w-[343px] shadow-xs text-black-400 text-[14px] font-[Medium] py-4 px-4 flex items-center justify-between bg-white border rounded-2xl cursor-pointer blue:border-blue-500 mint:border-mint-500 peach:border-peach-500'
           >
             유형 재검사하기
             <RightArrow />
           </button>
-          <button className='w-[343px] text-black-400 text-[14px] font-[Medium] py-4 px-4 flex items-center justify-between bg-white border rounded-2xl cursor-pointer blue:border-blue-500 mint:border-mint-500 peach:border-peach-500'>
+          <button className='w-[343px] shadow-xs text-black-400 text-[14px] font-[Medium] py-4 px-4 flex items-center justify-between bg-white border rounded-2xl cursor-pointer blue:border-blue-500 mint:border-mint-500 peach:border-peach-500'>
             로그아웃
             <RightArrow />
           </button>
