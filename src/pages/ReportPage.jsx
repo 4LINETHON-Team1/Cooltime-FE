@@ -7,14 +7,15 @@ import Footer from '@/components/shared/Footer'
 import MoogChiMini from '@/assets/MoogChiMini.svg?react'
 import ReportCard from '@/components/report/ReportCard'
 import ReportBadge from '@/assets/ReportBadge.svg?react'
+import PieChart from '@/components/report/PieChart'
 
 const ReportPage = () => {
   const { userType, theme, nickname } = useUserStore()
 
   const color = {
-    blue: { background: 'bg-main-100' },
-    mint: { background: 'bg-mint-100' },
-    peach: { background: 'bg-peach-100' },
+    blue: 'bg-main-100',
+    mint: 'bg-mint-100',
+    peach: 'bg-peach-100',
   }
 
   const image = {
@@ -24,7 +25,7 @@ const ReportPage = () => {
   }
 
   const Image = image[userType] ?? null
-  const background = color[theme]?.background ?? 'bg-main-100'
+  const background = color[theme] ?? 'bg-main-100'
 
   return (
     <div
@@ -53,6 +54,7 @@ const ReportPage = () => {
         <div className='mr-4' />
         <ReportCard title='미룸 비율'>
           <p className='Title-01-1_2 text-black mt-0.5'>50%</p>
+          <PieChart value={50} />
         </ReportCard>
       </div>
 
