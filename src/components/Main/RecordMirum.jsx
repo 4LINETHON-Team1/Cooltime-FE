@@ -140,6 +140,7 @@ const RecordMirum = ({ date }) => {
                     text={c}
                     selected={categorySelected.has(c)}
                     onClick={() => toggleCategory(c)}
+                    onDelete={() => useCategoryStore.getState().removeCategory(c)}
                   />
                 )
               })}
@@ -173,6 +174,7 @@ const RecordMirum = ({ date }) => {
                   text={r}
                   selected={reasonSelected.has(r)}
                   onClick={() => toggleReason(r)}
+                  onDelete={() => useReasonStore.getState().removeReason(r)}
                 />
               ))}
               <ModalButton text='+' onClick={handleAddReason} selected={reasonAddBtnOpen} />
