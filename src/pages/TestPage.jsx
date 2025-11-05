@@ -99,7 +99,7 @@ const TestPage = () => {
 
   return (
     <div className='flex min-h-screen justify-center items-center w-full scrollbar-hide'>
-      <div className='w-full flex flex-col items-center max-w-[430px] min-h-screen bg-[linear-gradient(180deg,#fff_30.79%,#F2F5FF_100%)]'>
+      <div className='w-full flex flex-col items-center max-w-[440px] min-h-screen bg-[linear-gradient(180deg,#fff_30.79%,#F2F5FF_100%)]'>
         <ProgressBar step={step} totalSteps={steps.length} onBack={prevStep} />
         <div className='relative mt-[12.53vh] w-[235px] h-[62px] flex justify-center items-center'>
           <p

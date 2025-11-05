@@ -91,7 +91,7 @@ const MainPage = () => {
   return (
     <div className='flex min-h-screen justify-center items-center w-full scrollbar-hide'>
       <div
-        className='w-full max-w-[430px] min-h-screen
+        className='w-full max-w-[440px] min-h-screen
       blue:bg-[linear-gradient(180deg,var(--color-blue-300)_15.09%,var(--color-blue-100)_83%)]
       mint:bg-[linear-gradient(180deg,var(--color-mint-300)_15.09%,var(--color-mint-100)_83%)]
       peach:bg-[linear-gradient(180deg,var(--color-peach-300)_15.09%,var(--color-peach-100)_83%)]
@@ -103,9 +103,9 @@ const MainPage = () => {
         <Footer selectedMenu='home' />
       </div>
       {open && (
-        <div className='fixed inset-0 z-50 w-full max-w-[430px] mx-auto'>
+        <div className='fixed inset-0 z-50 w-full max-w-[440px] mx-auto'>
           <div
-            className='absolute inset-0 w-full max-w-[430px] bg-grey-400/30 flex justify-center items-center'
+            className='absolute inset-0 w-full max-w-[440px] bg-grey-400/30 flex justify-center items-center'
             onClick={handleCloseAndResetSelection}
           >
             <div onClick={(e) => e.stopPropagation()}>
