@@ -1,10 +1,11 @@
+import Button from '@/components/shared/Button'
 import { useState, useEffect } from 'react'
 import BgImg1 from '@/assets/BgImg1.svg?react'
 import BgImg2 from '@/assets/BgImg2.svg?react'
 import BgImg3 from '@/assets/BgImg3.svg?react'
-import Button from '@/components/shared/Button'
+import { useNavigate } from 'react-router-dom'
 
-const StartPage = () => {
+const TestResultIntroPage = () => {
   const [position1, setPosition1] = useState(0)
   const [position2, setPosition2] = useState(0)
 
@@ -17,17 +18,21 @@ const StartPage = () => {
     }, 2000)
     return () => clearInterval(interval)
   }, [])
+
+  const navigate = useNavigate()
+
   return (
-    <div className='flex flex-col min-h-screen justify-start items-center w-full max-w-[440px] mx-auto bg-linear-to-b from-main-300 via-white to-white'>
+    <div className='flex flex-col min-h-screen justify-start items-center w-full max-w-[440px] mx-auto bg-[linear-gradient(180deg,#FFF_0%,var(--color-main-300)_100%)]'>
       <div className='flex flex-col justify-baseline items-start text-left w-full h-full ml-10 mt-[76px]'>
-        <div className='mb-8'>
-          <h1 className='Title-01-1_1 mb-[-5px]'>미루는 나도,</h1>
-          <span className='Title-01-1_1 text-[#2862FF]'>꾸준히 기록하는 나</span>
-          <span className='Title-01-1_1 '>로 </span>
+        <div className='mb-4'>
+          <h1 className='font-[SemiBold] text-[26px] text-black-400'>
+            미룸 패턴 분석이 <br /> 완료되었어요!
+          </h1>
         </div>
-        <div className='mb-15'>
-          <h3 className='body-01-1_2 text-grey-900'>오늘의 미룸도 괜찮아요.</h3>
-          <h3 className='body-01-1_2 text-grey-900'>내일의 나를 위한 쿨타임이니까요.</h3>
+        <div className=''>
+          <h3 className='font-[Medium] text-[14px] text-black-400'>
+            하단의 버튼을 눌러 내 유형을 확인해보세요
+          </h3>
         </div>
       </div>
       <div className='fixed top-3/5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 w-full max-w-[440px]'>
@@ -46,12 +51,11 @@ const StartPage = () => {
           />
         </div>
       </div>
-      <div className='fixed bottom-10 justify-center items-center text-center'>
-        <Button label='처음 시작해요' />
-        <h3 className='mt-[13px] body-01-1_2 text-gray-400'>이미 계정이 있습니다</h3>
+      <div className='absolute bottom-10 justify-center z-10'>
+        <Button label='결과 보기' onClick={() => navigate('/result')} />
       </div>
     </div>
   )
 }
 
-export default StartPage
+export default TestResultIntroPage
