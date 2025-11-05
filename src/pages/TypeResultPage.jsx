@@ -1,4 +1,3 @@
-import React from 'react'
 import { useUserStore } from '@/store/store'
 import Perfect from '@/assets/Perfect.svg?react'
 import LowMotivation from '@/assets/LowMotivation.svg?react'
