@@ -40,9 +40,12 @@ const ModalButton = ({ text, selected = false, onClick = () => {} }) => {
       >
         {text}
         {!defaultBtn && (
-          <button className='absolute bg-white border -right-1 -top-1 blue:border-blue-400  mint:border-mint-400 peach:border-peach-400 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center cursor-pointer'>
+          <span
+            role='button'
+            className='absolute bg-white border -right-1 -top-1 blue:border-blue-400  mint:border-mint-400 peach:border-peach-400 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center cursor-pointer'
+          >
             <X className='blue:text-blue-400 mint:text-mint-400 peach:text-peach-400' />
-          </button>
+          </span>
         )}
       </button>
     </div>
