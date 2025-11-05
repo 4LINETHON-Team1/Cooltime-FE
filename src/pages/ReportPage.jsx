@@ -54,7 +54,9 @@ const ReportPage = () => {
         <div className='mr-4' />
         <ReportCard title='미룸 비율'>
           <p className='Title-01-1_2 text-black mt-0.5'>50%</p>
-          <PieChart value={50} />
+          <span className='ml-15'>
+            <PieChart value={50} width={30} />
+          </span>
         </ReportCard>
       </div>
 

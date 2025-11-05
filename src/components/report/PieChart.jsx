@@ -1,7 +1,7 @@
 import { PieChart as Chart } from 'react-minimal-pie-chart'
 import { useUserStore } from '@/store/store'
 
-const PieChart = ({ value }) => {
+const PieChart = ({ value, width }) => {
   const { theme } = useUserStore()
 
   const color = {
@@ -21,13 +21,12 @@ const PieChart = ({ value }) => {
         },
       ]}
       reveal={value}
-      lineWidth={30}
+      lineWidth={width}
       background='#F0F0F0'
       lengthAngle={360}
       rounded
       animate
       startAngle={-90}
-      center={[90, 50]}
     />
   )
 }
