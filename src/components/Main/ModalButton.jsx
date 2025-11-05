@@ -8,7 +8,7 @@ import {
 } from './RecordMirum'
 import X from '@/assets/X.svg?react'
 
-const ModalButton = ({ text, selected = false, onClick = () => {} }) => {
+const ModalButton = ({ text, selected = false, onClick = () => {}, onDelete = () => {} }) => {
   // 디폴트 옵션
   const defaultActivity = ['공부', '운동', '독서']
   const defaultOption = ['미뤘어요', '했어요']
@@ -42,6 +42,10 @@ const ModalButton = ({ text, selected = false, onClick = () => {} }) => {
         {!defaultBtn && (
           <span
             role='button'
+            onClick={(e) => {
+              e.stopPropagation()
+              onDelete?.()
+            }}
             className='absolute bg-white border -right-1 -top-1 blue:border-blue-400  mint:border-mint-400 peach:border-peach-400 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center cursor-pointer'
           >
             <X className='blue:text-blue-400 mint:text-mint-400 peach:text-peach-400' />

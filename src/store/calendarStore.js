@@ -38,6 +38,15 @@ export const useCategoryStore = create((set) => ({
       next.add(c)
       return { selected: next }
     }),
+  removeCategory: (c) =>
+    set((state) => ({
+      categories: state.categories.filter((x) => x !== c),
+      selected: (() => {
+        const next = new Set(state.selected)
+        next.delete(c)
+        return next
+      })(),
+    })),
   clearSelected: () => set({ selected: new Set() }),
 }))
 
@@ -55,6 +64,15 @@ export const useReasonStore = create((set) => ({
       next.add(r)
       return { selected: next }
     }),
+  removeReason: (r) =>
+    set((state) => ({
+      reasons: state.reasons.filter((x) => x !== r),
+      selected: (() => {
+        const next = new Set(state.selected)
+        next.delete(r)
+        return next
+      })(),
+    })),
   clearSelected: () => set({ selected: new Set() }),
 }))
 
@@ -79,7 +97,7 @@ const dummyLogs = [
   {
     id: 3,
     user_id: 1,
-    date: '2025-11-04',
+    date: '2025-11-05',
     isPostponed: true,
     note: '운동 못함',
     type: 'Stress-Prone',
@@ -130,10 +148,10 @@ export const dummyLogDetails = {
     activities: [],
     reasons: [],
   },
-  '2025-11-04': {
+  '2025-11-05': {
     id: 3,
     user_id: 1,
-    date: '2025-11-04',
+    date: '2025-11-05',
     isPostponed: true,
     note: '운동 미룸',
     type: '스트레스형',
