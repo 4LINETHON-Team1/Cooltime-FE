@@ -19,22 +19,20 @@ const BarChart = ({ data }) => {
   }
   const chartColor = color[theme] ?? '#C8CEFF'
   return (
-    <div className='w-[343px] h-[300px]'>
+    <div className='w-[343px] h-[300px] focus:outline-none'>
       <ResponsiveContainer width='100%' height='100%'>
         <ReBarChart
           data={data}
           margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
-          barCategoryGap='30%' // 막대 간격 조절
+          barCategoryGap='30%'
         >
-          {/* 점선 그리드 */}
           <CartesianGrid
             vertical={true}
             horizontal={false}
             strokeDasharray='3 3'
-            stroke='#E5E7EB' // 연한 회색 점선
+            stroke='#E5E7EB'
           />
 
-          {/* X축 설정 */}
           <XAxis
             dataKey='month'
             tickLine={false}
@@ -42,10 +40,8 @@ const BarChart = ({ data }) => {
             tick={{ fill: '#A3A3A3', fontSize: 12 }}
           />
 
-          {/* Y축은 숨기기 */}
           <YAxis hide />
 
-          {/* 툴팁 */}
           <Tooltip
             cursor={{ fill: 'rgba(165,180,252,0.15)' }}
             contentStyle={{
@@ -58,7 +54,6 @@ const BarChart = ({ data }) => {
             formatter={(value) => [`${value}%`, '미룸 비율']}
           />
 
-          {/* 막대 스타일 */}
           <Bar dataKey='value' fill={chartColor} radius={[5, 5, 0, 0]} barSize={18} />
         </ReBarChart>
       </ResponsiveContainer>
