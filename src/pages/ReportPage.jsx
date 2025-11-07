@@ -75,7 +75,7 @@ const ReportPage = () => {
       </div>
 
       <div className='mt-6'>
-        <ReportCard title='AI 리포트' width='343px' height='74px' disabled={true}>
+        <ReportCard title='AI 레포트' width='343px' height='74px' disabled={false}>
           <p className='body-03-1_2 text-gray-400 mt-2'>
             AI가 당신의 미룸 패턴을 읽고, 가볍게 솔루션을 제안해드려요.
           </p>

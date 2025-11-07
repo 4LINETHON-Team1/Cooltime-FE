@@ -18,7 +18,7 @@ const ReportCard = ({
       '미룸 비율': '/report/chart',
       카테고리별: '/report/category',
       배지: '/report/badge',
-      'AI 리포트': '/report/ai',
+      'AI 레포트': '/report/ai',
     }
     navigate(routes[title] || '/')
   }

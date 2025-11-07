@@ -2,30 +2,13 @@ import { useState } from 'react'
 import PieChart from '../report/PieChart'
 import Left from '@/assets/Left.svg?react'
 import Right from '@/assets/Right.svg?react'
-import { getCurrentDate } from '@/utils/dateUtils'
+import GreyRight from '@/assets/GreyRight.svg?react'
+import { useWeekNavigation } from '@/hooks/useWeekNavigation'
 
 const MonthChart = () => {
-  const { month } = getCurrentDate()
-
-  const [currentMonth, setCurrentMonth] = useState(month)
-
-  const handlePrevMonth = () => {
-    if (currentMonth > 0) {
-      setCurrentMonth(currentMonth - 1)
-    } else {
-      setCurrentMonth(12)
-    }
-  }
-
-  const handleNextMonth = () => {
-    if (currentMonth < 12) {
-      setCurrentMonth(currentMonth + 1)
-    } else {
-      setCurrentMonth(1)
-    }
-  }
-
+  const { currentMonth, handlePrevMonth, handleNextMonth, isNextDisabled } = useWeekNavigation()
   const value = 50
+
   return (
     <div className='flex flex-col items-center w-full'>
       <div className='flex flex-col items-center text-center w-[350px]'>
@@ -35,7 +18,7 @@ const MonthChart = () => {
           </button>
           <p className='Title-01-1_1 text-black-400'>{currentMonth}월 미룸 비율</p>
           <button className='ml-2 ' onClick={handleNextMonth}>
-            <Right />
+            {isNextDisabled ? <GreyRight /> : <Right />}
           </button>
         </div>
         <p className='body-02-1_2 text-gray-900 mt-4'>저번 달보다 미룸 비율이 00% 상승했어요.</p>
