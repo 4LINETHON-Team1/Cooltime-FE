@@ -14,12 +14,15 @@ const ReportCard = ({
   const navigate = useNavigate()
 
   const handleMore = () => {
-    if (title == '미룸 비율') {
-      navigate('/report/chart')
-    } else {
-      navigate('/')
+    const routes = {
+      '미룸 비율': '/report/chart',
+      카테고리별: '/report/category',
+      배지: '/report/badge',
+      'AI 리포트': '/report/ai',
     }
+    navigate(routes[title] || '/')
   }
+
   return (
     <div
       className={`flex flex-col items-${align} bg-white shadow-xs rounded-[12px] p-4`}
