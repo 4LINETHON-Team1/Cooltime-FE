@@ -49,7 +49,7 @@ const YearChart = () => {
         </div>
         <p className='body-02-1_2 text-gray-900 mt-4'>저번 년보다 미룸 비율이 00% 상승했어요.</p>
       </div>
-      <div className='fixed bottom-50'>
+      <div className='mt-30'>
         <BarChart data={data} />
       </div>
     </div>
