@@ -2,34 +2,12 @@ import { useState } from 'react'
 import PieChart from '../report/PieChart'
 import Left from '@/assets/Left.svg?react'
 import Right from '@/assets/Right.svg?react'
-import { getCurrentDate } from '@/utils/dateUtils'
+import GreyRight from '@/assets/GreyRight.svg?react'
+import { useWeekNavigation } from '@/hooks/useWeekNavigation'
 
 const WeekChart = () => {
-  const { month, week } = getCurrentDate()
-
-  const weekNames = ['첫째주', '둘째주', '셋째주', '넷째주', '다섯째주']
-
-  const initialWeekIndex = weekNames.indexOf(week)
-  const [currentWeek, setCurrentWeek] = useState(initialWeekIndex)
-  const [currentMonth, setCurrentMonth] = useState(month)
-
-  const handlePrevWeek = () => {
-    if (currentWeek > 0) {
-      setCurrentWeek(currentWeek - 1)
-    } else {
-      setCurrentMonth((prev) => (prev === 1 ? 12 : prev - 1))
-      setCurrentWeek(4)
-    }
-  }
-
-  const handleNextWeek = () => {
-    if (currentWeek < 4) {
-      setCurrentWeek(currentWeek + 1)
-    } else {
-      setCurrentMonth((prev) => (prev === 12 ? 1 : prev + 1))
-      setCurrentWeek(0)
-    }
-  }
+  const { weekNames, currentWeek, currentMonth, handlePrevWeek, handleNextWeek, isNextDisabled } =
+    useWeekNavigation()
 
   const value = 50
   return (
@@ -43,7 +21,7 @@ const WeekChart = () => {
             {currentMonth}월 {weekNames[currentWeek]} 미룸 비율
           </p>
           <button className='ml-2 ' onClick={handleNextWeek}>
-            <Right />
+            {isNextDisabled ? <GreyRight /> : <Right />}
           </button>
         </div>
         <p className='body-02-1_2 text-gray-900 mt-4'>저번 주보다 미룸 비율이 00% 상승했어요.</p>
