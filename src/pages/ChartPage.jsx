@@ -5,32 +5,34 @@ import TotalChart from '@/components/chart/TotalChart'
 import WeekChart from '@/components/chart/WeekChart'
 import MonthChart from '@/components/chart/MonthChart'
 import YearChart from '@/components/chart/YearChart'
+import { useNavigate } from 'react-router-dom'
 
 const ChartPage = () => {
   const [menu, setMenu] = useState('총')
   const { theme } = useUserStore()
+  const navigate = useNavigate()
 
   const menus = ['총', '주', '월', '년']
 
   const color = {
     blue: {
-      background: 'bg-main-100',
+      background: 'bg-linear-to-b from-main-100 to-gray-100',
       active: 'bg-blue-400 text-white',
       inactive: 'bg-white text-gray-400',
     },
     mint: {
-      background: 'bg-mint-100',
+      background: 'bg-linear-to-b from-mint-100 to-gray-100',
       active: 'bg-mint-400 text-white',
       inactive: 'bg-white text-gray-400',
     },
     peach: {
-      background: 'bg-peach-100',
+      background: 'bg-linear-to-b from-peach-100 to-gray-100',
       active: 'bg-peach-400 text-white',
       inactive: 'bg-white text-gray-400',
     },
   }
 
-  const backgound = color[theme].background ?? 'bg-main-100'
+  const backgound = color[theme].background ?? 'bg-linear-to-b from-main-100 to-gray-100'
   const currentColor = color[theme] ?? color.blue
 
   return (
