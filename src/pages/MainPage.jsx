@@ -7,6 +7,7 @@ import { dummyLogDetails } from '@/store/calendarStore'
 import ShowRecordModal from '@/components/Main/ShowRecordModal'
 import UpdateRecordModal from '@/components/Main/UpdateRecordModal'
 import { toISO } from '@/components/Main/MyDatePicker'
+import ConfirmModal from '@/components/Main/ConfirmModal'
 import {
   useCalendarStore,
   useDidStore,
@@ -19,6 +20,7 @@ const MainPage = () => {
   const [open, setOpen] = useState(false)
   const [pickedDay, setPickedDay] = useState(null)
   const [modalMode, setModalMode] = useState('create')
+  const [showSuccess, setShowSuccess] = useState(false)
 
   const monthLogs = useCalendarStore((s) => s.logs)
 
@@ -121,8 +123,26 @@ const MainPage = () => {
                   onEdit={handleShowEditModal}
                 />
               ) : (
-                <UpdateRecordModal date={pickedDay} />
+                <UpdateRecordModal
+                  date={pickedDay}
+                  onSuccess={() => {
+                    handleCloseAndResetSelection()
+                    setShowSuccess(true)
+                  }}
+                />
               )}
+            </div>
+          </div>
+        </div>
+      )}
+      {showSuccess && (
+        <div className='fixed inset-0 z-50 w-full max-w-[440px] mx-auto'>
+          <div
+            className='absolute inset-0 w-full max-w-[440px] bg-grey-400/30 flex justify-center items-center'
+            onClick={handleCloseAndResetSelection}
+          >
+            <div onClick={(e) => e.stopPropagation()}>
+              <ConfirmModal onClose={() => setShowSuccess(false)} />
             </div>
           </div>
         </div>

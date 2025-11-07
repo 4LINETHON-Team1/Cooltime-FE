@@ -5,7 +5,7 @@ import { useUserStore } from '@/store/store'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
 import UploadBtn from '@/assets/UploadBtn.svg?react'
 
-const UpdateRecordModal = ({ date }) => {
+const UpdateRecordModal = ({ date, onSuccess }) => {
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -101,6 +101,7 @@ const UpdateRecordModal = ({ date }) => {
     useDidStore.getState().clearSelected()
     useCategoryStore.getState().clearSelected()
     useReasonStore.getState().clearSelected()
+    if (onSuccess) onSuccess()
   }
 
   return (
