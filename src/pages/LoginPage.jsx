@@ -28,9 +28,11 @@ const LoginPage = () => {
   return (
     <div>
       <div className='mt-10 ml-4'>
-        <Back />
+        <button onClick={() => navigate(-1)}>
+          <Back />
+        </button>
       </div>
-      <div className='mt-9 ml-5'>
+      <div className='mt-8 ml-5'>
         <h3 className='Title-01-1_2 text-main-500'>로그인을 해주세요.</h3>
       </div>
       <div className='mt-8 flex flex-col items-center'>

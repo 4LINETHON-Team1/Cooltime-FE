@@ -61,9 +61,11 @@ const SignupPage = () => {
   return (
     <div>
       <div className='mt-10 ml-4'>
-        <Back />
+        <button onClick={() => navigate(-1)}>
+          <Back />
+        </button>
       </div>
-      <div className='mt-10 ml-2 w-[131px]'>
+      <div className='mt-9 ml-2 w-[131px]'>
         <StepControl activeStep={activeStep} totalSteps={totalSteps} completed={completed} />
       </div>
       <div className='mt-9 ml-5'>

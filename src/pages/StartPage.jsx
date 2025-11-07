@@ -3,10 +3,12 @@ import BgImg1 from '@/assets/BgImg1.svg?react'
 import BgImg2 from '@/assets/BgImg2.svg?react'
 import BgImg3 from '@/assets/BgImg3.svg?react'
 import Button from '@/components/shared/Button'
+import { useNavigate } from 'react-router-dom'
 
 const StartPage = () => {
   const [position1, setPosition1] = useState(0)
   const [position2, setPosition2] = useState(0)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setPosition1(-10)
@@ -47,8 +49,10 @@ const StartPage = () => {
         </div>
       </div>
       <div className='fixed bottom-10 justify-center items-center text-center'>
-        <Button label='처음 시작해요' />
-        <h3 className='mt-[13px] body-01-1_2 text-gray-400'>이미 계정이 있습니다</h3>
+        <Button label='처음 시작해요' onClick={() => navigate('/signup')} />
+        <button className='mt-[13px] body-01-1_2 text-gray-400' onClick={() => navigate('/login')}>
+          이미 계정이 있습니다
+        </button>
       </div>
     </div>
   )
