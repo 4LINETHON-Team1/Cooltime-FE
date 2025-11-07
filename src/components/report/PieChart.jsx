@@ -1,7 +1,7 @@
 import { PieChart as Chart } from 'react-minimal-pie-chart'
 import { useUserStore } from '@/store/store'
 
-const PieChart = ({ value, width }) => {
+const PieChart = ({ value, width, shadow = false }) => {
   const { theme } = useUserStore()
 
   const color = {
@@ -20,6 +20,7 @@ const PieChart = ({ value, width }) => {
           name: 'name1',
         },
       ]}
+      style={shadow ? { filter: 'drop-shadow(0 1px 8px rgba(0, 0, 0, 0.15))' } : undefined}
       reveal={value}
       lineWidth={width}
       background='#F0F0F0'

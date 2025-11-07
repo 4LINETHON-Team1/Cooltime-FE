@@ -353,3 +353,7 @@
 .delay-15 {
   animation-delay: 1.5s;
 }
+
+*:focus {
+  outline: none;
+}
