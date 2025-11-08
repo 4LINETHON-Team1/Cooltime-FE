@@ -4,8 +4,10 @@ import MoogChi from '@/assets/MoogChi.svg?react'
 import Stress from '@/assets/WelcomeStress.svg?react'
 import Motivation from '@/assets/WelcomeMotivation.svg?react'
 import Perfect from '@/assets/WelcomePerfect.svg?react'
+import { useNavigate } from 'react-router-dom'
 
 const WelcomePage = () => {
+  const navigate = useNavigate()
   return (
     <div className='flex flex-col items-center w-max-[450px] text-center'>
       <h1 className='Title-01-1_1 text-black-400 mt-[15vh]'>쿨타임에 오신 걸 환영합니다!</h1>
@@ -31,7 +33,7 @@ const WelcomePage = () => {
         </div>
       </div>
       <div className='fixed bottom-10'>
-        <Button label='준비됬어요!' />
+        <Button label='준비됬어요!' onClick={() => navigate('/')} />
       </div>
     </div>
   )

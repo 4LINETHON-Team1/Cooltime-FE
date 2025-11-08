@@ -32,5 +32,6 @@ export const noticeData = {
     none: { label: '', style: 'body-03-1_3 text-gray-400' },
     default: { label: '', style: 'body-03-1_3 text-gray-400' },
     duplicate: { label: '비밀번호가 일치하지 않습니다', style: 'body-03-1_3 text-red-500' },
+    error: { label: '비밀번호가 틀렸습니다.', style: 'body-03-1_3 text-red-500' },
   },
 }
