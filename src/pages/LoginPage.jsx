@@ -34,7 +34,16 @@ const LoginPage = () => {
         navigate('/report')
       }
     } else {
-      alert('로그인 실패: ' + result.data?.message)
+      if (result.data.code === 400) {
+        setPassNotice('error')
+        setIdNotice('none')
+      } else if (result.data.code === 404) {
+        setIdNotice('error')
+        setPassNotice('none')
+      } else {
+        setPassNotice('error')
+        setIdNotice('error')
+      }
     }
   }
 
