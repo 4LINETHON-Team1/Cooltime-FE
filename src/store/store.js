@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { userTypeMap } from '@/utils/userTypeMap'
 
 const mapTypeTheme = (t) => {
   if (t === '완벽주의형') return 'blue'
@@ -9,8 +10,12 @@ const mapTypeTheme = (t) => {
 export const useUserStore = create((set) => ({
   userType: '완벽주의형',
   theme: 'blue',
-  setUserType: (t) => set({ userType: t, theme: mapTypeTheme(t) }),
   nickname: '아기사자',
+  setUserType: (t) => {
+    const koreanType = userTypeMap[t]
+    set({ userType: koreanType, theme: mapTypeTheme(koreanType) })
+  },
+  setNickname: (n) => set({ nickname: n }),
 }))
 
 // userType: '완벽주의형',
