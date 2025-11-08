@@ -3,6 +3,8 @@ import Button from '@/components/shared/Button'
 import Back from '@/assets/Back.svg?react'
 import LoginInput from '@/components/signup/LoginInput'
 import { useNavigate } from 'react-router-dom'
+import { login } from '@/apis/login/login'
+import { useUserStore } from '@/store/store'
 
 const LoginPage = () => {
   const [disabled, setDisabled] = useState(false)
@@ -10,8 +12,8 @@ const LoginPage = () => {
   const [passNotice, setPassNotice] = useState('none')
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
-
   const navigate = useNavigate()
+  const { setUserType, setNickname } = useUserStore()
 
   useEffect(() => {
     if (id.trim() !== '' && password.trim() !== '') {
@@ -21,8 +23,19 @@ const LoginPage = () => {
     }
   }, [id, password])
 
-  const handleWelcome = () => {
-    navigate('/welcome')
+  const handleWelcome = async () => {
+    const result = await login(id, password)
+    if (result.success) {
+      if (result.data.data.myType === null) {
+        navigate('/welcome')
+      } else {
+        setUserType(result.data.data.myType)
+        setNickname(result.data.data.nickname)
+        navigate('/report')
+      }
+    } else {
+      alert('로그인 실패: ' + result.data?.message)
+    }
   }
 
   return (
