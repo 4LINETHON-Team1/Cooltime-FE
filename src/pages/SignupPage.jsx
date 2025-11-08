@@ -5,6 +5,7 @@ import Back from '@/assets/Back.svg?react'
 import LoginInput from '@/components/signup/LoginInput'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '@/apis/signup/signup'
+import { checkId, checkNickname, checkPassword } from '@/apis/signup/checkValue'
 
 export const baseURL = import.meta.env.VITE_API_BASE_URL
 
@@ -50,36 +51,85 @@ const SignupPage = () => {
     setDisabled(true)
   }, [activeStep])
 
-  const handleCheck = () => {
-    if (activeStep === 0) {
-      if (formData.id.length < 4) {
+  const validateId = async () => {
+    const result = await checkId(formData.id)
+
+    if (result.success) {
+      setState('none')
+      setDisabled(false)
+      return true
+    } else {
+      if (result.code === 409) {
+        setState('duplicate')
+      } else if (result.code === 400) {
+        setState('invalid')
+      } else {
         setState('error')
-        setDisabled(true)
-        return false
       }
-    } else if (activeStep === 1) {
-      if (formData.password.length < 6) {
-        setState('error')
-        setDisabled(true)
-        return false
-      }
-      if (formData.password !== formData.confirmPassword) {
-        setState('error')
-        setDisabled(true)
-        return false
-      }
-    } else if (activeStep === 2) {
-      if (formData.nickname.trim().length < 2) {
-        setState('error')
-        setDisabled(true)
-        return false
-      }
+      setDisabled(true)
+      return false
     }
+  }
+
+  const validatePassword = async () => {
+    const result = await checkPassword(formData.password)
+
+    if (!result.success) {
+      if (result.code === 400) {
+        setState('invalid')
+      } else {
+        setState('default')
+      }
+      setDisabled(true)
+      return false
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setState('duplicate')
+      setDisabled(true)
+      return false
+    }
+    setState('none')
+    setDisabled(false)
     return true
   }
 
-  const handleComplete = () => {
-    if (handleCheck()) {
+  const validateNickname = async () => {
+    const result = await checkNickname(formData.nickname)
+
+    if (result.success) {
+      setState('none')
+      setDisabled(false)
+      return true
+    } else {
+      if (result.code === 409) {
+        setState('duplicate')
+      } else if (result.code === 400) {
+        setState('invalid')
+      } else {
+        setState('default')
+      }
+      setDisabled(true)
+      return false
+    }
+  }
+
+  const handleCheck = async () => {
+    switch (activeStep) {
+      case 0:
+        return await validateId()
+      case 1:
+        return validatePassword()
+      case 2:
+        return validateNickname()
+      default:
+        return false
+    }
+  }
+
+  const handleComplete = async () => {
+    const isValid = await handleCheck()
+    if (isValid) {
       setCompleted((prev) => ({ ...prev, [activeStep]: true }))
       if (activeStep < totalSteps - 1) {
         setActiveStep((prev) => prev + 1)
