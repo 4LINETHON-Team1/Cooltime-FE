@@ -1,47 +1,13 @@
 import TestBgImg from '@/assets/TestBgImg.svg?react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import Button from '@/components/shared/Button'
 import ProgressBar from '@/components/test/ProgressBar'
 import AnswerBtn from '@/components/test/AnswerBtn'
 import { steps } from '@/data/testData'
+import { useTestStep } from '@/utils/testUtils'
 
 const TestPage = () => {
-  const [step, setStep] = useState(0)
-  const navigate = useNavigate()
-
-  const [selectedAnswers, setSelectedAnswers] = useState(Array(7).fill(null))
+  const { step, handleSelectAnswer, nextStep, prevStep, selectedAnswers } = useTestStep()
   const currentStep = steps[step]
-
-  const handleSelectAnswer = (answerId) => {
-    setSelectedAnswers((prev) => {
-      const next = [...prev]
-      next[step] = Number(answerId)
-      return next
-    })
-  }
-
-  const nextStep = () => {
-    if (step < steps.length - 1) {
-      setStep((prev) => prev + 1)
-    } else {
-      console.log('선택 결과:', selectedAnswers)
-      navigate('/result/intro')
-    }
-  }
-
-  const prevStep = () => {
-    if (step > 0) {
-      setStep((s) => s - 1)
-    } else {
-      navigate(-1)
-    }
-  }
-
-  const goToResult = () => {
-    console.log('선택 결과:', selectedAnswers)
-    navigate('/result/intro')
-  }
 
   return (
     <div className='flex min-h-screen justify-center items-center w-full scrollbar-hide'>
@@ -70,8 +36,8 @@ const TestPage = () => {
         <div className='absolute bottom-10'>
           <Button
             disabled={selectedAnswers[step] == null}
-            label={step < 7 ? '다음' : '완료'}
-            onClick={() => (step < steps.length - 1 ? nextStep() : goToResult())}
+            label={step < steps.length - 1 ? '다음' : '완료'}
+            onClick={() => nextStep()}
           />
         </div>
       </div>
