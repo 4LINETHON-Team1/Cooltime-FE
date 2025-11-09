@@ -46,7 +46,7 @@ const TypeResultPage = () => {
   return (
     <div className='flex min-h-screen justify-center items-center w-full scrollbar-hide'>
       <div
-        className='w-full max-w-[440px] min-h-screen flex flex-col items-center gap-6
+        className='w-full max-w-[440px] min-h-screen grow flex flex-col items-center gap-6
       blue:bg-[linear-gradient(180deg,var(--color-blue-400)_9.3%,var(--color-blue-100)_66.75%)]
       mint:bg-[linear-gradient(180deg,var(--color-mint-400)_9.3%,var(--color-mint-200)_66.75%)]
       peach:bg-[linear-gradient(180deg,var(--color-peach-400)_9.3%,var(--color-peach-200)_66.75%)]
@@ -73,12 +73,14 @@ const TypeResultPage = () => {
             <br />
             {Text2}
           </div>
-          <button
-            onClick={() => navigate('/main')}
-            className='rounded-full w-[343px] h-[53px] text-[18px] font-[SemiBold] text-white cursor-pointer blue:bg-blue-500 mint:bg-mint-500 peach:bg-peach-500'
-          >
-            시작하기
-          </button>
+          <div className='w-full flex items-center fixed bottom-10 left-0'>
+            <button
+              onClick={() => navigate('/main')}
+              className='block mx-auto rounded-full w-[343px] h-[53px] text-[18px] font-[SemiBold] text-white cursor-pointer blue:bg-blue-500 mint:bg-mint-500 peach:bg-peach-500'
+            >
+              시작하기
+            </button>
+          </div>
         </div>
       </div>
     </div>
