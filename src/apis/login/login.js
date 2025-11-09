@@ -1,4 +1,4 @@
-import { baseURL } from '@/pages/SignupPage'
+import { baseURL } from './axiosConfig'
 
 export const login = async (id, password) => {
   try {
