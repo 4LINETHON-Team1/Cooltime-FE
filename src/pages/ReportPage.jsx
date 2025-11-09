@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { useUserStore } from '@/store/store'
 import ReportPerfect from '@/assets/ReportPerfect.svg?react'
 import ReportMotivation from '@/assets/ReportMotivation.svg?react'
@@ -8,10 +8,27 @@ import MoogChiMini from '@/assets/MoogChiMini.svg?react'
 import ReportCard from '@/components/report/ReportCard'
 import ReportBadge from '@/assets/ReportBadge.svg?react'
 import PieChart from '@/components/report/PieChart'
+import { getDashboardData } from '@/apis/report/DashBoard'
 
 const ReportPage = () => {
   const { userType, theme, nickname } = useUserStore()
+  const [Data, setData] = useState(null)
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getDashboardData()
+        setData(data.data)
+        console.log(data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  getDashboardData()
   const color = {
     blue: 'bg-main-100',
     mint: 'bg-mint-100',
@@ -43,8 +60,10 @@ const ReportPage = () => {
 
       <div className='flex mt-10 mb-4'>
         <ReportCard title='총 기록일' more={false}>
-          <p className='Title-01-1_2 text-black mt-0.5'>5일</p>
-          <p className='body-03-1_2 text-gray-400 mt-0.5'>7일 중 5일 기록했어요.</p>
+          <p className='Title-01-1_2 text-black mt-0.5'>{Data?.recordedDays || 0}일</p>
+          <p className='body-03-1_2 text-gray-400 mt-0.5'>
+            {Data?.totalDays || 0}일 중 {Data?.recordedDays || 0}일 기록했어요.
+          </p>
           <p className='body-03-1_2 text-gray-400 -mt-1'>연속 기록을 향해봐요!</p>
           <div className='flex flex-col items-end justify-end text-end w-full mt-1'>
             <MoogChiMini />
@@ -53,16 +72,16 @@ const ReportPage = () => {
 
         <div className='mr-4' />
         <ReportCard title='미룸 비율'>
-          <p className='Title-01-1_2 text-black mt-0.5'>50%</p>
+          <p className='Title-01-1_2 text-black mt-0.5'>{Data?.postponedPercent || 0}%</p>
           <span className='ml-15'>
-            <PieChart value={50} width={30} />
+            <PieChart value={Data?.postponedPercent || 0} width={30} />
           </span>
         </ReportCard>
       </div>
 
       <div className='flex'>
         <ReportCard title='카테고리별'>
-          <p className='Title-01-1_2 text-black mt-0.5'>공부</p>
+          <p className='Title-01-1_2 text-black mt-0.5'>{Data?.categoryName || '운동'}</p>
           <p className='body-03-1_2 text-black mt-0.5'>를 제일 미뤘어요.</p>
           <p className='body-03-1_2 text-gray-400 mt-2.5'>카테고리별 미룬 일을</p>
           <p className='body-03-1_2 text-gray-400 -mt-1'>확인해보세요.</p>
@@ -75,7 +94,12 @@ const ReportPage = () => {
       </div>
 
       <div className='mt-6'>
-        <ReportCard title='AI 레포트' width='343px' height='74px' disabled={false}>
+        <ReportCard
+          title='AI 레포트'
+          width='343px'
+          height='74px'
+          disabled={!Data?.aiReportAvailable || false}
+        >
           <p className='body-03-1_2 text-gray-400 mt-2'>
             AI가 당신의 미룸 패턴을 읽고, 가볍게 솔루션을 제안해드려요.
           </p>
