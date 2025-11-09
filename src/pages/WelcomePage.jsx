@@ -33,7 +33,7 @@ const WelcomePage = () => {
         </div>
       </div>
       <div className='fixed bottom-10'>
-        <Button label='준비됬어요!' onClick={() => navigate('/')} />
+        <Button label='준비됐어요!' onClick={() => navigate('/test')} />
       </div>
     </div>
   )
