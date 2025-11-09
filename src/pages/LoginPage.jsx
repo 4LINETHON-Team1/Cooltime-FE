@@ -26,6 +26,8 @@ const LoginPage = () => {
   const handleWelcome = async () => {
     const result = await login(id, password)
     if (result.success) {
+      localStorage.setItem('accessToken', result.data.data.accessToken)
+      localStorage.setItem('refreshToken', result.data.data.refreshToken)
       if (result.data.data.myType === null) {
         navigate('/welcome')
       } else {
