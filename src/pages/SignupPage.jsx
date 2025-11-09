@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom'
 import { signup } from '@/apis/signup/signup'
 import { checkId, checkNickname, checkPassword } from '@/apis/signup/checkValue'
 
-export const baseURL = import.meta.env.VITE_API_BASE_URL
-
 const SignupPage = () => {
   const totalSteps = 3
   const [activeStep, setActiveStep] = useState(0)
