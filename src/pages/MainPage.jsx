@@ -42,7 +42,7 @@ const MainPage = () => {
           >
             <div onClick={(e) => e.stopPropagation()}>
               {modalMode === 'create' ? (
-                <RecordMirum date={pickedDay} />
+                <RecordMirum date={pickedDay} closeModal={closeModal} />
               ) : modalMode === 'show' ? (
                 <ShowRecordModal
                   onClick={() => {

@@ -5,9 +5,11 @@ import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarS
 import { useDefaultReasons } from '@/utils/mirumUtils'
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
+import { usePostLog } from '@/apis/calendar/queries'
 
-const RecordMirum = ({ date }) => {
+const RecordMirum = ({ date, closeModal }) => {
   useDefaultReasons()
+  const mutation = usePostLog(closeModal)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -46,23 +48,11 @@ const RecordMirum = ({ date }) => {
   const isPostponed = useDidStore((s) => s.isPostponed)
 
   const isCompleted =
-    (!isPostponed && didSelected.size > 0) || // '했어요' 선택
-    (isPostponed && categorySelected.size > 0 && reasonSelected.size > 0) // '미뤘어요' 선택 시 조건
+    (!isPostponed && didSelected.size > 0) ||
+    (isPostponed && categorySelected.size > 0 && reasonSelected.size > 0)
 
-  // 완료 버튼 클릭 시 서버에 값 제출 후 zustand 값 초기화
   const handleSubmit = async () => {
-    const didSelected = Array.from(useDidStore.getState().selected)
-    const categorySelected = Array.from(useCategoryStore.getState().selected)
-    const reasonSelected = Array.from(useReasonStore.getState().selected)
-
-    const data = {
-      did: didSelected[0] || null,
-      categories: categorySelected,
-      reasons: reasonSelected,
-    }
-    useDidStore.getState().clearSelected()
-    useCategoryStore.getState().clearSelected()
-    useReasonStore.getState().clearSelected()
+    mutation.mutate()
   }
 
   return (
