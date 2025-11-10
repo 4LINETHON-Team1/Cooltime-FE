@@ -18,7 +18,7 @@ const LoginInput = ({ option, state, value, onChange, step = 0 }) => {
   return (
     <div className='mx-auto mb-8'>
       <div
-        className={`w-[90vw] h-[74px] border ${borderColor} rounded-[12px] p-[16px] transition-colors duration-200`}
+        className={`w-[343px] h-[74px] border ${borderColor} rounded-[12px] p-[16px] transition-colors duration-200`}
       >
         <p className={`body-02-1_2 ${labelColor}`}>{option}</p>
         <input
