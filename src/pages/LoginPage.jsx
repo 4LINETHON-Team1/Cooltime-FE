@@ -29,11 +29,12 @@ const LoginPage = () => {
       localStorage.setItem('accessToken', result.data.data.accessToken)
       localStorage.setItem('refreshToken', result.data.data.refreshToken)
       if (result.data.data.myType === null) {
+        setNickname(result.data.data.nickname)
         navigate('/welcome')
       } else {
         setUserType(result.data.data.myType)
         setNickname(result.data.data.nickname)
-        navigate('/report')
+        navigate('/home')
       }
     } else {
       if (result.data.code === 400) {
@@ -50,7 +51,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div>
+    <div className='min-h-screen max-w-[440px] w-full'>
       <div className='mt-10 ml-4'>
         <button onClick={() => navigate(-1)}>
           <Back />

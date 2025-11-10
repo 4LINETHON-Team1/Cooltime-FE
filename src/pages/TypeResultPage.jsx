@@ -49,7 +49,7 @@ const TypeResultPage = () => {
           </div>
           <div className='w-full flex items-center fixed bottom-10 left-0'>
             <button
-              onClick={() => navigate('/main')}
+              onClick={() => navigate('/home')}
               className='block mx-auto rounded-full w-[343px] h-[53px] text-[18px] font-[SemiBold] text-white cursor-pointer blue:bg-blue-500 mint:bg-mint-500 peach:bg-peach-500'
             >
               시작하기
