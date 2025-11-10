@@ -16,17 +16,17 @@ const ChartPage = () => {
 
   const color = {
     blue: {
-      background: 'bg-linear-to-b from-main-100 to-gray-100',
+      background: 'bg-linear-to-b from-blue-200 to-gray-100',
       active: 'bg-blue-400 text-white',
       inactive: 'bg-white text-gray-400',
     },
     mint: {
-      background: 'bg-linear-to-b from-mint-100 to-gray-100',
+      background: 'bg-linear-to-b from-mint-200 to-gray-100',
       active: 'bg-mint-400 text-white',
       inactive: 'bg-white text-gray-400',
     },
     peach: {
-      background: 'bg-linear-to-b from-peach-100 to-gray-100',
+      background: 'bg-linear-to-b from-peach-200 to-gray-100',
       active: 'bg-peach-400 text-white',
       inactive: 'bg-white text-gray-400',
     },
