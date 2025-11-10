@@ -70,11 +70,11 @@ export function CustomMonthCaption({
       <div className='flex h-5 items-center w-full justify-start gap-2'>
         <div className='flex items-center justify-center gap-2'>
           {Image}
-          <div className='text-black-400 text-[14px]'>{didCount}</div>
+          <div className='text-black-400 text-[14px]'>{postponedCount}</div>
         </div>
         <div className='flex items-center justify-center gap-2'>
           {Check}
-          <div className='text-black-400 text-[14px]'>{postponedCount}</div>
+          <div className='text-black-400 text-[14px]'>{didCount}</div>
         </div>
       </div>
     </div>
