@@ -44,8 +44,10 @@ const ReportPage = () => {
   const background = color[theme] ?? 'bg-main-100'
 
   return (
-    <div className='flex flex-col min-h-screen items-center'>
-      <div className={`flex flex-col max-w-[440px] w-full text-center items-center ${background}`}>
+    <div className='flex flex-col items-center'>
+      <div
+        className={`flex flex-col max-w-[440px] w-full text-center min-h-screen items-center ${background}`}
+      >
         <div className='flex mt-[70px]'>
           <div className='mr-4'>{Image}</div>
           <div className='flex flex-col items-start'>

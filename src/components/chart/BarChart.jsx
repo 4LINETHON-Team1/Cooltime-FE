@@ -17,9 +17,10 @@ const BarChart = ({ data }) => {
     mint: '#AEE1D1',
     peach: '#FFD6B3',
   }
+  console.log(data)
   const chartColor = color[theme] ?? '#C8CEFF'
   return (
-    <div className='w-[343px] h-[300px] focus:outline-none'>
+    <div className='w-[343px] h-[300px] min-w-[100px] min-h-[100px] focus:outline-none'>
       <ResponsiveContainer width='100%' height='100%'>
         <ReBarChart
           data={data}
@@ -38,6 +39,7 @@ const BarChart = ({ data }) => {
             tickLine={false}
             axisLine={false}
             tick={{ fill: '#A3A3A3', fontSize: 12 }}
+            tickFormatter={(month) => `${month}월`}
           />
 
           <YAxis hide />
@@ -54,7 +56,7 @@ const BarChart = ({ data }) => {
             formatter={(value) => [`${value}%`, '미룸 비율']}
           />
 
-          <Bar dataKey='value' fill={chartColor} radius={[5, 5, 0, 0]} barSize={18} />
+          <Bar dataKey='postponedPercent' fill={chartColor} radius={[5, 5, 0, 0]} barSize={18} />
         </ReBarChart>
       </ResponsiveContainer>
     </div>
