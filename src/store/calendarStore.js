@@ -3,25 +3,25 @@ import { create } from 'zustand'
 export const useDidStore = create((set) => ({
   options: ['미뤘어요', '했어요'],
   selected: new Set(),
+  isPostponed: false,
   maxSelected: 1,
   toggleOption: (o) =>
     set((state) => {
       const next = new Set(state.selected)
       if (next.has(o)) {
         next.delete(o)
-        return { selected: next }
+        return { selected: next, isPostponed: next.has('미뤘어요') }
       }
       if (o === '했어요') {
         useCategoryStore.getState().clearSelected()
         useReasonStore.getState().clearSelected()
       }
       if (state.maxSelected === 1) {
-        return { selected: new Set([o]) }
+        return { selected: new Set([o]), isPostponed: o === '미뤘어요' }
       }
       next.add(o)
-      return { selected: next }
     }),
-  clearSelected: () => set({ selected: new Set() }),
+  clearSelected: () => set({ selected: new Set(), isPostponed: false }),
 }))
 
 export const useCategoryStore = create((set) => ({
