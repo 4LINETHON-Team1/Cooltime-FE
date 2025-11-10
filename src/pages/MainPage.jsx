@@ -1,12 +1,11 @@
-import ThemeGate from '@/hooks/ThemeGate'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Main from '@/components/Main/Main'
 import Footer from '@/components/shared/Footer'
 import RecordMirum from '@/components/Main/RecordMirum'
 import { dummyLogDetails } from '@/store/calendarStore'
 import ShowRecordModal from '@/components/Main/ShowRecordModal'
 import UpdateRecordModal from '@/components/Main/UpdateRecordModal'
-import { toISO } from '@/components/Main/MyDatePicker'
+import { toISO } from '@/components/Main/CustomDayButton'
 import ConfirmModal from '@/components/Main/ConfirmModal'
 import {
   useCalendarStore,
