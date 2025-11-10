@@ -48,7 +48,7 @@ const StartPage = () => {
           />
         </div>
       </div>
-      <div className='fixed bottom-10 justify-center items-center text-center'>
+      <div className='fixed bottom-10 flex flex-col justify-center items-center text-center'>
         <Button label='처음 시작해요' onClick={() => navigate('/signup')} />
         <button className='mt-[13px] body-01-1_2 text-gray-400' onClick={() => navigate('/login')}>
           이미 계정이 있습니다
