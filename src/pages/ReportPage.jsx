@@ -44,67 +44,67 @@ const ReportPage = () => {
   const background = color[theme] ?? 'bg-main-100'
 
   return (
-    <div
-      className={`flex flex-col min-h-screen max-w-[440px] w-full text-center items-center ${background}`}
-    >
-      <div className='flex mt-[70px]'>
-        <div className='mr-4'>{Image}</div>
-        <div className='flex flex-col items-start'>
-          <p className='Title-03-3_1 text-black-400'>{nickname}</p>
-          <p className='Title-03-3_2 text-black-400'>님의 미룸 요약이에요.</p>
-          <p className='body-02-1_3 text-gray-400'>조금 미뤄도 괜찮아요.</p>
-          <p className='body-02-1_3 text-gray-400'>오늘도 나를 돌아본 게 중요하니까요.</p>
-        </div>
-      </div>
-
-      <div className='flex mt-10 mb-4'>
-        <ReportCard title='총 기록일' more={false}>
-          <p className='Title-01-1_2 text-black mt-0.5'>{Data?.recordedDays || 0}일</p>
-          <p className='body-03-1_2 text-gray-400 mt-0.5'>
-            {Data?.totalDays || 0}일 중 {Data?.recordedDays || 0}일 기록했어요.
-          </p>
-          <p className='body-03-1_2 text-gray-400 -mt-1'>연속 기록을 향해봐요!</p>
-          <div className='flex flex-col items-end justify-end text-end w-full mt-1'>
-            <MoogChiMini />
+    <div className='flex flex-col min-h-screen items-center'>
+      <div className={`flex flex-col max-w-[440px] w-full text-center items-center ${background}`}>
+        <div className='flex mt-[70px]'>
+          <div className='mr-4'>{Image}</div>
+          <div className='flex flex-col items-start'>
+            <p className='Title-03-3_1 text-black-400'>{nickname}</p>
+            <p className='Title-03-3_2 text-black-400'>님의 미룸 요약이에요.</p>
+            <p className='body-02-1_3 text-gray-400'>조금 미뤄도 괜찮아요.</p>
+            <p className='body-02-1_3 text-gray-400'>오늘도 나를 돌아본 게 중요하니까요.</p>
           </div>
-        </ReportCard>
+        </div>
 
-        <div className='mr-4' />
-        <ReportCard title='미룸 비율'>
-          <p className='Title-01-1_2 text-black mt-0.5'>{Data?.postponedPercent || 0}%</p>
-          <span className='ml-15'>
-            <PieChart value={Data?.postponedPercent || 0} width={30} />
-          </span>
-        </ReportCard>
+        <div className='flex mt-10 mb-4'>
+          <ReportCard title='총 기록일' more={false}>
+            <p className='Title-01-1_2 text-black mt-0.5'>{Data?.recordedDays || 0}일</p>
+            <p className='body-03-1_2 text-gray-400 mt-0.5'>
+              {Data?.totalDays || 0}일 중 {Data?.recordedDays || 0}일 기록했어요.
+            </p>
+            <p className='body-03-1_2 text-gray-400 -mt-1'>연속 기록을 향해봐요!</p>
+            <div className='flex flex-col items-end justify-end text-end w-full mt-1'>
+              <MoogChiMini />
+            </div>
+          </ReportCard>
+
+          <div className='mr-4' />
+          <ReportCard title='미룸 비율'>
+            <p className='Title-01-1_2 text-black mt-0.5'>{Data?.postponedPercent || 0}%</p>
+            <span className='ml-15'>
+              <PieChart value={Data?.postponedPercent || 0} width={30} />
+            </span>
+          </ReportCard>
+        </div>
+
+        <div className='flex'>
+          <ReportCard title='카테고리별'>
+            <p className='Title-01-1_2 text-black mt-0.5'>{Data?.categoryName || '운동'}</p>
+            <p className='body-03-1_2 text-black mt-0.5'>를 제일 미뤘어요.</p>
+            <p className='body-03-1_2 text-gray-400 mt-2.5'>카테고리별 미룬 일을</p>
+            <p className='body-03-1_2 text-gray-400 -mt-1'>확인해보세요.</p>
+          </ReportCard>
+
+          <div className='mr-4' />
+          <ReportCard title='배지' align='center'>
+            <ReportBadge />
+          </ReportCard>
+        </div>
+
+        <div className='mt-6'>
+          <ReportCard
+            title='AI 레포트'
+            width='343px'
+            height='74px'
+            disabled={!Data?.aiReportAvailable || false}
+          >
+            <p className='body-03-1_2 text-gray-400 mt-2'>
+              AI가 당신의 미룸 패턴을 읽고, 가볍게 솔루션을 제안해드려요.
+            </p>
+          </ReportCard>
+        </div>
+        <Footer selectedMenu='report' />
       </div>
-
-      <div className='flex'>
-        <ReportCard title='카테고리별'>
-          <p className='Title-01-1_2 text-black mt-0.5'>{Data?.categoryName || '운동'}</p>
-          <p className='body-03-1_2 text-black mt-0.5'>를 제일 미뤘어요.</p>
-          <p className='body-03-1_2 text-gray-400 mt-2.5'>카테고리별 미룬 일을</p>
-          <p className='body-03-1_2 text-gray-400 -mt-1'>확인해보세요.</p>
-        </ReportCard>
-
-        <div className='mr-4' />
-        <ReportCard title='배지' align='center'>
-          <ReportBadge />
-        </ReportCard>
-      </div>
-
-      <div className='mt-6'>
-        <ReportCard
-          title='AI 레포트'
-          width='343px'
-          height='74px'
-          disabled={!Data?.aiReportAvailable || false}
-        >
-          <p className='body-03-1_2 text-gray-400 mt-2'>
-            AI가 당신의 미룸 패턴을 읽고, 가볍게 솔루션을 제안해드려요.
-          </p>
-        </ReportCard>
-      </div>
-      <Footer selectedMenu='report' />
     </div>
   )
 }

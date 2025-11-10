@@ -140,48 +140,50 @@ const SignupPage = () => {
   }
 
   return (
-    <div>
-      <div className='mt-10 ml-4'>
-        <button onClick={() => navigate(-1)}>
-          <Back />
-        </button>
-      </div>
+    <div className='flex flex-col items-center'>
+      <div className='flex flex-col w-full max-w-[440px] min-h-screen'>
+        <div className='mt-10 ml-4'>
+          <button onClick={() => navigate(-1)}>
+            <Back />
+          </button>
+        </div>
 
-      <div className='mt-9 ml-2 w-[131px]'>
-        <StepControl activeStep={activeStep} totalSteps={totalSteps} completed={completed} />
-      </div>
+        <div className='mt-9 ml-3 w-[131px]'>
+          <StepControl activeStep={activeStep} totalSteps={totalSteps} completed={completed} />
+        </div>
 
-      <div className='mt-9 ml-5'>
-        <h3 className='Title-01-1_2 text-main-500'>{option[activeStep].label} 입력</h3>
-      </div>
+        <div className='mt-10 ml-6'>
+          <h3 className='Title-01-1_2 text-main-500'>{option[activeStep].label} 입력</h3>
+        </div>
 
-      <div className='mt-8 flex flex-col items-center'>
-        <LoginInput
-          option={option[activeStep].label}
-          state={state}
-          value={currentValue}
-          onChange={handleChange}
-          step={activeStep}
-        />
-
-        {activeStep === 1 && (
+        <div className='mt-8 flex flex-col items-center'>
           <LoginInput
-            option='비밀번호_확인'
+            option={option[activeStep].label}
             state={state}
-            value={formData.confirmPassword}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                confirmPassword: e.target.value,
-              }))
-            }
+            value={currentValue}
+            onChange={handleChange}
             step={activeStep}
           />
-        )}
-      </div>
 
-      <div className='fixed bottom-10 left-1/2 -translate-x-1/2 text-center'>
-        <Button label='다음' onClick={handleComplete} disabled={disabled}></Button>
+          {activeStep === 1 && (
+            <LoginInput
+              option='비밀번호_확인'
+              state={state}
+              value={formData.confirmPassword}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  confirmPassword: e.target.value,
+                }))
+              }
+              step={activeStep}
+            />
+          )}
+        </div>
+
+        <div className='fixed bottom-10 left-1/2 -translate-x-1/2 text-center'>
+          <Button label='다음' onClick={handleComplete} disabled={disabled}></Button>
+        </div>
       </div>
     </div>
   )

@@ -51,10 +51,10 @@ const BadgePage = () => {
     },
   }
 
-  const background = color[theme].background ?? 'bg-blue-100'
-  const textColor = color[theme].text ?? 'text-blue-600'
-  const barColor = color[theme].bar ?? { from: '#B4B9E6', to: '#8190FF' }
-  const fillColor = color[theme].fill ?? '#5A5D73'
+  const background = color[theme]?.background ?? 'bg-linear-to-b from-blue-200 to-gray-100'
+  const textColor = color[theme]?.text ?? 'text-blue-600'
+  const barColor = color[theme]?.bar ?? { from: '#B4B9E6', to: '#8190FF' }
+  const fillColor = color[theme]?.fill ?? '#5A5D73'
 
   const badgeImages = {
     STREAK_10: Badge1,
@@ -66,48 +66,50 @@ const BadgePage = () => {
   }
 
   return (
-    <div className={`flex flex-col w-full max-w-[440px] min-h-screen items-center ${background}`}>
-      <Header label='배지' />
-      <div className='flex flex-col w-full items-start mt-[94px] pl-4 mb-20'>
-        <p className='Title-01-1_1 text-black-400'>연속 기록 시 배지를 얻어요</p>
-        <p className='body-02-1_2 text-gray-900 mt-4'>
-          작은 기록이 모여 나만의 성장 배지가 완성돼요.
-        </p>
-        <p className='body-02-1_2 text-gray-900 -mt-1'>
-          꾸준함이 쌓일수록 나를 이해하는 기록이 늘어나요.
-        </p>
-      </div>
-      {data ? (
-        <>
-          <img
-            src={badgeImages[data?.badgeCode] || Badge1}
-            alt='GoalBadge'
-            className='w-[294px] h-[294px]'
-          />
-          <div className='w-[300px] mt-9'>
-            <p className='text-center body-01-1_2 text-black-400 mb-4'>
-              연속 기록 {data.longestStreak || 0}일
-            </p>
-            <GoalProgressBar
-              maxDay={data.requiredDays || 0}
-              day={data.longestStreak || 0}
-              color={barColor}
-              fill={fillColor}
+    <div className='flex flex-col items-center'>
+      <div className={`flex flex-col w-full max-w-[440px] min-h-screen items-center ${background}`}>
+        <Header label='배지' />
+        <div className='flex flex-col w-full items-start mt-[94px] pl-4 mb-20'>
+          <p className='Title-01-1_1 text-black-400'>연속 기록 시 배지를 얻어요</p>
+          <p className='body-02-1_2 text-gray-900 mt-4'>
+            작은 기록이 모여 나만의 성장 배지가 완성돼요.
+          </p>
+          <p className='body-02-1_2 text-gray-900 -mt-1'>
+            꾸준함이 쌓일수록 나를 이해하는 기록이 늘어나요.
+          </p>
+        </div>
+        {data ? (
+          <>
+            <img
+              src={badgeImages[data?.badgeCode] || Badge1}
+              alt='GoalBadge'
+              className='w-[294px] h-[294px]'
             />
-            <p className='text-right body-02-1_2 text-black-400 mt-2'>
-              Day {data.requiredDays || 0}
-            </p>
-          </div>
-        </>
-      ) : (
-        <p className='body-02-1_2 text-gray-600 mt-10'>배지 정보를 불러오는 중...</p>
-      )}
-      <button
-        className={`mt-25 mb-10 body-02-1_3 ${textColor}`}
-        onClick={() => navigate('/report/badge/all')}
-      >
-        모든 배지 보기
-      </button>
+            <div className='w-[300px] mt-9'>
+              <p className='text-center body-01-1_2 text-black-400 mb-4'>
+                연속 기록 {data.longestStreak || 0}일
+              </p>
+              <GoalProgressBar
+                maxDay={data.requiredDays || 0}
+                day={data.longestStreak || 0}
+                color={barColor}
+                fill={fillColor}
+              />
+              <p className='text-right body-02-1_2 text-black-400 mt-2'>
+                Day {data.requiredDays || 0}
+              </p>
+            </div>
+          </>
+        ) : (
+          <p className='body-02-1_2 text-gray-600 mt-10'>배지 정보를 불러오는 중...</p>
+        )}
+        <button
+          className={`mt-25 mb-10 body-02-1_3 ${textColor}`}
+          onClick={() => navigate('/report/badge/all')}
+        >
+          모든 배지 보기
+        </button>
+      </div>
     </div>
   )
 }

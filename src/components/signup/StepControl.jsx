@@ -33,10 +33,11 @@ const StepControl = ({ totalSteps, activeStep, completed }) => {
   }
 
   return (
-    <>
-      <div className='fixed top-30 left-13'>
+    <div className='relative flex items-center justify-center w-full ml-5'>
+      <div className='absolute inset-0 flex items-center justify-center'>
         <DotLine />
       </div>
+
       <Stepper
         nonLinear
         activeStep={activeStep}
@@ -50,6 +51,11 @@ const StepControl = ({ totalSteps, activeStep, completed }) => {
             }}
           />
         }
+        sx={{
+          background: 'transparent',
+          position: 'relative',
+          zIndex: 10,
+        }}
       >
         {[...Array(totalSteps)].map((_, index) => {
           const isActive = activeStep === index
@@ -77,7 +83,7 @@ const StepControl = ({ totalSteps, activeStep, completed }) => {
           )
         })}
       </Stepper>
-    </>
+    </div>
   )
 }
 
