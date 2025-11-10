@@ -10,9 +10,9 @@ const CategoryList = ({ data, color }) => {
           <p className='Title-03-3_1 text-white'>{data.rank}</p>
         </div>
         <div className='flex flex-col items-start'>
-          <p className='Title-02-2_2 text-black-400 -mt-0.5'>{data.title}</p>
+          <p className='Title-02-2_2 text-black-400 -mt-0.5'>{data.categoryName}</p>
           <p className='body-03-1_3 text-gray-400 -mt-[5px]'>
-            {data.total}번 중 {data.delayCount}번 미뤘어요.
+            {data.totalCount}번 중 {data.postponedCount}번 미뤘어요.
           </p>
         </div>
       </div>
