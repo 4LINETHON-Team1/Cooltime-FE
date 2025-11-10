@@ -115,10 +115,14 @@ const dummyLogs = [
 export const useCalendarStore = create((set) => ({
   currentMonth: new Date(),
   selectedDate: null,
+  completedCount: null,
+  postponedCount: null,
   logs: dummyLogs,
   setCurrentMonth: (month) => set({ currentMonth: month }),
   setSelectedDate: (date) => set({ selectedDate: date }),
   setLogs: (logs) => set({ logs }),
+  setCompletedCount: (count) => set({ completedCount: count }),
+  setPostponedCount: (count) => set({ postponedCount: count }),
 }))
 
 export const dummyLogDetails = {
