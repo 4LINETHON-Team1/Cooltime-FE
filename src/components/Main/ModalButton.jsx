@@ -1,11 +1,9 @@
-import React from 'react'
-import { useState } from 'react'
 import { useUserStore } from '@/store/store'
 import {
   perfectDefaultReasonList,
   lowMotivationDefaultReasonList,
   stressDefaultReasonList,
-} from './RecordMirum'
+} from '@/data/calendarData'
 import X from '@/assets/X.svg?react'
 
 const ModalButton = ({ text, selected = false, onClick = () => {}, onDelete = () => {} }) => {
