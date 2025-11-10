@@ -14,22 +14,22 @@ const CategoryPage = () => {
 
   const color = {
     blue: {
-      background: 'bg-linear-to-b from-main-100 to-gray-100',
+      background: 'bg-linear-to-b from-blue-200 to-gray-100',
       number: 'bg-blue-500',
     },
     mint: {
-      background: 'bg-linear-to-b from-mint-100 to-gray-100',
+      background: 'bg-linear-to-b from-mint-200 to-gray-100',
       number: 'bg-mint-500',
     },
     peach: {
-      background: 'bg-linear-to-b from-peach-100 to-gray-100',
+      background: 'bg-linear-to-b from-peach-200 to-gray-100',
       number: 'bg-peach-500',
     },
   }
-  const backgound = color[theme].background ?? 'bg-linear-to-b from-main-100 to-gray-100'
+  const background = color[theme].background ?? 'bg-linear-to-b from-main-100 to-gray-100'
 
   return (
-    <div className={`flex flex-col w-full max-w-[440px] min-h-screen items-center ${backgound}`}>
+    <div className={`flex flex-col w-full max-w-[440px] min-h-screen items-center ${background}`}>
       <Header label='카테고리별' />
       <div className='flex flex-col w-full items-start mt-[94px] pl-4 mb-10'>
         <p className='Title-01-1_1 text-black-400'>카테고리별로</p>
