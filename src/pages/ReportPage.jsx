@@ -28,7 +28,6 @@ const ReportPage = () => {
     fetchData()
   }, [])
 
-  getDashboardData()
   const color = {
     blue: 'bg-main-100',
     mint: 'bg-mint-100',
