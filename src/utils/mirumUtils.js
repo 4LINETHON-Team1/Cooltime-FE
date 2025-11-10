@@ -35,6 +35,7 @@ export const useRecordModal = () => {
   const [pickedDay, setPickedDay] = useState(null)
   const [modalMode, setModalMode] = useState('create') // 'create' | 'show' | 'edit'
   const [showSuccess, setShowSuccess] = useState(false)
+  const [showRestriction, setShowRestriction] = useState(false)
 
   const monthLogs = useCalendarStore((s) => s.logs)
   const setCurrentLog = useLogStore((s) => s.setCurrentLog)
@@ -72,30 +73,38 @@ export const useRecordModal = () => {
 
     const iso = toISO(day)
     const dayLog = monthLogs.find((log) => log.date === iso)
+    const todayIso = toISO(new Date())
 
     if (open && pickedDay && pickedDay.toDateString() === day.toDateString()) {
       closeModal()
       return
     }
 
-    if (!dayLog) {
-      resetSelections()
-      setCurrentLog(null)
-      setModalMode('create')
+    // 1) 기록 있는 날이면 그대로 열기
+    if (dayLog) {
+      const detail = dummyLogDetails[iso]
+      if (detail) {
+        setCurrentLog(detail)
+        initSelectionsFromCurrentLog()
+        setModalMode('show')
+      } else {
+        setModalMode('create')
+      }
       setPickedDay(day)
       setOpen(true)
       return
     }
 
-    const detail = dummyLogDetails[iso]
-    if (detail) {
-      setCurrentLog(detail)
-      initSelectionsFromCurrentLog()
-      setModalMode('show')
-    } else {
-      setModalMode('create')
+    // 2) 기록 없는 날인데 오늘이 아니면 create 열지 않음
+    if (iso !== todayIso) {
+      setShowRestriction(true)
+      return
     }
 
+    // 3) 기록 없고 오늘이면 create 열기
+    resetSelections()
+    setCurrentLog(null)
+    setModalMode('create')
     setPickedDay(day)
     setOpen(true)
   }
@@ -115,5 +124,7 @@ export const useRecordModal = () => {
     handlePickDay,
     closeModal,
     goEdit,
+    showRestriction,
+    setShowRestriction,
   }
 }

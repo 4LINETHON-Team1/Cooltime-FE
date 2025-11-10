@@ -16,6 +16,8 @@ const MainPage = () => {
     handlePickDay,
     closeModal,
     goEdit,
+    showRestriction,
+    setShowRestriction,
   } = useRecordModal()
 
   return (
@@ -63,16 +65,18 @@ const MainPage = () => {
         </div>
       )}
       {showSuccess && (
-        <div className='fixed inset-0 z-50 w-full max-w-[440px] mx-auto'>
-          <div
-            className='absolute inset-0 w-full max-w-[440px] bg-grey-400/30 flex justify-center items-center'
-            onClick={closeModal}
-          >
-            <div onClick={(e) => e.stopPropagation()}>
-              <ConfirmModal onClose={() => setShowSuccess(false)} />
-            </div>
-          </div>
-        </div>
+        <ConfirmModal
+          onClose={() => setShowSuccess(false)}
+          message={'수정이 성공적으로 완료되었어요'}
+          closeModal={closeModal}
+        />
+      )}
+      {showRestriction && (
+        <ConfirmModal
+          onClose={() => setShowRestriction(false)}
+          message={'기록은 당일만 가능해요!'}
+          closeModal={closeModal}
+        />
       )}
     </div>
   )
