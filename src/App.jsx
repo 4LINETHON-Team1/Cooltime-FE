@@ -6,10 +6,10 @@ function App() {
   const hasToken = !!localStorage.getItem('accessToken')
   const location = useLocation()
 
-  const publicPaths = ['/start', '/login', '/signup']
+  const publicPaths = ['/', '/login', '/signup']
 
   if (!hasToken && !publicPaths.includes(location.pathname)) {
-    return <Navigate to='/start' replace />
+    return <Navigate to='/' replace />
   }
 
   return (

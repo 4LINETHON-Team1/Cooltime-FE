@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { index: true, element: <TestPage /> },
+      { index: true, element: <StartPage /> },
       { path: 'home', element: <MainPage /> },
       { path: 'test', element: <TestPage /> },
       { path: 'result/intro', element: <TestResultIntroPage /> },
@@ -36,7 +36,6 @@ const router = createBrowserRouter([
       { path: 'report/badge', element: <BadgePage /> },
       { path: 'report/badge/all', element: <AllBadgePage /> },
       { path: 'report/ai', element: <AIPage /> },
-      { path: 'start', element: <StartPage /> },
     ],
   },
 ])
