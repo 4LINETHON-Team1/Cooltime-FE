@@ -129,7 +129,15 @@ export const useLogStore = create((set, get) => ({
   type: null,
   activity: [],
   reason: [],
-  setCurrentLog: (log) => set({ currentLog: log, type: log?.type ?? null }),
+  isPostponed: null,
+  setCurrentLog: (log) =>
+    set({
+      currentLog: log,
+      type: log?.type ?? null,
+      activity: log?.activities?.map((a) => a.name) ?? [],
+      reason: log?.reasons?.map((r) => r.name) ?? [],
+      isPostponed: log?.isPostponed ?? null,
+    }),
   setActivity: (a) => set({ activity: a }),
   setReason: (r) => set({ reason: r }),
 
