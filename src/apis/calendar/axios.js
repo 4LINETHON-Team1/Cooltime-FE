@@ -1,7 +1,8 @@
 import apiClient from '../login/axiosConfig'
 import { useCalendarStore } from '@/store/calendarStore'
-import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
+import { useDidStore, useCategoryStore, useReasonStore, useLogStore } from '@/store/calendarStore'
 import { useUserStore } from '@/store/store'
+import { userTypeMap } from '@/utils/userTypeMap'
 
 export const getCalendar = async ({ year, month }) => {
   const { setLogs, setCompletedCount, setPostponedCount } = useCalendarStore.getState()
@@ -49,4 +50,28 @@ export const postLog = async () => {
     console.log(error.response?.data)
     throw error
   }
+}
+
+export const getLog = async (dateString) => {
+  const { data } = await apiClient.get(`/api/log?date=${dateString}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  })
+  console.log(data)
+  const res = data.data
+  // 서버 응답을 스토어가 먹을 수 있는 모양으로 변환
+  const normalized = {
+    ...res,
+    type: userTypeMap[res.myType] ?? null,
+    activities: (res.activities || []).map((name, idx) => ({ id: idx, name })),
+    reasons: (res.reasons || []).map((name, idx) => ({ id: idx, name })),
+  }
+
+  const { setCurrentLog, initSelectionsFromCurrentLog } = useLogStore.getState()
+  setCurrentLog(normalized)
+  // 이거 하면 did/category/reason 스토어들도 서버 데이터로 선택 상태 맞춰짐
+  initSelectionsFromCurrentLog()
+
+  return normalized
 }
