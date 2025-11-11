@@ -327,22 +327,24 @@
   box-shadow: var(--shadow-xl);
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(5px);
+@keyframes up-down {
+  from {
+    transform: translatey(0px);
   }
-  50% {
-    transform: translateY(-5px);
+  to {
+    transform: translatey(-20px);
   }
 }
 
-.animate-float {
-  animation: float 2s ease-in-out infinite;
+.animate-bounce {
+  animation: up-down 1.4s infinite ease-in-out alternate;
 }
 
 .delay-0 {
   animation-delay: 0s;
+}
+.delay-03 {
+  animation-delay: 0.3s;
 }
 .delay-05 {
   animation-delay: 0.5s;

@@ -24,13 +24,13 @@ const WelcomePage = () => {
             <MoogChi />
           </div>
           <div className='flex mt-20 animate-float'>
-            <div className='animate-float delay-0'>
+            <div className='animate-bounce delay-0'>
               <Perfect />
             </div>
-            <div className='animate-float delay-5'>
+            <div className='animate-bounce delay-05'>
               <Motivation />
             </div>
-            <div className='animate-float delay-15'>
+            <div className='animate-bounce delay-0'>
               <Stress />
             </div>
           </div>
