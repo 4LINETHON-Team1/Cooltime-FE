@@ -36,6 +36,7 @@ const router = createBrowserRouter([
       { path: 'report/badge', element: <BadgePage /> },
       { path: 'report/badge/all', element: <AllBadgePage /> },
       { path: 'report/ai', element: <AIPage /> },
+      { path: 'start', element: <StartPage /> },
     ],
   },
 ])
