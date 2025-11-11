@@ -2,6 +2,10 @@ import { create } from 'zustand'
 import { userTypeMap } from '@/utils/userTypeMap'
 import { persist } from 'zustand/middleware'
 
+export const isAuthenticated = () => {
+  return !!localStorage.getItem('accessToken')
+}
+
 const mapTypeTheme = (t) => {
   if (t === '완벽주의형') return 'blue'
   if (t == '동기저하형') return 'mint'
