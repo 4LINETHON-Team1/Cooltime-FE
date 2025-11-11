@@ -11,9 +11,9 @@ import {
   useCategoryStore,
   useReasonStore,
   useLogStore,
-  dummyLogDetails,
 } from '@/store/calendarStore'
 import { toISO } from '@/components/Main/CustomDayButton'
+import { getLog } from '@/apis/calendar/axios'
 
 export const useDefaultReasons = () => {
   const { userType } = useUserStore()
@@ -68,7 +68,7 @@ export const useRecordModal = () => {
     resetSelections()
   }
 
-  const handlePickDay = (day) => {
+  const handlePickDay = async (day) => {
     if (!day) return
 
     const iso = toISO(day)
@@ -82,14 +82,9 @@ export const useRecordModal = () => {
 
     // 1) 기록 있는 날이면 그대로 열기
     if (dayLog) {
-      const detail = dummyLogDetails[iso]
-      if (detail) {
-        setCurrentLog(detail)
-        initSelectionsFromCurrentLog()
-        setModalMode('show')
-      } else {
-        setModalMode('create')
-      }
+      await getLog(iso)
+      initSelectionsFromCurrentLog()
+      setModalMode('show')
       setPickedDay(day)
       setOpen(true)
       return

@@ -5,6 +5,7 @@ import ShowRecordModal from '@/components/Main/ShowRecordModal'
 import UpdateRecordModal from '@/components/Main/UpdateRecordModal'
 import ConfirmModal from '@/components/Main/ConfirmModal'
 import { useRecordModal } from '@/utils/mirumUtils'
+import { useLogStore } from '@/store/calendarStore'
 
 const MainPage = () => {
   const {
@@ -46,16 +47,17 @@ const MainPage = () => {
               ) : modalMode === 'show' ? (
                 <ShowRecordModal
                   onClick={() => {
-                    closeModal
+                    closeModal()
                   }}
                   date={pickedDay}
                   onEdit={goEdit}
+                  isPostponed={useLogStore.getState().isPostponed}
                 />
               ) : (
                 <UpdateRecordModal
                   date={pickedDay}
                   onSuccess={() => {
-                    closeModal
+                    closeModal()
                     setShowSuccess(true)
                   }}
                 />
