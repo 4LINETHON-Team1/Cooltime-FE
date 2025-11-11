@@ -11,24 +11,23 @@ const mapTypeTheme = (t) => {
 export const useUserStore = create(
   persist(
     (set) => ({
-      userType: '완벽주의형',
-      theme: 'blue',
-      nickname: '아기사자',
+      userType: '',
+      theme: '',
+      nickname: '',
       setUserType: (t) => {
         const koreanType = userTypeMap[t] ?? t
         set({ userType: koreanType, theme: mapTypeTheme(koreanType) })
       },
       setNickname: (n) => set({ nickname: n }),
+      resetUser: () =>
+        set({
+          userType: '',
+          theme: '',
+          nickname: '',
+        }),
     }),
     {
       name: 'user-store', // localStorage key
     },
   ),
 )
-
-// userType: '완벽주의형',
-// theme: 'blue',
-// userType: '동기저하형',
-// theme: 'mint',
-// userType: '스트레스형',
-// theme: 'peach',
