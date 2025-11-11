@@ -1,10 +1,8 @@
 import { useUserStore } from '@/store/store'
 import { useLogStore } from '@/store/calendarStore'
 import LogBackgroundImg from '@/assets/LogBackgroundImg.svg?react'
-import { useState } from 'react'
-import UpdateRecordModal from './UpdateRecordModal'
 
-const ShowRecordModal = ({ date, onClick, onEdit }) => {
+const ShowRecordModal = ({ date, onClick, onEdit, isPostponed }) => {
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -78,7 +76,9 @@ const ShowRecordModal = ({ date, onClick, onEdit }) => {
           {isToday ? '오늘 ' : '이 날의 '}
           {nickname}님의 하루는 <br />
           <div className={`${HightlightColor} inline pr-[3px]`}>
-            완벽하진 않아도 괜찮은 하루였어요
+            {isPostponed
+              ? '완벽하진 않아도 괜찮은 하루였어요'
+              : '미루지 않고 할 일을 해낸 하루였어요'}
           </div>
         </div>
         <div className='box-border flex flex-col items-center w-full gap-8 overflow-y-auto scrollbar-hide'>
@@ -87,15 +87,20 @@ const ShowRecordModal = ({ date, onClick, onEdit }) => {
           </div>
           <div className='relative inline-block box-border h-[262px] overflow-y-visible'>
             <div className='bg-white w-[245px] px-8 py-4 rounded-[12px] shadow-xs'>
-              <div className='text-black-400 text-[12px] mb-1'>{Activities}을/를 미뤘어요</div>
-              {reasons.map((r, id) => (
-                <div
-                  key={`${r}-${id}`}
-                  className='text-black-400 text-[18px] font-[Medium] mb-0 mt-0'
-                >
-                  {r} <span className='font-[Regular]'>미뤘어요</span>
-                </div>
-              ))}
+              {isPostponed ? (
+                <>
+                  <div className='text-black-400 text-[12px] mb-1'>{Activities}을/를 미뤘어요</div>
+                  <div className='text-black-400 text-[18px] font-[Medium] mb-0 mt-0 whitespace-pre-wrap break-keep'>
+                    {reasons.join(', ')} <span className='font-[Regular]'>미뤘어요</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className='text-black-400 text-[18px] text-center font-[Medium] mb-0 mt-0'>
+                    오늘은 미루지 않고 <br /> 해낸 날이에요!
+                  </div>
+                </>
+              )}
             </div>
             <div className='absolute -right-9 -top-4 pointer-events-none z-10'>
               <LogBackgroundImg />
