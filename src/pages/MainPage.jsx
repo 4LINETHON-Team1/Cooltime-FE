@@ -47,7 +47,7 @@ const MainPage = () => {
               ) : modalMode === 'show' ? (
                 <ShowRecordModal
                   onClick={() => {
-                    closeModal
+                    closeModal()
                   }}
                   date={pickedDay}
                   onEdit={goEdit}
@@ -57,7 +57,7 @@ const MainPage = () => {
                 <UpdateRecordModal
                   date={pickedDay}
                   onSuccess={() => {
-                    closeModal
+                    closeModal()
                     setShowSuccess(true)
                   }}
                 />
