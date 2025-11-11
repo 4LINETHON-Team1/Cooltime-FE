@@ -124,53 +124,6 @@ export const useCalendarStore = create((set) => ({
   setPostponedCount: (count) => set({ postponedCount: count }),
 }))
 
-export const dummyLogDetails = {
-  '2025-11-01': {
-    id: 1,
-    user_id: 1,
-    date: '2025-11-01',
-    isPostponed: true,
-    note: '완벽하게 하려다 결국 못함',
-    type: '완벽주의형',
-    activities: [
-      { id: 1, name: '과제' },
-      { id: 3, name: '청소' },
-    ],
-    reasons: [
-      { id: 1, name: '완벽하게 하려다' },
-      { id: 2, name: '준비만 하다가' },
-    ],
-  },
-  '2025-11-03': {
-    id: 2,
-    user_id: 1,
-    date: '2025-11-03',
-    isPostponed: false,
-    note: '오늘은 공부함',
-    type: '동기저하형',
-    activities: [],
-    reasons: [],
-  },
-  '2025-11-05': {
-    id: 3,
-    user_id: 1,
-    date: '2025-11-05',
-    isPostponed: true,
-    note: '운동 미룸',
-    type: '스트레스형',
-    activities: [
-      { id: 2, name: '운동' },
-      { id: 1, name: '과제' },
-      { id: 3, name: '청소' },
-    ],
-    reasons: [
-      { id: 1, name: '너무 피곤해서' },
-      { id: 3, name: '집중이 안 돼서' },
-      { id: 4, name: '쿨쿨슨' },
-    ],
-  },
-}
-
 export const useLogStore = create((set, get) => ({
   currentLog: null,
   type: null,
