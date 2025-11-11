@@ -1,0 +1,14 @@
+export const text1 = {
+  완벽주의형: '완벽보다 나은 건, 지금의 시작이야',
+  동기저하형: '하기 싫은 날, 억지로 안 해도 돼',
+  스트레스형: '괜찮아, 잠시 쉬어도 세상은 그대로야',
+}
+export const text2 = {
+  완벽주의형: `오늘은 '완성'보다 '시작'을 선택해보자`,
+  동기저하형: `'다시 시작할 수 있는 나'를 잊지 말자`,
+  스트레스형: '지금은 잠깐 내려놓아도 돼',
+}
+
+export const perfectDefaultReasonList = ['완벽하게 하려다', '준비만 하다가', '결과가 두려워']
+export const lowMotivationDefaultReasonList = ['의욕이 없어서', '자신이 없어서', '귀찮아서']
+export const stressDefaultReasonList = ['머리가 복잡해서', '집중이 안 돼서', '너무 피곤해서']

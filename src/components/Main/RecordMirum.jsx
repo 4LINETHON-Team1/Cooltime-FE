@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRef } from 'react'
 import ModalButton from './ModalButton'
-import { useUserStore } from '@/store/store'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
-import UploadBtn from '@/assets/UploadBtn.svg?react'
+import { useDefaultReasons } from '@/utils/mirumUtils'
+import { useScrollFocus } from '@/hooks/useScrollFocus'
+import InputBox from './InputBox'
+import { usePostLog } from '@/apis/calendar/queries'
 
-export const perfectDefaultReasonList = ['완벽하게 하려다', '준비만 하다가', '결과가 두려워']
-export const lowMotivationDefaultReasonList = ['의욕이 없어서', '자신이 없어서', '귀찮아서']
-export const stressDefaultReasonList = ['머리가 복잡해서', '집중이 안 돼서', '너무 피곤해서']
-
-const RecordMirum = ({ date }) => {
+const RecordMirum = ({ date, closeModal }) => {
+  useDefaultReasons()
+  const mutation = usePostLog(closeModal)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -29,28 +29,8 @@ const RecordMirum = ({ date }) => {
     setReasonAddBtnOpen((prev) => !prev)
   }
   const inputRef = useRef(null)
-  useEffect(() => {
-    if (reasonAddBtnOpen && inputRef.current) {
-      inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      inputRef.current.focus()
-    }
-  }, [reasonAddBtnOpen])
-
-  useEffect(() => {
-    if (categoryAddBtnOpen && inputRef.current) {
-      inputRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      inputRef.current.focus()
-    }
-  }, [categoryAddBtnOpen])
-
-  // 테마 색상
-  const { theme } = useUserStore()
-  const color = {
-    blue: 'border-blue-300 focus-within:border-blue-400',
-    mint: 'border-mint-300 focus-within:border-mint-400',
-    peach: 'border-peach-300 focus-within:border-peach-400',
-  }
-  const Color = color[theme] ?? null
+  useScrollFocus(reasonAddBtnOpen, inputRef)
+  useScrollFocus(categoryAddBtnOpen, inputRef)
 
   // store 로직
   const options = useDidStore((d) => d.options)
@@ -65,41 +45,14 @@ const RecordMirum = ({ date }) => {
   const reasonSelected = useReasonStore((r) => r.selected)
   const toggleReason = useReasonStore((r) => r.toggleReason)
 
-  const { userType } = useUserStore()
-  const { setReasons } = useReasonStore()
-  useEffect(() => {
-    const list =
-      userType === '완벽주의형'
-        ? perfectDefaultReasonList
-        : userType === '동기저하형'
-          ? lowMotivationDefaultReasonList
-          : stressDefaultReasonList
+  const isPostponed = useDidStore((s) => s.isPostponed)
 
-    setReasons(list)
-  }, [userType])
-
-  // 했어요 선택 시 다른 영역 비활성화
-  const didIt = didSelected.has('했어요')
-  const postponed = didSelected.has('미뤘어요')
-
-  //미뤘어요 선택 시 다른 영역 전부 선택해야 완료 버튼 활성화
   const isCompleted =
-    (didIt && !postponed) || (postponed && categorySelected.size > 0 && reasonSelected.size > 0)
+    (!isPostponed && didSelected.size > 0) ||
+    (isPostponed && categorySelected.size > 0 && reasonSelected.size > 0)
 
-  // 완료 버튼 클릭 시 서버에 값 제출 후 zustand 값 초기화
   const handleSubmit = async () => {
-    const didSelected = Array.from(useDidStore.getState().selected)
-    const categorySelected = Array.from(useCategoryStore.getState().selected)
-    const reasonSelected = Array.from(useReasonStore.getState().selected)
-
-    const data = {
-      did: didSelected[0] || null,
-      categories: categorySelected,
-      reasons: reasonSelected,
-    }
-    useDidStore.getState().clearSelected()
-    useCategoryStore.getState().clearSelected()
-    useReasonStore.getState().clearSelected()
+    mutation.mutate()
   }
 
   return (
@@ -131,7 +84,7 @@ const RecordMirum = ({ date }) => {
           <div>
             <p className='body-02-1_2 text-black-400'>무슨 일을 미뤘나요?</p>
             <div
-              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${didIt ? 'opacity-70 pointer-events-none' : ''}`}
+              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${isPostponed ? '' : 'opacity-70 pointer-events-none'}`}
             >
               {categories.map((c, id) => {
                 return (
@@ -145,28 +98,13 @@ const RecordMirum = ({ date }) => {
                 )
               })}
               <ModalButton text='+' onClick={handleAddCategory} selected={categoryAddBtnOpen} />
-              {categoryAddBtnOpen && (
-                <div className='flex gap-4'>
-                  <div
-                    className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl  ${Color}`}
-                  >
-                    <input
-                      ref={inputRef}
-                      className='resize-none border-none outline-none text-[12px] w-[200px]'
-                      placeholder='텍스트를 입력하세요...'
-                    />
-                  </div>
-                  <button>
-                    <UploadBtn className='blue:text-blue-400 mint:text-mint-400 peach:text-peach-400' />
-                  </button>
-                </div>
-              )}
+              {categoryAddBtnOpen && <InputBox inputRef={inputRef} />}
             </div>
           </div>
           <div>
             <p className='body-02-1_2 text-black-400'>왜 미뤘나요?</p>
             <div
-              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${didIt ? 'opacity-70 pointer-events-none' : ''}`}
+              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${isPostponed ? '' : 'opacity-70 pointer-events-none'}`}
             >
               {reasons.map((r, id) => (
                 <ModalButton
@@ -178,22 +116,7 @@ const RecordMirum = ({ date }) => {
                 />
               ))}
               <ModalButton text='+' onClick={handleAddReason} selected={reasonAddBtnOpen} />
-              {reasonAddBtnOpen && (
-                <div className='flex gap-4'>
-                  <div
-                    className={`flex justify-center px-4 py-2 border text-black-400 rounded-2xl w-auto ${Color}`}
-                  >
-                    <input
-                      ref={inputRef}
-                      className='resize-none border-none outline-none text-[12px] w-[200px]'
-                      placeholder='텍스트를 입력하세요...'
-                    />
-                  </div>
-                  <button>
-                    <UploadBtn className='blue:text-blue-400 mint:text-mint-400 peach:text-peach-400' />
-                  </button>
-                </div>
-              )}
+              {reasonAddBtnOpen && <InputBox inputRef={inputRef} />}
             </div>
           </div>
         </div>

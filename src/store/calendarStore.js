@@ -3,25 +3,25 @@ import { create } from 'zustand'
 export const useDidStore = create((set) => ({
   options: ['미뤘어요', '했어요'],
   selected: new Set(),
+  isPostponed: true,
   maxSelected: 1,
   toggleOption: (o) =>
     set((state) => {
       const next = new Set(state.selected)
       if (next.has(o)) {
         next.delete(o)
-        return { selected: next }
+        return { selected: next, isPostponed: true }
       }
       if (o === '했어요') {
         useCategoryStore.getState().clearSelected()
         useReasonStore.getState().clearSelected()
       }
       if (state.maxSelected === 1) {
-        return { selected: new Set([o]) }
+        return { selected: new Set([o]), isPostponed: o === '미뤘어요' }
       }
       next.add(o)
-      return { selected: next }
     }),
-  clearSelected: () => set({ selected: new Set() }),
+  clearSelected: () => set({ selected: new Set(), isPostponed: true }),
 }))
 
 export const useCategoryStore = create((set) => ({
@@ -36,7 +36,25 @@ export const useCategoryStore = create((set) => ({
         return { selected: next }
       }
       next.add(c)
+      const didStore = useDidStore.getState()
+      if (didStore.selected.size === 0) {
+        didStore.toggleOption('미뤘어요')
+      }
       return { selected: next }
+    }),
+  addCategory: (newC) =>
+    set((state) => {
+      if (!newC?.trim()) return state
+      if (state.categories.includes(newC)) return state
+
+      const updated = [...state.categories, newC]
+
+      const didStore = useDidStore.getState()
+      if (didStore.selected.size === 0) {
+        didStore.toggleOption('미뤘어요')
+      }
+
+      return { categories: updated }
     }),
   removeCategory: (c) =>
     set((state) => ({
@@ -62,7 +80,24 @@ export const useReasonStore = create((set) => ({
         return { selected: next }
       }
       next.add(r)
+      const didStore = useDidStore.getState()
+      if (didStore.selected.size === 0) {
+        didStore.toggleOption('미뤘어요')
+      }
       return { selected: next }
+    }),
+  addReason: (newR) =>
+    set((state) => {
+      if (!newR?.trim()) return state
+      if (state.reasons.includes(newR)) return state
+
+      const updated = [...state.reasons, newR]
+
+      const didStore = useDidStore.getState()
+      if (didStore.selected.size === 0) {
+        didStore.toggleOption('미뤘어요')
+      }
+      return { reasons: updated }
     }),
   removeReason: (r) =>
     set((state) => ({

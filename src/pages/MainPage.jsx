@@ -1,93 +1,24 @@
-import { useState, useEffect } from 'react'
 import Main from '@/components/Main/Main'
 import Footer from '@/components/shared/Footer'
 import RecordMirum from '@/components/Main/RecordMirum'
-import { dummyLogDetails } from '@/store/calendarStore'
 import ShowRecordModal from '@/components/Main/ShowRecordModal'
 import UpdateRecordModal from '@/components/Main/UpdateRecordModal'
-import { toISO } from '@/components/Main/CustomDayButton'
 import ConfirmModal from '@/components/Main/ConfirmModal'
-import {
-  useCalendarStore,
-  useDidStore,
-  useCategoryStore,
-  useReasonStore,
-  useLogStore,
-} from '@/store/calendarStore'
+import { useRecordModal } from '@/utils/mirumUtils'
 
 const MainPage = () => {
-  const [open, setOpen] = useState(false)
-  const [pickedDay, setPickedDay] = useState(null)
-  const [modalMode, setModalMode] = useState('create')
-  const [showSuccess, setShowSuccess] = useState(false)
-
-  const monthLogs = useCalendarStore((s) => s.logs)
-
-  const setCurrentLog = useLogStore((s) => s.setCurrentLog)
-  const initSelectionsFromCurrentLog = useLogStore((s) => s.initSelectionsFromCurrentLog)
-
-  const clearDid = useDidStore((s) => s.clearSelected)
-  const clearCategory = useCategoryStore((s) => s.clearSelected)
-  const clearReason = useReasonStore((s) => s.clearSelected)
-
-  useEffect(() => {
-    if (open) {
-      document.body.classList.add('modal-open')
-    } else {
-      document.body.classList.remove('modal-open')
-    }
-
-    return () => {
-      document.body.classList.remove('modal-open')
-    }
-  }, [open])
-
-  const handleCloseAndResetSelection = () => {
-    setOpen(false)
-    setPickedDay(null)
-    clearDid()
-    clearCategory()
-    clearReason()
-  }
-
-  const handleShowEditModal = (date) => {
-    setModalMode('edit')
-    setOpen(true)
-    setPickedDay(date)
-  }
-
-  const handlePickDay = (day) => {
-    if (!day) return
-
-    const iso = toISO(day)
-    const dayLog = monthLogs.find((log) => log.date === iso)
-
-    if (open && pickedDay && pickedDay.toDateString() === day.toDateString()) {
-      handleCloseAndResetSelection()
-      return
-    }
-    if (!dayLog) {
-      clearDid()
-      clearCategory()
-      clearReason()
-      setCurrentLog(null)
-      setModalMode('create')
-      setPickedDay(day)
-      setOpen(true)
-      return
-    } else {
-      const detail = dummyLogDetails[iso]
-      if (detail) {
-        setCurrentLog(detail)
-        initSelectionsFromCurrentLog()
-        setModalMode('show')
-      } else {
-        setModalMode('create')
-      }
-      setPickedDay(day)
-      setOpen(true)
-    }
-  }
+  const {
+    open,
+    pickedDay,
+    modalMode,
+    showSuccess,
+    setShowSuccess,
+    handlePickDay,
+    closeModal,
+    goEdit,
+    showRestriction,
+    setShowRestriction,
+  } = useRecordModal()
 
   return (
     <div className='flex min-h-screen justify-center items-center w-full scrollbar-hide'>
@@ -107,25 +38,24 @@ const MainPage = () => {
         <div className='fixed inset-0 z-50 w-full max-w-[440px] mx-auto'>
           <div
             className='absolute inset-0 w-full max-w-[440px] bg-grey-400/30 flex justify-center items-center'
-            onClick={handleCloseAndResetSelection}
+            onClick={closeModal}
           >
             <div onClick={(e) => e.stopPropagation()}>
               {modalMode === 'create' ? (
-                <RecordMirum date={pickedDay} />
+                <RecordMirum date={pickedDay} closeModal={closeModal} />
               ) : modalMode === 'show' ? (
                 <ShowRecordModal
                   onClick={() => {
-                    setOpen(false)
-                    setPickedDay(null)
+                    closeModal
                   }}
                   date={pickedDay}
-                  onEdit={handleShowEditModal}
+                  onEdit={goEdit}
                 />
               ) : (
                 <UpdateRecordModal
                   date={pickedDay}
                   onSuccess={() => {
-                    handleCloseAndResetSelection()
+                    closeModal
                     setShowSuccess(true)
                   }}
                 />
@@ -135,16 +65,18 @@ const MainPage = () => {
         </div>
       )}
       {showSuccess && (
-        <div className='fixed inset-0 z-50 w-full max-w-[440px] mx-auto'>
-          <div
-            className='absolute inset-0 w-full max-w-[440px] bg-grey-400/30 flex justify-center items-center'
-            onClick={handleCloseAndResetSelection}
-          >
-            <div onClick={(e) => e.stopPropagation()}>
-              <ConfirmModal onClose={() => setShowSuccess(false)} />
-            </div>
-          </div>
-        </div>
+        <ConfirmModal
+          onClose={() => setShowSuccess(false)}
+          message={'수정이 성공적으로 완료되었어요'}
+          closeModal={closeModal}
+        />
+      )}
+      {showRestriction && (
+        <ConfirmModal
+          onClose={() => setShowRestriction(false)}
+          message={'기록은 당일만 가능해요!'}
+          closeModal={closeModal}
+        />
       )}
     </div>
   )
