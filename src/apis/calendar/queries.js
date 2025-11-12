@@ -1,4 +1,5 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { postLog, updateLog, postActivity, postReason, deleteActivity, deleteReason } from './axios'
 import {
   useDidStore,
@@ -8,11 +9,50 @@ import {
 } from '@/store/calendarStore'
 import { getCalendar, getTag } from '@/apis/calendar/axios'
 
+export const useGetCalendar = ({ year, month }) => {
+  const setLogs = useCalendarStore((state) => state.setLogs)
+  const setCompletedCount = useCalendarStore((state) => state.setCompletedCount)
+  const setPostponedCount = useCalendarStore((state) => state.setPostponedCount)
+  const isEnabled = !!year && !!month
+
+  const query = useQuery({
+    queryKey: ['calendar', year, month],
+    queryFn: () => getCalendar({ year, month }),
+    placeholderData: (prev) => prev,
+    enabled: isEnabled,
+    staleTime: 30 * 60 * 1000,
+    retry: 2,
+  })
+
+  useEffect(() => {
+    if (query.isSuccess && query.data) {
+      const data = query.data
+      const summary = data.summary
+      const logs = data.logs
+
+      console.log(data)
+
+      setLogs(logs)
+      setCompletedCount(summary.completedCount)
+      setPostponedCount(summary.postponedCount)
+    }
+  }, [query.isSuccess, query.data, setLogs, setCompletedCount, setPostponedCount])
+
+  useEffect(() => {
+    if (query.isError) {
+      console.error('캘린더 데이터 로드 실패:', query.error)
+    }
+  }, [query.isError, query.error])
+
+  return query
+}
+
 export const usePostLog = (closeModal) => {
   const clearDid = useDidStore((s) => s.clearSelected)
   const clearCategory = useCategoryStore((s) => s.clearSelected)
   const clearReason = useReasonStore((s) => s.clearSelected)
   const currentMonth = useCalendarStore((s) => s.currentMonth)
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: () => postLog(),
@@ -20,8 +60,10 @@ export const usePostLog = (closeModal) => {
       closeModal?.()
 
       const year = currentMonth.getFullYear()
-      const monthNum = currentMonth.getMonth() + 1
-      await getCalendar({ year, month: monthNum })
+      const month = currentMonth.getMonth() + 1
+      await queryClient.invalidateQueries({
+        queryKey: ['calendar', year, month],
+      })
 
       clearDid()
       clearCategory()
@@ -39,6 +81,7 @@ export const useUpdateLog = (onSuccess) => {
   const clearCategory = useCategoryStore((s) => s.clearSelected)
   const clearReason = useReasonStore((s) => s.clearSelected)
   const currentMonth = useCalendarStore((s) => s.currentMonth)
+  const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: () => updateLog(),
@@ -46,8 +89,10 @@ export const useUpdateLog = (onSuccess) => {
       onSuccess?.()
 
       const year = currentMonth.getFullYear()
-      const monthNum = currentMonth.getMonth() + 1
-      await getCalendar({ year, month: monthNum })
+      const month = currentMonth.getMonth() + 1
+      await queryClient.invalidateQueries({
+        queryKey: ['calendar', year, month],
+      })
 
       clearDid()
       clearCategory()
