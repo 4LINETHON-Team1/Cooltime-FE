@@ -4,18 +4,29 @@ import { useUserStore } from '@/store/store'
 import Footer from '@/components/shared/Footer'
 import RightArrow from '@/assets/RightArrow.svg?react'
 import { typeImage } from '@/data/typeImage'
-import { usepostSignOut } from '@/apis/login/queries'
+import { postSignOut } from '@/apis/login/logout'
 
 const MyPage = () => {
   const { userType } = useUserStore((s) => s)
   const navigate = useNavigate()
   const nickname = useUserStore((n) => n.nickname)
-  const { mutate: signOut } = usepostSignOut()
+  const resetUser = useUserStore((s) => s.resetUser)
 
   const Image = typeImage[userType] ?? null
 
   const label =
     userType === '완벽주의형' ? '완벽주의' : userType === '동기저하형' ? '동기저하' : '스트레스'
+
+  const handleSignOut = async () => {
+    try {
+      await postSignOut()
+      resetUser()
+      navigate('/')
+    } catch (err) {
+      console.error('로그아웃 실패:', err)
+      alert('로그아웃에 실패했습니다. 다시 시도해주세요.')
+    }
+  }
 
   return (
     <div className='flex min-h-screen justify-center items-center w-full scrollbar-hide'>
@@ -34,7 +45,7 @@ const MyPage = () => {
             <RightArrow />
           </button>
           <button
-            onClick={() => signOut()}
+            onClick={handleSignOut}
             className='w-[343px] shadow-xs text-black-400 text-[14px] font-[Medium] py-4 px-4 flex items-center justify-between bg-white border rounded-2xl cursor-pointer blue:border-blue-500 mint:border-mint-500 peach:border-peach-500'
           >
             로그아웃
