@@ -145,3 +145,16 @@ export const postActivity = async ({ name }) => {
   )
   return data
 }
+
+export const postReason = async ({ name }) => {
+  const { data } = await apiClient.post(
+    '/api/reason',
+    { name: name },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  )
+  return data
+}
