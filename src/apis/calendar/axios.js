@@ -39,17 +39,12 @@ export const postLog = async () => {
   }
   console.log(payload)
 
-  try {
-    const { data } = await apiClient.post('/api/log', payload, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    })
-    return data
-  } catch (error) {
-    console.log(error.response?.data)
-    throw error
-  }
+  const { data } = await apiClient.post('/api/log', payload, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  })
+  return data
 }
 
 export const getLog = async (dateString) => {
@@ -74,4 +69,38 @@ export const getLog = async (dateString) => {
   initSelectionsFromCurrentLog()
 
   return normalized
+}
+
+export const getTag = async () => {
+  const { data } = await apiClient.get('/api/tag', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  })
+  console.log(data)
+  const Activities = data.data?.activities || []
+  const Reasons = data.data?.reasons || []
+
+  const activities = Activities.map((a, idx) => {
+    return {
+      id: a.id ?? idx,
+      name: a.name,
+      isActive: a.isActive,
+      isDefault: a.isDefault,
+    }
+  })
+
+  const reasons = Reasons.map((r, id) => {
+    return {
+      id: r.id ?? id,
+      name: r.name,
+      isActive: r.isActive,
+      isDefault: r.isDefault,
+    }
+  })
+  const { setCategories } = useCategoryStore.getState()
+  const { setReasons } = useReasonStore.getState()
+  setCategories(activities)
+  setReasons(reasons)
+  return { activities, reasons }
 }

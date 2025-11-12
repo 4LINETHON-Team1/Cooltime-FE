@@ -2,12 +2,10 @@ import { useState } from 'react'
 import { useRef } from 'react'
 import ModalButton from './ModalButton'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
-import { useDefaultReasons } from '@/utils/mirumUtils'
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
 
 const UpdateRecordModal = ({ date, onSuccess }) => {
-  useDefaultReasons()
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -88,6 +86,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                     text={option}
                     selected={didSelected.has(option)}
                     onClick={() => toggleOption(option)}
+                    isDefault={true}
                   />
                 )
               })}
@@ -96,38 +95,50 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
           <div>
             <p className='body-02-1_2 text-black-400'>무슨 일을 미뤘나요?</p>
             <div
-              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${isCompleted ? 'opacity-70 pointer-events-none' : ''}`}
+              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${isPostponed ? '' : 'opacity-70 pointer-events-none'}`}
             >
               {categories.map((c, id) => {
                 return (
                   <ModalButton
-                    key={`category-${id}-${c}`}
-                    text={c}
-                    selected={categorySelected.has(c)}
-                    onClick={() => toggleCategory(c)}
-                    onDelete={() => useCategoryStore.getState().removeCategory(c)}
+                    key={`category-${id}-${c.name}`}
+                    text={c.name}
+                    selected={categorySelected.has(c.name)}
+                    onClick={() => toggleCategory(c.name)}
+                    onDelete={() => useCategoryStore.getState().removeCategory(c.name)}
+                    isDefault={c.isDefault}
                   />
                 )
               })}
-              <ModalButton text='+' onClick={handleAddCategory} selected={categoryAddBtnOpen} />
+              <ModalButton
+                text='+'
+                onClick={handleAddCategory}
+                selected={categoryAddBtnOpen}
+                isDefault={true}
+              />
               {categoryAddBtnOpen && <InputBox inputRef={inputRef} />}
             </div>
           </div>
           <div>
             <p className='body-02-1_2 text-black-400'>왜 미뤘나요?</p>
             <div
-              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${isCompleted ? 'opacity-70 pointer-events-none' : ''}`}
+              className={`flex flex-wrap gap-x-6 gap-y-4 mt-3 ${isPostponed ? '' : 'opacity-70 pointer-events-none'}`}
             >
               {reasons.map((r, id) => (
                 <ModalButton
-                  key={`${r}-${id}`}
-                  text={r}
-                  selected={reasonSelected.has(r)}
-                  onClick={() => toggleReason(r)}
-                  onDelete={() => useReasonStore.getState().removeReason(r)}
+                  key={`${r.name}-${id}`}
+                  text={r.name}
+                  selected={reasonSelected.has(r.name)}
+                  onClick={() => toggleReason(r.name)}
+                  onDelete={() => useReasonStore.getState().removeReason(r.name)}
+                  isDefault={r.isDefault}
                 />
               ))}
-              <ModalButton text='+' onClick={handleAddReason} selected={reasonAddBtnOpen} />
+              <ModalButton
+                text='+'
+                onClick={handleAddReason}
+                selected={reasonAddBtnOpen}
+                isDefault={true}
+              />
               {reasonAddBtnOpen && <InputBox inputRef={inputRef} />}
             </div>
           </div>
