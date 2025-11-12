@@ -5,11 +5,12 @@ import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarS
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
 import { useUpdateLog } from '@/apis/calendar/queries'
-import { usePostActivity, usePostReason } from '@/apis/calendar/queries'
+import { usePostActivity, usePostReason, useDeleteActivity } from '@/apis/calendar/queries'
 
 const UpdateRecordModal = ({ date, onSuccess }) => {
   const { mutate: postActivity } = usePostActivity()
   const { mutate: postReason } = usePostReason()
+  const { mutate: deleteActivity } = useDeleteActivity()
   const mutation = useUpdateLog(onSuccess)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
@@ -81,6 +82,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                     selected={didSelected.has(option)}
                     onClick={() => toggleOption(option)}
                     isDefault={true}
+                    onDelete={() => {}}
                   />
                 )
               })}
@@ -98,8 +100,8 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                     text={c.name}
                     selected={categorySelected.has(c.name)}
                     onClick={() => toggleCategory(c.name)}
-                    onDelete={() => useCategoryStore.getState().removeCategory(c.name)}
                     isDefault={c.isDefault}
+                    onDelete={(name) => deleteActivity(name)}
                   />
                 )
               })}
@@ -108,6 +110,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                 onClick={handleAddCategory}
                 selected={categoryAddBtnOpen}
                 isDefault={true}
+                onDelete={() => {}}
               />
               {categoryAddBtnOpen && (
                 <InputBox
@@ -138,6 +141,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                 onClick={handleAddReason}
                 selected={reasonAddBtnOpen}
                 isDefault={true}
+                onDelete={() => {}}
               />
               {reasonAddBtnOpen && (
                 <InputBox
