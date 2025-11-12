@@ -5,7 +5,7 @@ export const useWeekNavigation = () => {
   const { month: nowMonth, week: nowWeek, weeks: currentWeeks } = getCurrentDate()
   const [currentMonth, setCurrentMonth] = useState(nowMonth)
   const [weekNames, setWeekNames] = useState(currentWeeks)
-  const [currentWeek, setCurrentWeek] = useState(currentWeeks.indexOf(nowWeek))
+  const [currentWeek, setCurrentWeek] = useState(currentWeeks.indexOf(nowWeek) - 1)
 
   const updateWeeks = (month) => {
     const weeks = getWeeksInMonthISO(new Date().getFullYear(), month)
@@ -25,6 +25,7 @@ export const useWeekNavigation = () => {
   }
 
   const handleNextWeek = () => {
+    if (currentMonth >= nowMonth && currentWeek >= currentWeeks.indexOf(nowWeek) - 1) return
     if (currentWeek < weekNames.length - 1) {
       setCurrentWeek(currentWeek + 1)
     } else {
@@ -52,7 +53,7 @@ export const useWeekNavigation = () => {
 
   const isNextDisabled =
     currentMonth > nowMonth ||
-    (currentMonth === nowMonth && currentWeek >= weekNames.indexOf(nowWeek))
+    (currentMonth === nowMonth && currentWeek + 1 >= weekNames.indexOf(nowWeek))
 
   return {
     weekNames,

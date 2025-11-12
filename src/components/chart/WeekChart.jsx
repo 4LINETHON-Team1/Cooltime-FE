@@ -36,13 +36,13 @@ const WeekChart = () => {
     <div className='flex flex-col items-center w-full'>
       <div className='flex flex-col items-center text-center w-[350px]'>
         <div className='flex'>
-          <button className='mr-2' onClick={handlePrevWeek}>
+          <button className='mr-2 cursor-pointer' onClick={handlePrevWeek}>
             <Left />
           </button>
           <p className='Title-01-1_1 text-black-400'>
             {currentMonth}월 {weekNames[currentWeek]} 미룸 비율
           </p>
-          <button className='ml-2 ' onClick={handleNextWeek}>
+          <button className='ml-2 cursor-pointer' onClick={handleNextWeek}>
             {isNextDisabled ? <GreyRight /> : <Right />}
           </button>
         </div>

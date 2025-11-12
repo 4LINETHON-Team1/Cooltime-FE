@@ -35,11 +35,11 @@ const MonthChart = () => {
     <div className='flex flex-col items-center w-full'>
       <div className='flex flex-col items-center text-center w-[350px]'>
         <div className='flex'>
-          <button className='mr-2' onClick={handlePrevMonth}>
+          <button className='mr-2 cursor-pointer' onClick={handlePrevMonth}>
             <Left />
           </button>
           <p className='Title-01-1_1 text-black-400'>{currentMonth}월 미룸 비율</p>
-          <button className='ml-2 ' onClick={handleNextMonth}>
+          <button className='ml-2 cursor-pointer' onClick={handleNextMonth}>
             {isNextDisabled ? <GreyRight /> : <Right />}
           </button>
         </div>
