@@ -168,3 +168,13 @@ export const postReason = async ({ name }) => {
   )
   return data
 }
+
+export const deleteReason = async ({ name }) => {
+  const { data } = await apiClient.delete('/api/reason', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: { name: name },
+  })
+  return data
+}
