@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { postLog, updateLog, postActivity, postReason } from './axios'
+import { postLog, updateLog, postActivity, postReason, deleteActivity } from './axios'
 import {
   useDidStore,
   useCategoryStore,
@@ -70,6 +70,20 @@ export const usePostActivity = () => {
     onError: (err) => {
       console.error('활동 추가 실패', err)
       alert('활동 추가에 실패했어요. 다시 시도해주세요.')
+    },
+  })
+}
+
+export const useDeleteActivity = () => {
+  return useMutation({
+    mutationFn: (name) => deleteActivity({ name }),
+    onSuccess: async (res) => {
+      console.log('활동 삭제 성공' + res)
+      await getTag()
+    },
+    onError: (err) => {
+      console.error('활동 삭제 실패', err)
+      alert('활동 삭제에 실패했어요. 다시 시도해주세요.')
     },
   })
 }
