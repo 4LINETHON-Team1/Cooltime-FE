@@ -5,12 +5,22 @@ import Footer from '@/components/shared/Footer'
 import RightArrow from '@/assets/RightArrow.svg?react'
 import { typeImage } from '@/data/typeImage'
 import { postSignOut } from '@/apis/login/logout'
+import { useQueryClient } from '@tanstack/react-query'
+import apiClient from '@/apis/login/axiosConfig'
+import {
+  useDidStore,
+  useCategoryStore,
+  useReasonStore,
+  useCalendarStore,
+  useLogStore,
+} from '@/store/calendarStore'
 
 const MyPage = () => {
   const { userType } = useUserStore((s) => s)
   const navigate = useNavigate()
   const nickname = useUserStore((n) => n.nickname)
   const resetUser = useUserStore((s) => s.resetUser)
+  const queryClient = useQueryClient()
 
   const Image = typeImage[userType] ?? null
 
@@ -19,7 +29,27 @@ const MyPage = () => {
 
   const handleSignOut = async () => {
     try {
-      await postSignOut()
+      try {
+        await postSignOut()
+      } catch (_) {}
+      delete apiClient.defaults.headers.common?.Authorization
+
+      await queryClient.cancelQueries()
+
+      queryClient.clear()
+
+      useDidStore.getState().clearSelected()
+      useCategoryStore.getState().clearSelected()
+      useReasonStore.getState().clearSelected()
+
+      const cal = useCalendarStore.getState()
+      cal.setLogs([])
+      cal.setCompletedCount(0)
+      cal.setPostponedCount(0)
+      cal.setSelectedDate?.(null)
+
+      useLogStore.getState().setCurrentLog(null)
+
       resetUser()
       navigate('/')
     } catch (err) {
