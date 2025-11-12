@@ -10,6 +10,10 @@ export const useDidStore = create((set) => ({
       const next = new Set(state.selected)
       if (next.has(o)) {
         next.delete(o)
+        if (next.size === 0) {
+          useCategoryStore.getState().clearSelected()
+          useReasonStore.getState().clearSelected()
+        }
         return { selected: next, isPostponed: true }
       }
       if (o === '했어요') {
