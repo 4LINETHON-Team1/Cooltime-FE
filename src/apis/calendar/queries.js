@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
-import { postLog, updateLog } from './axios'
+import { postLog, updateLog, postActivity, postReason } from './axios'
 import {
   useDidStore,
   useCategoryStore,
   useReasonStore,
   useCalendarStore,
 } from '@/store/calendarStore'
-import { getCalendar } from '@/apis/calendar/axios'
+import { getCalendar, getTag } from '@/apis/calendar/axios'
 
 export const usePostLog = (closeModal) => {
   const clearDid = useDidStore((s) => s.clearSelected)
@@ -56,6 +56,34 @@ export const useUpdateLog = (onSuccess) => {
     onError: (err) => {
       console.error('미룸 기록 저장 실패', err)
       alert('기록 수정에 실패했어요. 다시 시도해주세요.')
+    },
+  })
+}
+
+export const usePostActivity = () => {
+  return useMutation({
+    mutationFn: (name) => postActivity({ name }),
+    onSuccess: async (res) => {
+      console.log('활동 추가 성공' + res)
+      await getTag()
+    },
+    onError: (err) => {
+      console.error('활동 추가 실패', err)
+      alert('활동 추가에 실패했어요. 다시 시도해주세요.')
+    },
+  })
+}
+
+export const usePostReason = () => {
+  return useMutation({
+    mutationFn: (name) => postReason({ name }),
+    onSuccess: async (res) => {
+      console.log('이유 추가 성공' + res)
+      await getTag()
+    },
+    onError: (err) => {
+      console.error('이유 추가 실패', err)
+      alert('이유 추가에 실패했어요. 다시 시도해주세요.')
     },
   })
 }
