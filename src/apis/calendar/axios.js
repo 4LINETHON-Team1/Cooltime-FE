@@ -146,6 +146,16 @@ export const postActivity = async ({ name }) => {
   return data
 }
 
+export const deleteActivity = async ({ name }) => {
+  const { data } = await apiClient.delete('/api/activity', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+    data: { name: name },
+  })
+  return data
+}
+
 export const postReason = async ({ name }) => {
   const { data } = await apiClient.post(
     '/api/reason',
