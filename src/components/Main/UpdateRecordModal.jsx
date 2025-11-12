@@ -5,8 +5,10 @@ import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarS
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
 import { useUpdateLog } from '@/apis/calendar/queries'
+import { usePostActivity } from '@/apis/calendar/queries'
 
 const UpdateRecordModal = ({ date, onSuccess }) => {
+  const { mutate: postActivity } = usePostActivity()
   const mutation = useUpdateLog(onSuccess)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
@@ -22,14 +24,16 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
 
   const handleAddCategory = () => {
     setCategoryAddBtnOpen((prev) => !prev)
+    if (reasonAddBtnOpen) setReasonAddBtnOpen(false)
   }
   const handleAddReason = () => {
     setReasonAddBtnOpen((prev) => !prev)
+    if (categoryAddBtnOpen) setCategoryAddBtnOpen(false)
   }
 
   const inputRef = useRef(null)
-  useScrollFocus(reasonAddBtnOpen, inputRef)
-  useScrollFocus(categoryAddBtnOpen, inputRef)
+  const isInputOpen = categoryAddBtnOpen || reasonAddBtnOpen
+  useScrollFocus(isInputOpen, inputRef)
 
   // store 로직
   const options = useDidStore((d) => d.options)
@@ -104,7 +108,9 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                 selected={categoryAddBtnOpen}
                 isDefault={true}
               />
-              {categoryAddBtnOpen && <InputBox inputRef={inputRef} />}
+              {categoryAddBtnOpen && (
+                <InputBox inputRef={inputRef} onClick={(value) => postActivity(value)} />
+              )}
             </div>
           </div>
           <div>
@@ -128,7 +134,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                 selected={reasonAddBtnOpen}
                 isDefault={true}
               />
-              {reasonAddBtnOpen && <InputBox inputRef={inputRef} />}
+              {reasonAddBtnOpen && <InputBox inputRef={inputRef} onClick={() => {}} />}
             </div>
           </div>
         </div>

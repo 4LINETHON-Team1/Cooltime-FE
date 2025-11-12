@@ -4,10 +4,11 @@ import ModalButton from './ModalButton'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
-import { usePostLog } from '@/apis/calendar/queries'
+import { usePostLog, usePostActivity } from '@/apis/calendar/queries'
 
 const RecordMirum = ({ date, closeModal }) => {
   const mutation = usePostLog(closeModal)
+  const { mutate: postActivity } = usePostActivity()
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -22,13 +23,15 @@ const RecordMirum = ({ date, closeModal }) => {
 
   const handleAddCategory = () => {
     setCategoryAddBtnOpen((prev) => !prev)
+    if (reasonAddBtnOpen) setReasonAddBtnOpen(false)
   }
   const handleAddReason = () => {
     setReasonAddBtnOpen((prev) => !prev)
+    if (categoryAddBtnOpen) setCategoryAddBtnOpen(false)
   }
   const inputRef = useRef(null)
-  useScrollFocus(reasonAddBtnOpen, inputRef)
-  useScrollFocus(categoryAddBtnOpen, inputRef)
+  const isInputOpen = categoryAddBtnOpen || reasonAddBtnOpen
+  useScrollFocus(isInputOpen, inputRef)
 
   // store 로직
   const options = useDidStore((d) => d.options)
@@ -103,7 +106,9 @@ const RecordMirum = ({ date, closeModal }) => {
                 selected={categoryAddBtnOpen}
                 isDefault={true}
               />
-              {categoryAddBtnOpen && <InputBox inputRef={inputRef} />}
+              {categoryAddBtnOpen && (
+                <InputBox inputRef={inputRef} onClick={(value) => postActivity(value)} />
+              )}
             </div>
           </div>
           <div>
@@ -127,7 +132,7 @@ const RecordMirum = ({ date, closeModal }) => {
                 selected={reasonAddBtnOpen}
                 isDefault={true}
               />
-              {reasonAddBtnOpen && <InputBox inputRef={inputRef} />}
+              {reasonAddBtnOpen && <InputBox inputRef={inputRef} onClick={() => {}} />}
             </div>
           </div>
         </div>
