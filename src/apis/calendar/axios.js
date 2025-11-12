@@ -132,3 +132,16 @@ export const getTag = async () => {
   setReasons(reasons)
   return { activities, reasons }
 }
+
+export const postActivity = async ({ name }) => {
+  const { data } = await apiClient.post(
+    '/api/activity',
+    { name: name },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    },
+  )
+  return data
+}
