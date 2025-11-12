@@ -2,7 +2,7 @@ import UploadBtn from '@/assets/UploadBtn.svg?react'
 import { useUserStore } from '@/store/store'
 import { useState, useRef } from 'react'
 
-const InputBox = ({ inputRef, onClick }) => {
+const InputBox = ({ inputRef, onClick, placeholder }) => {
   // 테마 색상
   const { theme } = useUserStore()
   const color = {
@@ -46,7 +46,7 @@ const InputBox = ({ inputRef, onClick }) => {
             onCompositionStart={() => setComposing(true)}
             onCompositionEnd={() => setComposing(false)}
             className='resize-none border-none outline-none text-[12px] w-[200px]'
-            placeholder='텍스트를 입력하세요...'
+            placeholder={placeholder}
           />
         </div>
         <button type='button' onClick={handleClick}>

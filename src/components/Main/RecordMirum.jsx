@@ -108,7 +108,11 @@ const RecordMirum = ({ date, closeModal }) => {
                 isDefault={true}
               />
               {categoryAddBtnOpen && (
-                <InputBox inputRef={inputRef} onClick={(value) => postActivity(value)} />
+                <InputBox
+                  inputRef={inputRef}
+                  onClick={(value) => postActivity(value)}
+                  placeholder={'텍스트를 입력하세요...'}
+                />
               )}
             </div>
           </div>
@@ -134,7 +138,11 @@ const RecordMirum = ({ date, closeModal }) => {
                 isDefault={true}
               />
               {reasonAddBtnOpen && (
-                <InputBox inputRef={inputRef} onClick={(value) => postReason(value)} />
+                <InputBox
+                  inputRef={inputRef}
+                  onClick={(value) => postReason(value)}
+                  placeholder={'ex) 완벽하게 하려다...'}
+                />
               )}
             </div>
           </div>
