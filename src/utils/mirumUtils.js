@@ -15,6 +15,7 @@ export const useRecordModal = () => {
   const [modalMode, setModalMode] = useState('create') // 'create' | 'show' | 'edit'
   const [showSuccess, setShowSuccess] = useState(false)
   const [showRestriction, setShowRestriction] = useState(false)
+  const [showCreateSuccess, setShowCreateSuccess] = useState(false)
 
   const monthLogs = useCalendarStore((s) => s.logs)
   const setCurrentLog = useLogStore((s) => s.setCurrentLog)
@@ -102,5 +103,7 @@ export const useRecordModal = () => {
     goEdit,
     showRestriction,
     setShowRestriction,
+    showCreateSuccess,
+    setShowCreateSuccess,
   }
 }
