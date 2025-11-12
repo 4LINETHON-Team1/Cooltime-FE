@@ -4,11 +4,12 @@ import ModalButton from './ModalButton'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
-import { usePostLog, usePostActivity } from '@/apis/calendar/queries'
+import { usePostLog, usePostActivity, usePostReason } from '@/apis/calendar/queries'
 
 const RecordMirum = ({ date, closeModal }) => {
   const mutation = usePostLog(closeModal)
   const { mutate: postActivity } = usePostActivity()
+  const { mutate: postReason } = usePostReason()
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -132,7 +133,9 @@ const RecordMirum = ({ date, closeModal }) => {
                 selected={reasonAddBtnOpen}
                 isDefault={true}
               />
-              {reasonAddBtnOpen && <InputBox inputRef={inputRef} onClick={() => {}} />}
+              {reasonAddBtnOpen && (
+                <InputBox inputRef={inputRef} onClick={(value) => postReason(value)} />
+              )}
             </div>
           </div>
         </div>

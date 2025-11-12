@@ -5,10 +5,11 @@ import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarS
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
 import { useUpdateLog } from '@/apis/calendar/queries'
-import { usePostActivity } from '@/apis/calendar/queries'
+import { usePostActivity, usePostReason } from '@/apis/calendar/queries'
 
 const UpdateRecordModal = ({ date, onSuccess }) => {
   const { mutate: postActivity } = usePostActivity()
+  const { mutate: postReason } = usePostReason()
   const mutation = useUpdateLog(onSuccess)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
@@ -134,7 +135,9 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                 selected={reasonAddBtnOpen}
                 isDefault={true}
               />
-              {reasonAddBtnOpen && <InputBox inputRef={inputRef} onClick={() => {}} />}
+              {reasonAddBtnOpen && (
+                <InputBox inputRef={inputRef} onClick={(value) => postReason(value)} />
+              )}
             </div>
           </div>
         </div>
