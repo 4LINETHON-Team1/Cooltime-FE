@@ -42,6 +42,13 @@ export const useCategoryStore = create((set) => ({
       }
       return { selected: next }
     }),
+
+  unselectItem: (name) =>
+    set((state) => {
+      const next = new Set(state.selected)
+      next.delete(name)
+      return { selected: next }
+    }),
   clearSelected: () => set({ selected: new Set() }),
 }))
 
@@ -65,6 +72,12 @@ export const useReasonStore = create((set) => ({
       return { selected: next }
     }),
 
+  unselectItem: (name) =>
+    set((state) => {
+      const next = new Set(state.selected)
+      next.delete(name)
+      return { selected: next }
+    }),
   clearSelected: () => set({ selected: new Set() }),
 }))
 
