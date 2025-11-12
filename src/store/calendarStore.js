@@ -42,35 +42,6 @@ export const useCategoryStore = create((set) => ({
       }
       return { selected: next }
     }),
-
-  addCategory: (newName) =>
-    set((state) => {
-      if (!newName?.trim()) return state
-      if (state.categories.some((c) => c.name === newName)) return state
-
-      const updated = [
-        ...state.categories,
-        { id: Date.now(), name: newName, isActive: true, isDefault: false },
-      ]
-
-      const didStore = useDidStore.getState()
-      if (didStore.selected.size === 0) {
-        didStore.toggleOption('미뤘어요')
-      }
-
-      return { categories: updated }
-    }),
-
-  removeCategory: (name) =>
-    set((state) => ({
-      categories: state.categories.filter((c) => c.name !== name),
-      selected: (() => {
-        const next = new Set(state.selected)
-        next.delete(name)
-        return next
-      })(),
-    })),
-
   clearSelected: () => set({ selected: new Set() }),
 }))
 
@@ -93,34 +64,6 @@ export const useReasonStore = create((set) => ({
       }
       return { selected: next }
     }),
-
-  addReason: (newName) =>
-    set((state) => {
-      if (!newName?.trim()) return state
-      if (state.reasons.some((r) => r.name === newName)) return state
-
-      const updated = [
-        ...state.reasons,
-        { id: Date.now(), name: newName, isActive: true, isDefault: false },
-      ]
-
-      const didStore = useDidStore.getState()
-      if (didStore.selected.size === 0) {
-        didStore.toggleOption('미뤘어요')
-      }
-
-      return { reasons: updated }
-    }),
-
-  removeReason: (name) =>
-    set((state) => ({
-      reasons: state.reasons.filter((r) => r.name !== name),
-      selected: (() => {
-        const next = new Set(state.selected)
-        next.delete(name)
-        return next
-      })(),
-    })),
 
   clearSelected: () => set({ selected: new Set() }),
 }))
