@@ -19,7 +19,6 @@ export const useRecordModal = () => {
 
   const monthLogs = useCalendarStore((s) => s.logs)
   const setCurrentLog = useLogStore((s) => s.setCurrentLog)
-  const initSelectionsFromCurrentLog = useLogStore((s) => s.initSelectionsFromCurrentLog)
 
   const clearDid = useDidStore((s) => s.clearSelected)
   const clearCategory = useCategoryStore((s) => s.clearSelected)
@@ -63,7 +62,6 @@ export const useRecordModal = () => {
     // 1) 기록 있는 날이면 그대로 열기
     if (dayLog) {
       await getLog(iso)
-      initSelectionsFromCurrentLog()
       setModalMode('show')
       setPickedDay(day)
       setOpen(true)
