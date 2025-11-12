@@ -1,13 +1,21 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
-import { postLog, updateLog, postActivity, postReason, deleteActivity, deleteReason } from './axios'
+import {
+  postLog,
+  updateLog,
+  postActivity,
+  postReason,
+  deleteActivity,
+  deleteReason,
+  getCalendar,
+  getTag,
+} from './axios'
 import {
   useDidStore,
   useCategoryStore,
   useReasonStore,
   useCalendarStore,
 } from '@/store/calendarStore'
-import { getCalendar, getTag } from '@/apis/calendar/axios'
 
 export const useGetCalendar = ({ year, month }) => {
   const setLogs = useCalendarStore((state) => state.setLogs)
@@ -105,12 +113,42 @@ export const useUpdateLog = (onSuccess) => {
   })
 }
 
+export const useGetTag = () => {
+  const setCategories = useCategoryStore((s) => s.setCategories)
+  const setReasons = useReasonStore((s) => s.setReasons)
+
+  const query = useQuery({
+    queryKey: ['tag'],
+    queryFn: getTag,
+    staleTime: 30 * 60 * 1000,
+    retry: 2,
+  })
+
+  useEffect(() => {
+    if (query.isSuccess && query.data) {
+      const { activities, reasons } = query.data
+
+      setCategories(activities)
+      setReasons(reasons)
+    }
+  }, [query.isSuccess, query.data, setCategories, setReasons])
+
+  useEffect(() => {
+    if (query.isError) {
+      console.error('태그 목록 로드 실패:', query.error)
+    }
+  }, [query.isError, query.error])
+
+  return query
+}
+
 export const usePostActivity = () => {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (name) => postActivity({ name }),
     onSuccess: async (res) => {
+      await queryClient.invalidateQueries({ queryKey: ['tag'] })
       console.log('활동 추가 성공' + res)
-      await getTag()
     },
     onError: (err) => {
       console.error('활동 추가 실패', err)
@@ -120,11 +158,14 @@ export const usePostActivity = () => {
 }
 
 export const useDeleteActivity = () => {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (name) => deleteActivity({ name }),
-    onSuccess: async (res) => {
+    onSuccess: async (res, name) => {
       console.log('활동 삭제 성공' + res)
-      await getTag()
+      const categoryStore = useCategoryStore.getState()
+      categoryStore.unselectItem(name)
+      await queryClient.invalidateQueries({ queryKey: ['tag'] })
     },
     onError: (err) => {
       console.error('활동 삭제 실패', err)
@@ -134,11 +175,12 @@ export const useDeleteActivity = () => {
 }
 
 export const usePostReason = () => {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (name) => postReason({ name }),
     onSuccess: async (res) => {
       console.log('이유 추가 성공' + res)
-      await getTag()
+      await queryClient.invalidateQueries({ queryKey: ['tag'] })
     },
     onError: (err) => {
       console.error('이유 추가 실패', err)
@@ -148,11 +190,14 @@ export const usePostReason = () => {
 }
 
 export const useDeleteReason = () => {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (name) => deleteReason({ name }),
-    onSuccess: async (res) => {
+    onSuccess: async (res, name) => {
       console.log('이유 삭제 성공' + res)
-      await getTag()
+      const reasonStore = useReasonStore.getState()
+      reasonStore.unselectItem(name)
+      await queryClient.invalidateQueries({ queryKey: ['tag'] })
     },
     onError: (err) => {
       console.error('이유 삭제 실패', err)

@@ -125,10 +125,7 @@ export const getTag = async () => {
       isDefault: r.isDefault,
     }
   })
-  const { setCategories } = useCategoryStore.getState()
-  const { setReasons } = useReasonStore.getState()
-  setCategories(activities)
-  setReasons(reasons)
+
   return { activities, reasons }
 }
 
