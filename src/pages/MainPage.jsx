@@ -19,6 +19,8 @@ const MainPage = () => {
     goEdit,
     showRestriction,
     setShowRestriction,
+    showCreateSuccess,
+    setShowCreateSuccess,
   } = useRecordModal()
 
   return (
@@ -43,7 +45,13 @@ const MainPage = () => {
           >
             <div onClick={(e) => e.stopPropagation()}>
               {modalMode === 'create' ? (
-                <RecordMirum date={pickedDay} closeModal={closeModal} />
+                <RecordMirum
+                  date={pickedDay}
+                  closeModal={() => {
+                    closeModal()
+                    setShowCreateSuccess(true)
+                  }}
+                />
               ) : modalMode === 'show' ? (
                 <ShowRecordModal
                   onClick={() => {
@@ -70,14 +78,18 @@ const MainPage = () => {
         <ConfirmModal
           onClose={() => setShowSuccess(false)}
           message={'수정이 성공적으로 완료되었어요'}
-          closeModal={closeModal}
         />
       )}
       {showRestriction && (
         <ConfirmModal
           onClose={() => setShowRestriction(false)}
           message={'기록은 당일에만 가능해요!'}
-          closeModal={closeModal}
+        />
+      )}
+      {showCreateSuccess && (
+        <ConfirmModal
+          onClose={() => setShowCreateSuccess(false)}
+          message={'기록이 성공적으로 완료되었어요'}
         />
       )}
     </div>

@@ -5,11 +5,18 @@ import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarS
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
 import { useUpdateLog } from '@/apis/calendar/queries'
-import { usePostActivity, usePostReason } from '@/apis/calendar/queries'
+import {
+  usePostActivity,
+  usePostReason,
+  useDeleteActivity,
+  useDeleteReason,
+} from '@/apis/calendar/queries'
 
 const UpdateRecordModal = ({ date, onSuccess }) => {
   const { mutate: postActivity } = usePostActivity()
   const { mutate: postReason } = usePostReason()
+  const { mutate: deleteActivity } = useDeleteActivity()
+  const { mutate: deleteReason } = useDeleteReason()
   const mutation = useUpdateLog(onSuccess)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
@@ -81,6 +88,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                     selected={didSelected.has(option)}
                     onClick={() => toggleOption(option)}
                     isDefault={true}
+                    onDelete={() => {}}
                   />
                 )
               })}
@@ -98,8 +106,8 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                     text={c.name}
                     selected={categorySelected.has(c.name)}
                     onClick={() => toggleCategory(c.name)}
-                    onDelete={() => useCategoryStore.getState().removeCategory(c.name)}
                     isDefault={c.isDefault}
+                    onDelete={(name) => deleteActivity(name)}
                   />
                 )
               })}
@@ -108,9 +116,14 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                 onClick={handleAddCategory}
                 selected={categoryAddBtnOpen}
                 isDefault={true}
+                onDelete={() => {}}
               />
               {categoryAddBtnOpen && (
-                <InputBox inputRef={inputRef} onClick={(value) => postActivity(value)} />
+                <InputBox
+                  inputRef={inputRef}
+                  onClick={(value) => postActivity(value)}
+                  placeholder={'텍스트를 입력하세요...'}
+                />
               )}
             </div>
           </div>
@@ -125,7 +138,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                   text={r.name}
                   selected={reasonSelected.has(r.name)}
                   onClick={() => toggleReason(r.name)}
-                  onDelete={() => useReasonStore.getState().removeReason(r.name)}
+                  onDelete={() => deleteReason(r.name)}
                   isDefault={r.isDefault}
                 />
               ))}
@@ -134,9 +147,14 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                 onClick={handleAddReason}
                 selected={reasonAddBtnOpen}
                 isDefault={true}
+                onDelete={() => {}}
               />
               {reasonAddBtnOpen && (
-                <InputBox inputRef={inputRef} onClick={(value) => postReason(value)} />
+                <InputBox
+                  inputRef={inputRef}
+                  onClick={(value) => postReason(value)}
+                  placeholder={'ex) 완벽하게 하려다...'}
+                />
               )}
             </div>
           </div>
