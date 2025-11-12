@@ -4,8 +4,10 @@ import ModalButton from './ModalButton'
 import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarStore'
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
+import { useUpdateLog } from '@/apis/calendar/queries'
 
 const UpdateRecordModal = ({ date, onSuccess }) => {
+  const mutation = useUpdateLog(onSuccess)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
         month: 'long',
@@ -48,21 +50,8 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
     (!isPostponed && didSelected.size > 0) || // '했어요' 선택
     (isPostponed && categorySelected.size > 0 && reasonSelected.size > 0) // '미뤘어요' 선택 시 조건
 
-  // 완료 버튼 클릭 시 서버에 값 제출 후 zustand 값 초기화
   const handleSubmit = async () => {
-    const didSelected = Array.from(useDidStore.getState().selected)
-    const categorySelected = Array.from(useCategoryStore.getState().selected)
-    const reasonSelected = Array.from(useReasonStore.getState().selected)
-
-    const data = {
-      did: didSelected[0] || null,
-      categories: categorySelected,
-      reasons: reasonSelected,
-    }
-    useDidStore.getState().clearSelected()
-    useCategoryStore.getState().clearSelected()
-    useReasonStore.getState().clearSelected()
-    if (onSuccess) onSuccess()
+    mutation.mutate()
   }
 
   return (
