@@ -134,7 +134,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
             >
               {reasons.map((r, id) => (
                 <ModalButton
-                  key={`${r.name}-${id}`}
+                  key={`reason-${id}-${r.name}`}
                   text={r.name}
                   selected={reasonSelected.has(r.name)}
                   onClick={() => toggleReason(r.name)}
