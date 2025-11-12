@@ -5,12 +5,18 @@ import { useDidStore, useCategoryStore, useReasonStore } from '@/store/calendarS
 import { useScrollFocus } from '@/hooks/useScrollFocus'
 import InputBox from './InputBox'
 import { useUpdateLog } from '@/apis/calendar/queries'
-import { usePostActivity, usePostReason, useDeleteActivity } from '@/apis/calendar/queries'
+import {
+  usePostActivity,
+  usePostReason,
+  useDeleteActivity,
+  useDeleteReason,
+} from '@/apis/calendar/queries'
 
 const UpdateRecordModal = ({ date, onSuccess }) => {
   const { mutate: postActivity } = usePostActivity()
   const { mutate: postReason } = usePostReason()
   const { mutate: deleteActivity } = useDeleteActivity()
+  const { mutate: deleteReason } = useDeleteReason()
   const mutation = useUpdateLog(onSuccess)
   const formattedDate = date
     ? date.toLocaleDateString('ko-KR', {
@@ -132,7 +138,7 @@ const UpdateRecordModal = ({ date, onSuccess }) => {
                   text={r.name}
                   selected={reasonSelected.has(r.name)}
                   onClick={() => toggleReason(r.name)}
-                  onDelete={() => useReasonStore.getState().removeReason(r.name)}
+                  onDelete={() => deleteReason(r.name)}
                   isDefault={r.isDefault}
                 />
               ))}
