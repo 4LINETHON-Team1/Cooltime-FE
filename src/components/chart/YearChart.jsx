@@ -2,15 +2,12 @@ import { useState, useEffect } from 'react'
 import Left from '@/assets/Left.svg?react'
 import Right from '@/assets/Right.svg?react'
 import GreyRight from '@/assets/GreyRight.svg?react'
-import { getCurrentDate } from '@/utils/dateUtils'
 import { getYearData } from '@/apis/report/postponeRatio'
 import { useWeekNavigation } from '@/hooks/useWeekNavigation'
 import BarChart from './BarChart'
 
 const YearChart = () => {
-  const { year } = getCurrentDate()
-  const { isNextDisabled } = useWeekNavigation()
-  const [currentYear, setCurrentYear] = useState(year)
+  const { currentYear, handlePrevYear, handleNextYear, isNextDisabled } = useWeekNavigation()
   const [data, setData] = useState(null)
 
   useEffect(() => {
@@ -30,16 +27,6 @@ const YearChart = () => {
     DOWN: '하락',
     UP: '상승',
     NO_DATA: '상승',
-  }
-
-  const handlePrevYear = () => {
-    setCurrentYear(currentYear - 1)
-  }
-
-  const handleNextYear = () => {
-    if (year > currentYear) {
-      setCurrentYear(currentYear + 1)
-    }
   }
 
   return data ? (

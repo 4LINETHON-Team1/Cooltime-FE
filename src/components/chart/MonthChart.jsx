@@ -5,17 +5,16 @@ import Right from '@/assets/Right.svg?react'
 import GreyRight from '@/assets/GreyRight.svg?react'
 import { getMonthData } from '@/apis/report/postponeRatio'
 import { useWeekNavigation } from '@/hooks/useWeekNavigation'
-import { getCurrentDate } from '@/utils/dateUtils'
 
 const MonthChart = () => {
-  const { currentMonth, handlePrevMonth, handleNextMonth, isNextDisabled } = useWeekNavigation()
-  const { year } = getCurrentDate()
+  const { currentMonth, currentYear, handlePrevMonth, handleNextMonth, isNextDisabled } =
+    useWeekNavigation()
   const [data, setData] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getMonthData(year, currentMonth)
+        const data = await getMonthData(currentYear, currentMonth)
         setData(data.data)
         console.log(data.data)
       } catch (error) {
@@ -23,7 +22,7 @@ const MonthChart = () => {
       }
     }
     fetchData()
-  }, [year, currentMonth])
+  }, [currentYear, currentMonth])
 
   const up_down = {
     DOWN: '하락',

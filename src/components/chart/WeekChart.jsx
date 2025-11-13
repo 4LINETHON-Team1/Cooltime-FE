@@ -8,15 +8,21 @@ import { getWeekData } from '@/apis/report/postponeRatio'
 import { getCurrentDate } from '@/utils/dateUtils'
 
 const WeekChart = () => {
-  const { weekNames, currentWeek, currentMonth, handlePrevWeek, handleNextWeek, isNextDisabled } =
-    useWeekNavigation()
-  const { year } = getCurrentDate()
+  const {
+    weekNames,
+    currentWeek,
+    currentMonth,
+    currentYear,
+    handlePrevWeek,
+    handleNextWeek,
+    isNextDisabled,
+  } = useWeekNavigation()
   const [data, setData] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getWeekData(year, currentMonth, currentWeek + 1)
+        const data = await getWeekData(currentYear, currentMonth, currentWeek + 1)
         setData(data.data)
         console.log(data.data)
       } catch (error) {
@@ -24,7 +30,7 @@ const WeekChart = () => {
       }
     }
     fetchData()
-  }, [year, currentMonth, currentWeek])
+  }, [currentYear, currentMonth, currentWeek])
 
   const up_down = {
     DOWN: '하락',
