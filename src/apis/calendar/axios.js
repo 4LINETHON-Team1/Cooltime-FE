@@ -94,6 +94,10 @@ export const getLog = async (dateString) => {
   } catch (err) {
     console.error('기록 조회 실패:', err)
     setCurrentLog(null)
+
+    if (err.response?.status === 404) {
+      return null
+    }
     throw err
   }
 }
