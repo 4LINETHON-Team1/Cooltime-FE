@@ -116,7 +116,6 @@ export const getTag = async () => {
     return {
       id: a.id ?? idx,
       name: a.name,
-      isActive: a.isActive,
       isDefault: a.isDefault,
     }
   })
@@ -125,7 +124,6 @@ export const getTag = async () => {
     return {
       id: r.id ?? id,
       name: r.name,
-      isActive: r.isActive,
       isDefault: r.isDefault,
     }
   })
