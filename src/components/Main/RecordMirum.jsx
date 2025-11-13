@@ -10,10 +10,11 @@ import {
   usePostReason,
   useDeleteActivity,
   useDeleteReason,
+  useUpdateLog,
 } from '@/apis/calendar/queries'
 
-const RecordMirum = ({ date, closeModal }) => {
-  const mutation = usePostLog(closeModal)
+const RecordMirum = ({ mode = 'create', onSuccess, date, closeModal }) => {
+  const mutation = mode === 'create' ? usePostLog(closeModal) : useUpdateLog(onSuccess)
   const { mutate: postActivity } = usePostActivity()
   const { mutate: postReason } = usePostReason()
   const { mutate: deleteActivity } = useDeleteActivity()
@@ -133,7 +134,7 @@ const RecordMirum = ({ date, closeModal }) => {
             >
               {reasons.map((r, id) => (
                 <ModalButton
-                  key={`${r.name}-${id}`}
+                  key={`reason-${id}-${r.name}`}
                   text={r.name}
                   selected={reasonSelected.has(r.name)}
                   onClick={() => toggleReason(r.name)}
