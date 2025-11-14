@@ -17,6 +17,7 @@ const InputBox = ({ inputRef, onClick, placeholder }) => {
   const handleClick = () => {
     const value = inputRef.current?.value.trim()
     if (!value) return alert('값을 입력해주세요')
+    if (value.length > 16) return alert('16자 이내로 입력해주세요.')
     submittingRef.current = true
     onClick(value)
     inputRef.current.value = ''
@@ -42,6 +43,7 @@ const InputBox = ({ inputRef, onClick, placeholder }) => {
         >
           <input
             ref={inputRef}
+            maxLength={16}
             onKeyDown={handleKeyDown}
             onCompositionStart={() => setComposing(true)}
             onCompositionEnd={() => setComposing(false)}
