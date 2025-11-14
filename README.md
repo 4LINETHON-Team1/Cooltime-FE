@@ -89,6 +89,78 @@
 
 ### 폴더 구조
 
+``` Spotal-FE/
+Cooltime-FE/
+├── 📁 public/                          # 정적 파일
+│   └── Favicon.png                     # 파비콘 이미지
+│
+├── 📁 src/                             # 소스 코드
+│   ├── 📁 apis/                        # 서버 API 요청 함수 모음
+│   │
+│   ├── 📁 assets/                      # 이미지, 아이콘 등 정적 리소스
+│   │
+│   ├── 📁 data/                        # 정적 데이터, 목업 데이터 등
+│   │
+│   ├── 📁 components/                  # 재사용 UI 컴포넌트
+│   │   ├── 📁 Main/                    # 메인 달력 관련 UI
+│   │   ├── 📁 ai/                      # AI 리포트/AI 기능 UI
+│   │   ├── 📁 badge/                   # 뱃지 관련 컴포넌트
+│   │   ├── 📁 category/                # 카테고리 선택 UI
+│   │   ├── 📁 chart/                   # 차트 및 통계 관련 UI
+│   │   ├── 📁 fonts/                   # 폰트 및 타이포그래피 설정
+│   │   ├── 📁 report/                  # 주간 리포트 UI
+│   │   ├── 📁 shared/                  # 공통 UI(버튼, 레이아웃 등)
+│   │   ├── 📁 signup/                  # 회원가입 관련 UI
+│   │   └── 📁 test/                    # 테스트/타입 검사 관련 UI
+│   │
+│   ├── 📁 hooks/                       # 커스텀 React 훅
+│   │   ├── ThemeGate.jsx               # 유형 별 테마 게이트 훅
+│   │   ├── useOutsideClick.jsx         # 바깥 클릭 감지 훅
+│   │   ├── useScrollFocus.jsx          # 스크롤 포커스 관리 훅
+│   │   └── useWeekNavigation.jsx       # 주간 네비게이션/주차 계산 훅
+│   │
+│   ├── 📁 store/                       # Zustand 등 전역 상태 관리
+│   │
+│   ├── 📁 utils/                       # 공통 유틸 함수 (날짜, 포맷팅 등)
+│   │
+│   ├── 📁 pages/                       # 실제 페이지 단위 컴포넌트
+│   │   ├── AIPage.jsx                 # AI 분석/레포트 페이지
+│   │   ├── AllBadgePage.jsx           # 전체 뱃지 조회 페이지
+│   │   ├── BadgePage.jsx              # 획득한 뱃지 페이지
+│   │   ├── CategoryPage.jsx           # 카테고리 선택 페이지
+│   │   ├── ChartPage.jsx              # 미룸 통계/차트 페이지
+│   │   ├── LoginPage.jsx              # 로그인 페이지
+│   │   ├── MainPage.jsx               # 메인 홈 화면
+│   │   ├── MyPage.jsx                 # 마이페이지
+│   │   ├── ReportPage.jsx             # 미룸 레포트 페이지
+│   │   ├── SignupPage.jsx             # 회원가입 페이지
+│   │   ├── SignupWelcomePage.jsx      # 회원가입 완료 페이지
+│   │   ├── StartPage.jsx              # 시작/인트로 페이지
+│   │   ├── TestPage.jsx               # 성향 테스트 페이지
+│   │   ├── TestResultIntroPage.jsx    # 테스트 결과 소개 페이지
+│   │   ├── TypeResultPage.jsx         # 성향 타입 결과 페이지
+│   │   └── WelcomePage.jsx            # 온보딩 웰컴 페이지
+│   │
+│   ├── App.jsx                         # 앱 루트 컴포넌트
+│   ├── App.css                         # 앱 전체 스타일
+│   ├── index.css                       # Tailwind 및 전역 스타일
+│   ├── main.jsx                        # React 진입점
+│   └── router.jsx                      # 라우팅 설정
+│
+├── .env                                # 환경 변수 설정
+├── .gitignore                          # Git 무시 파일
+├── .prettierrc                         # Prettier 코드 포맷 설정
+├── components.json                     # 컴포넌트 관련 설정/자동 생성 설정
+├── eslint.config.js                    # ESLint 설정
+├── index.html                          # 메인 HTML 템플릿
+├── jsconfig.json                       # 경로 alias 및 JS 설정
+├── package.json                        # 프로젝트 의존성 및 스크립트
+├── package-lock.json                   # 의존성 버전 고정 파일
+├── README.md                           # 프로젝트 설명 문서
+├── tailwind.config.js                  # TailwindCSS 설정
+├── vercel.json                         # Vercel 배포 설정
+└── vite.config.js                      # Vite 빌드/개발 서버 설정
+```
 
 ### 실행 방법
 **Prerequisites**
