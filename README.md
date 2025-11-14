@@ -73,7 +73,7 @@
 ### Team Member
 | &nbsp;&nbsp;이&nbsp;름&nbsp;&nbsp; | 프로필                                                              |  역할 |                                    역할분담                         |
 | :--------------------------------------: | :-------------------------------------------------------------------: | :--------------------: | :-------------------------------------------------: |
-| 박진희 | <img width="480" height="480" alt="KakaoTalk_Photo_2025-11-14-20-14-27" src="https://github.com/user-attachments/assets/f0aa4d92-96d2-43b3-8197-6e833bbe006a" /> | PM / DE | 기획, UI/UX 디자인, 발표 자료 제작 |
+| 박진희 | <img width="200" height="200" alt="KakaoTalk_Photo_2025-11-14-20-14-27" src="https://github.com/user-attachments/assets/f0aa4d92-96d2-43b3-8197-6e833bbe006a" /> | PM / DE | 기획, UI/UX 디자인, 발표 자료 제작 |
 | 박세은 | <img width="200" height="200" alt="seeun_profile" src="https://github.com/user-attachments/assets/04515f3c-2c24-4e18-b29e-82dea6e54833" />| FE | 회원가입/로그인, 분석, 기타 페이지, 배포   |
 | 이연서 |<img width="200" height="200" alt="IMG_9873" src="https://github.com/user-attachments/assets/6386f341-e74b-4449-8de9-3869a90ad131" />| FE | 테스트, 홈, 마이페이지 |
 | 문재연 |  | BE |  |
