@@ -17,11 +17,19 @@ const InputBox = ({ inputRef, onClick, placeholder }) => {
   const handleClick = () => {
     const value = inputRef.current?.value.trim()
     if (!value) return alert('값을 입력해주세요')
-    if (value.length > 16) return alert('16자 이내로 입력해주세요.')
     submittingRef.current = true
     onClick(value)
     inputRef.current.value = ''
     submittingRef.current = false
+  }
+
+  const handleChange = (e) => {
+    const value = e.target.value
+
+    if (value.length > 16) {
+      alert('16자 이내로 입력해주세요.')
+      e.target.value = value.slice(0, 16)
+    }
   }
 
   const handleKeyDown = (e) => {
@@ -43,6 +51,7 @@ const InputBox = ({ inputRef, onClick, placeholder }) => {
         >
           <input
             ref={inputRef}
+            onChange={handleChange}
             maxLength={16}
             onKeyDown={handleKeyDown}
             onCompositionStart={() => setComposing(true)}
